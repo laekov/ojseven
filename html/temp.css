@@ -1,0 +1,93 @@
+.scode {
+	color: #efa;
+	background-color: #333;
+	border: 1;
+	line-height: 16px;
+	font-size: 14px;
+	font-weight: 540;
+	font-family: Monospace;
+	word-wrap: break-word;
+	word-break: break-all;
+
+	tab-size:4;  
+	-moz-tab-size:4;  
+	-o-tab-size:4;  
+}
+
+.bcode {
+	color: #000;
+	background-color: #fff;
+	line-height: 16px;
+	font-size: 14px;
+	font-weight: 540;
+	font-family: Monospace;
+	word-wrap: break-word;
+	word-break: break-all;
+
+	tab-size:4;  
+	-moz-tab-size:4;  
+	-o-tab-size:4;  
+}
+
+
+pre {
+	word-wrap: break-word;
+	word-break: break-all;
+}
+
+
+body {
+	overflow: scroll;
+	background-image: url(./src/bkg-oj7.jpg);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+	-o-background-size: 100% 100%;
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./src/bkg-oj7.jpg',sizingMethod='scale');
+	text-align: center;
+}
+
+a {
+	text-decoration: none;
+	color: blue;
+};
+
+.idiv {
+	width: 800px;
+	max-width: 800px;
+	min-width: 800px;
+	text-align: center;
+	margin-left: auto;
+}
+
+.infot {
+	font-size: 18px;
+}
+
+.hbar{
+	background: #000000; 
+	fliter:alpha(opacity: 90); 
+	-moz-opacity: 0.9; 
+	opacity: 0.9; 
+	position: fixed; 
+	width: 100%;
+	left: 0; 
+	top: 0;
+}
+
+.hitem{
+	fliter:alpha(opacity: 0.8); 
+	-moz-opacity: 0.8; 
+	opacity: 0.8; 
+}
+.hitem:hover{
+	fliter:alpha(opacity: 1); 
+	-moz-opacity: 1; 
+	opacity: 1; 
+}
+
+.litem{
+	font-size: 14px;
+}
+

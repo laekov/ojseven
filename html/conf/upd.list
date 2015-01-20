@@ -1,0 +1,17 @@
+2015-01-20 Correction system completed. Now you can submit after a contest.
+2015-01-15 New ranklist system completed. There is <font style='color:red'>rating and rank graph</font> system. <a href='cnt.php'>Go and see.</a>
+2015-01-11 Optimized UI. Much more beautiful now while still ugly on IE.
+2015-01-09 Basic user system completed. You can <a href='su.php' style='color:red; text-decoration:none'>Sign Up</a> now.
+		Notice: You may use one of your old names as your username to keep the record.
+2015-01-09 BBS code supported
+2014-12-04 Special judge supported
+2014-12-03 <a href='bbs.php' style='color:red;text-decoration:none'>Web Board</a> completed. Now you can communicate with others through it
+2014-12-02 Answer only problems supported
+2014-11-27 Statistics system completed
+2014-11-26 Some small changes that you may not notice
+2014-11-25 Moved to new server. Thanks to Mr.Lin
+2014-11-04 Download service provided
+2014-11-03 Judge system completed
+2014-11-03 Optimize userid checker
+2014-11-01 Come into use
+2014-10-31 Basic coding finished
