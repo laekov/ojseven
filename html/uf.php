@@ -22,7 +22,11 @@ else {
 <table border='1' align='center' width='800px'>
 <?php
 
-$uid = $_POST['idp'];
+$uid=getuid();
+if ($uid=='nouser') {
+	header("Location: error.php?word=Please sign in first");
+	return;
+}
 
 function checkID($x) {
 	if (!is_file("users/". $x. ".uinfo"))
@@ -52,10 +56,6 @@ function check_time() {
 
 if (!$corr && !check_time()) {
 	header("Location: error.php?word=Out of submit time");
-	return;
-}
-else if (!checkID($uid)) {
-	header("Location: error.php?word=Invalid user id");
 	return;
 }
 else if ($corr) {
@@ -160,6 +160,7 @@ else {
 		//}
 		else if ($_FILES[$FF]['size'] >= 64000000 && !strpos($_FILES[$FF]['name'], "zip")) {
 			echo("File size too huge!");
+			return;
 		}
 		else {
 			echo("Name:\t". $_FILES[$FF]['name']. "<br/>");
