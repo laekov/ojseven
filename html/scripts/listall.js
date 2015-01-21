@@ -18,6 +18,8 @@ function listall() {
 			text=text+"<td>"+(i+1)+"</td>";
 			if (ul[i].uname=='no_name')
 				text=text+"<td><a href='cnt.php?uid="+ul[i].uid+"&fbeg="+fbeg+"&fend="+fend+"'>"+ul[i].uid+" (<font style='color:red'>Guest</font>)</a></td>";
+			else if (ul[i].uname==cur_uid)
+				text=text+"<td><a href='cnt.php?uid="+ul[i].uid+"&fbeg="+fbeg+"&fend="+fend+"' style='color:green;'>"+ul[i].uid+"</a></td>";
 			else
 				text=text+"<td><a href='cnt.php?uid="+ul[i].uid+"&fbeg="+fbeg+"&fend="+fend+"'>"+ul[i].uid+"</a></td>";
 			text=text+"<td>"+ul[i].tot_c+"</td>";

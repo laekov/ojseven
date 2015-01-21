@@ -21,7 +21,7 @@ if ($top < $c - 1) {
 	$outmp = "<a href='bbs.php?top=". min($c - 1, $top + 16). "' style='text-decoration:none;'>Later Page</a>";
 	echo '['. $outmp. ']';
 }
-if ($top > 0) {
+if ($top - 16 > 0) {
 	$outmp = "<a href='bbs.php?top=". max(16, $top - 16). "' style='text-decoration:none;'>Older Page</a>";
 	echo '['. $outmp. ']';
 }
@@ -71,18 +71,17 @@ function GetIP(){
 	return $cip;
 }
 if (strlen($_POST['word']) > 0) {
-	if (strlen($_POST['uid']) <= 1) {
-		header("Location: error.php?word=Please input your user id");
+	if (!$_SESSION['signedin']) {
+		header("Location: error.php?word=Please sign in first");
+		return;
 	}
-	else if (!is_file("users/". $_POST['uid']. ".uinfo")) {
-		header("Location: error.php?word=No such user");
-	}
+	$uid = getuid();
 	$cip = getIP();
 	$j = 1;
 	for ($j = 1; is_file("bbs/text". $j. ".html"); ++ $j);
 	$isc = $_POST['iscode'];
 	$pf = fopen(("bbs/text". $j. ".html"), "w");
-	fprintf($pf, "%s From: %s(ip: ". $cip. ")<br/>\n", date("Y-m-d h:i:sa"), $_POST['uid']);
+	fprintf($pf, "%s From: %s(ip: ". $cip. ")<br/>\n", date("Y-m-d h:i:sa"), $uid);
 	if ($isc) {
 		fputs($pf, "<pre class='scode'>\n");
 		$word = htmlspecialchars($_POST['word']);
@@ -106,9 +105,6 @@ if (strlen($_POST['word']) > 0) {
 (html and javascript are supported. Please do not submit malicious code)</label>
 <textarea id='word' name='word' cols='90' rows='10'></textarea>
 <br/>
-<label for='uid'>Username:</label>
-<input type='text' name='uid' id='uid'>
-</br>
 <input type='checkbox' name="iscode" id='iscode'/>
 <label for='iscode'>This is a code</label><br/>
 <input type='submit' name='submit' value='Say'/>

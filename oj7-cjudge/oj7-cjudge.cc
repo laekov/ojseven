@@ -87,26 +87,6 @@ void make_res(int cid) {
 			sprintf(pid[i], "Problem %c", i + 97);
 		}
 	}
-	sprintf(fln, "./results/%08d.rs", cid);
-	FILE* opf = fopen(fln, "w");
-	fputs("<html><body><table align='center' width='800px' border='1'>\n", opf);
-	fprintf(opf, "<tr><td width='50px'>Rank</td><td width='150px'>User</td>");
-	for (int i = 0; i < 3; ++ i)
-		fprintf(opf, "<td width='150px'>%s</td>", pid[i]);
-	fprintf(opf, "<td>Total score</td></tr>\n");
-	for (int i = 0, sl = 0x3f3f3f3f, rk = 0; i < tu; ++ i) {
-		if (ul[i]. tot_sco != sl) {
-			sl = ul[i]. tot_sco;
-			rk = i + 1;
-		}
-		fprintf(opf, "<tr><td>%d</td><td>%s</td>", rk, ul[i]. uid);
-		for (int j = 0; j < 3; ++ j)
-			fprintf(opf, "<td>%d</td>", ul[i]. sco[j]);
-		fprintf(opf, "<td>%d</td></tr>\n", ul[i]. tot_sco);
-	}
-	fputs("</table></body></html>", opf);
-	fclose(opf);
-
 	sprintf(fln, "./results/%08d.rl", cid);
 	opf = fopen(fln, "w");
 	fprintf(opf, "%08d\n%d\n", cid, tu);

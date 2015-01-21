@@ -9,8 +9,13 @@ Judgement powered by <a href='https://github.com/laekov/acejudge' style='color: 
 </td>
 
 <td style='text-align:right;'>
+<?php
+if (is_admin()) {
+	echo "<a href='admin.php' style='text-decoration:none; color:darkorange;'>Admin</a><br/>";
+}
+?>
+<a href='faq.php' style="text-decoration:none; color:blue;">F.A.Q.</a><br/>
 <a href='mkl.php' style="text-decoration:none; color:red;">Contributors</a><br/>
-<a href='admin.php' style="text-decoration:none; color:blue;">Admin</a><br/>
 </td>
 
 </td></tr>

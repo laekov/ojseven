@@ -6,7 +6,13 @@
 include('oj-header.php');
 ?>
 <body>
-<br/>
+<?php
+if (!$_SESSION['signedin']) {
+	header("Location: error.php?word=Please sign in first");
+	return;
+}
+?>
+
 <?php
 $corr=($_GET['cmd']=='correction');
 $cid=0;
@@ -78,7 +84,7 @@ printf("<td>%02d:%02d:00 %s</td></tr>", $ttl / 10000, $ttl % 10000 / 100, $wx);
 <tr height='30px'>
 <td width='200px'><label for 'name'> Username </td>
 </font></label></td>
-<td width='600px'><input type='text' name='idp' id='idp' size='60px'/>
+<td><?php echo getuid(); ?></td>
 </td></tr>
 <?php
 for ($i=1;$i<=3;++$i) {

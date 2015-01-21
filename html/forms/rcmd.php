@@ -5,11 +5,6 @@
 <td>Command</td>
 <td><input type='text' id='cmdline' name='cmdline' style='width:500px;'/></td>
 </tr>
-
-<tr>
-<td>Admin key</td>
-<td><input type='password' id='key' name='key' /></td>
-</tr>
 </table>
 
 <input type='submit' value='Submit'/>
