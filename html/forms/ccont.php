@@ -23,11 +23,6 @@ for ($i = 'a'; $i <= 'c'; ++ $i) {
 	echo "</tr>";
 }
 ?>
-
-<tr>
-<td>Admin key</td>
-<td><input type='password' id='key' name='key' /></td>
-</tr>
 </table>
 
 <input type='submit' value='Submit'/>

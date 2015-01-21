@@ -6,6 +6,12 @@
 <?php
 include('oj-header.php');
 ?>
+<?php
+if (!is_admin()) {
+	header("Location: error.php?word=Permission denied");
+	return;
+}
+?>
 
 <script>
 function clritem(iid) {
@@ -16,12 +22,6 @@ function clritem(iid) {
 
 <div class='idiv'>
 <?php
-function check_key($key) {
-	$pf = fopen("./conf/admin_key.conf", "r");
-	list($k0) = fscanf($pf, "%s");
-	fclose($pf);
-	return $k0 == $key;
-}
 function read_file($fln) {
 	if (!is_file($fln))
 		return "";
@@ -81,85 +81,61 @@ else if ($_GET['cmd'] == 'ccont') {
 	include("forms/ccont.php");
 }
 else if ($_GET['cmd'] == 'ccont_get') {
-	if (!check_key($_POST['key'])) {
-		header("Location: error.php?word=Wrong key");
-		return;
+	if (strlen($_POST['cid']) > 0)
+		if (!write_file("conf/cont.conf", $_POST['cid']))
+			echo "Contest id error<br/>";
+	$cid = read_fline("./conf/cont.conf");
+	if (strlen($_POST['etime']) == 5) {
+		if (!write_file("./conf/time.conf", $_POST['etime']))
+			echo "End time error<br/>";
 	}
-	else {
-		if (strlen($_POST['cid']) > 0)
-			if (!write_file("conf/cont.conf", $_POST['cid']))
-				echo "Contest id error<br/>";
-		$cid = read_fline("./conf/cont.conf");
-		if (strlen($_POST['etime']) == 5) {
-			if (!write_file("./conf/time.conf", $_POST['etime']))
-				echo "End time error<br/>";
-		}
-		else
-			echo "End time not changed<br/>";
-		for ($i = 'a'; $i <= 'c'; ++ $i)
-			if (!is_file("./data/".$_POST['cid']."/".$i.".cfg"))
-				write_cfg($cid, $i, $_POST[$i]);
-		if (!is_file("./data/".$_POST['cid']."/.contcfg"))
-			write_ccfg($cid);
-		include("forms/ccont.php");
-		echo "Changed<br/>";
-	}
+	else
+		echo "End time not changed<br/>";
+	for ($i = 'a'; $i <= 'c'; ++ $i)
+		if (!is_file("./data/".$_POST['cid']."/".$i.".cfg"))
+			write_cfg($cid, $i, $_POST[$i]);
+	if (!is_file("./data/".$_POST['cid']."/.contcfg"))
+		write_ccfg($cid);
+	include("forms/ccont.php");
+	echo "Changed<br/>";
 }
 else if ($_GET['cmd'] == 'cprob') {
 	include("./forms/cprob.php");
 }
 else if ($_GET['cmd'] == 'cprob_get') {
-	if (!check_key($_POST['key'])) {
-		header("Location: error.php?word=Wrong key");
-		return;
-	}
-	else {
-		$cid = read_fline("./conf/cont.conf");
-		for ($i = 'a'; $i <= 'c'; ++ $i)
-			if (strlen($_POST[$i]) > 0) {
-				$cfln = ("./data/". $cid. "/". $i. ".cfg");
-				write_file($cfln, $_POST[$i]);
-			}
-		include("./forms/cprob.php");
-		echo "Changed<br/>";
-	}
+	$cid = read_fline("./conf/cont.conf");
+	for ($i = 'a'; $i <= 'c'; ++ $i)
+		if (strlen($_POST[$i]) > 0) {
+			$cfln = ("./data/". $cid. "/". $i. ".cfg");
+			write_file($cfln, $_POST[$i]);
+		}
+	include("./forms/cprob.php");
+	echo "Changed<br/>";
 }
 else if ($_GET['cmd'] == 'cdwl') {
 	include("forms/cdwl.php");
 }
 else if ($_GET['cmd'] == 'cdwl_get') {
-	if (!check_key($_POST['key'])&&strlen($_POST['dwl'])>0) {
-		header("Location: error.php?word=Wrong key");
-		return;
+	if (strlen($_POST['dwl'])>0) {
+		write_file($_POST['filename'], $_POST['dwl']);
+		include("forms/cdwl.php");
+		echo "Changed<br/>";
 	}
-	else {
-		if (strlen($_POST['dwl'])>0) {
-			write_file($_POST['filename'], $_POST['dwl']);
-			include("forms/cdwl.php");
-			echo "Changed<br/>";
-		}
-		else  {
-			include("forms/cdwl.php");
-			echo "Opened<br/>";
-		}
+	else  {
+		include("forms/cdwl.php");
+		echo "Opened<br/>";
 	}
 }
 else if ($_GET['cmd'] == 'rcmd') {
 	include("forms/rcmd.php");
 }
 else if ($_GET['cmd'] == 'rcmd_get') {
-	if (!check_key($_POST['key'])) {
-		header("Location: error.php?word=Wrong key");
-		return;
-	}
-	else {
-		$pf = fopen(".runrequire", "w");
-		fprintf($pf, "%s\n", ($_POST['cmdline']."\n"));
-		fclose($pf);
-		include("forms/rcmd.php");
-		echo "Command: ". $_POST['cmdline']. "<br/>";
-		echo "Run<br/>";
-	}
+	$pf = fopen(".runrequire", "w");
+	fprintf($pf, "%s\n", ($_POST['cmdline']."\n"));
+	fclose($pf);
+	include("forms/rcmd.php");
+	echo "Command: ". $_POST['cmdline']. "<br/>";
+	echo "Run<br/>";
 }
 ?>
 </div>

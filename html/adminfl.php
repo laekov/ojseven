@@ -7,6 +7,13 @@
 include('oj-header.php');
 ?>
 
+<?php
+if (!is_admin()) {
+	header("Location: error.php?word=Permission denined");
+	return;
+}
+?>
+
 <div id='ufd' class='idiv'>
 <form action='adminfl.php<?php if ($_GET['cmd'] == 'udata') echo "?cmd=udata"; ?>' method='post' enctype='multipart/form-data'>
 <table align='center' width='800px' border='1'>
@@ -21,10 +28,6 @@ include('oj-header.php');
 <td><input type='text' id='dest' name='dest' /></td>
 </tr>
 
-<tr>
-<td><label for='key'> Key </td>
-<td><input type='password' id='key' name='key'/></td>
-</tr>
 </table>
 <input type='submit' value='Submit'/>
 </tr>
@@ -46,9 +49,6 @@ function getcid() {
 }
 
 if ($_FILES['file']['size'] > 0) {
-	if (!check_key($_POST['key'])) {
-		header("Location: error.php?word=Wrong key");
-	}
 	$dest = ("./packs/". $_FILES['file']['name']);
 	if ($_GET['cmd'] == 'udata') {
 		$cid = getcid();

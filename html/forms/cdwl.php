@@ -21,11 +21,6 @@ else if (strlen($_GET['filename'])>0)
 <td><textarea id='dwl' name='dwl' cols='72' rows='24'>
 <?php if (is_file($fln)) echo read_file($fln); ?></textarea></td>
 </tr>
-
-<tr>
-<td>Admin key</td>
-<td><input type='password' id='key' name='key' /></td>
-</tr>
 </table>
 
 <input type='submit' value='Submit'/>

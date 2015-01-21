@@ -10,6 +10,11 @@ include('oj-header.php');
 exec("oj7-ref");
 ?>
 <script src='rescnt/data.js'></script>
+<script>
+<?php 
+if (getuid()!='nouser')
+	echo "cur_uid='".getuid()."';";
+?>
 </script>
 <table align='center' width='800px'><tr><td>
 Begin contest id <input id='fliterbeg' type='text' onchange='fliterchg()' value='<?php if (strlen($_GET['fbeg'])>0) echo $_GET['fbeg']; else echo "00000000";?>' style='width:100px'/>
