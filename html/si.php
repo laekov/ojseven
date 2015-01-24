@@ -28,7 +28,7 @@ if ($_GET['cmd']=='check') {
 if ($_GET['cmd']=='leave') {
 	$_SESSION['signedin']=0;
 	unset($_SESSION['uid']);
-	header("Location: ".$_COOKIE['HTTP_REFERER']);
+	header("Location: ".$_SERVER['HTTP_REFERER']);
 }
 else {
 	setcookie("lurl",$_SERVER['HTTP_REFERER']);

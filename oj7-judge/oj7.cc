@@ -6,6 +6,7 @@ void prob_res :: init(prob_cfg& pcfg) {
 	sprintf(cpl_fln, "%s/compile%s.log", pcfg. wpath, pcfg. pid);
 	beg_num = pcfg. beg_num;
 	end_num = pcfg. end_num;
+	tot_sco = 0;
 	memset(jur, 0, sizeof(jur));
 	asco = !pcfg. spj;
 }
@@ -74,7 +75,7 @@ void prob_res :: set_res(int id, run_res rurs, int scos) {
 		jur[id] = 'F';
 	else
 		jur[id] = 'W';
-	tot_sco += scos;
+	tot_sco += max(0, scos);
 	ref();
 }
 

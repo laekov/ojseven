@@ -17,7 +17,6 @@ if (strlen($cid) < 1) {
 ?>
 
 <div align='center'>
-<table width='800px'>
 <?php
 $dir=opendir("./data");
 $cidl=Array();
@@ -31,7 +30,7 @@ closedir($dir);
 rsort($cidl);
 for ($ti=0;$ti<$tot;++$ti) {
 	$contd=$cidl[$ti];
-	echo "<tr><td>";
+	echo "<div style='width:800px;text-align:left;'>";
 	echo "<h2>".$contd."</h2><ul>";
 	$contd=("./data/".$contd."/");
 	$stat=0;
@@ -59,10 +58,9 @@ for ($ti=0;$ti<$tot;++$ti) {
 		echo "<li><a href='u.php?cmd=correction&cid=".$cidl[$ti]."'>Submit correction</a></li>";
 		echo "<li><a href='uc.php?cmd=correction&cid=".$cidl[$ti]."'>Correction status</a></li>";
 	}
-	echo "</ul><hr/></tr></td>";
+	echo "</ul><hr/></div>";
 }
 ?>
-</table>
 </div>
 
 <?php

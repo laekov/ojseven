@@ -11,7 +11,10 @@ function show_chart() {
 	var text="";
 	text+="<table width='800px' style='text-align:center'>";
 	text+="<tr style='background-color:#3f3fff; color:white;'>";
-	text+="<td width='50px'>Rank</td>";
+	if (corr)
+		text+="<td width='50px'>Index</td>";
+	else
+		text+="<td width='50px'>Rank</td>";
 	text+="<td>User</td>";
 	for (var i=0;i<3;++i)
 		text+="<td style='cursor:pointer;' onclick='resortprob("+i+")'>"+pname[i]+"</td>";
@@ -107,11 +110,11 @@ function resortprob(p) {
 function chgshowstyle() {
 	if (show_res) {
 		show_res=0;
-		document.getElementById("showstyletext").innerHTML='Show test cases';
+		document.getElementById("showstyletext").value='Show test cases';
 	}
 	else {
 		show_res=1;
-		document.getElementById("showstyletext").innerHTML='Show score';
+		document.getElementById("showstyletext").value='Show score';
 	}
 	show_chart();
 }

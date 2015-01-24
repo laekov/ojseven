@@ -14,6 +14,8 @@ exec("oj7-ref");
 <?php 
 if (getuid()!='nouser')
 	echo "cur_uid='".getuid()."';";
+else
+	echo "cur_uid='nouser';";
 ?>
 </script>
 <table align='center' width='800px'><tr><td>
