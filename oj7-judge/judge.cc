@@ -125,6 +125,8 @@ int judge_case(prob_cfg& pcfg, int id) {
 		return dret;
 	}
 	else {
+		if (access(prgo, 0) == -1)
+			return -4;
 		sprintf(od, "oj7-diff Normal %s %s >%s/diff%s%d.log", prgo, stdo, pcfg. wpath, pcfg. pid, id);
 		int dret = system(od);
 		if (dret == 65280)

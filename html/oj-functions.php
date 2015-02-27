@@ -54,4 +54,58 @@ function is_admin($uid) {
 	fclose($pf);
 	return 0;
 }
+
+function check_stat($cid) {
+	$fln=("./data/".$cid."/.contcfg");
+	if (!is_file($fln))
+		return 0;
+	$ipf=fopen($fln,"r");
+	$stat=0;
+	while (!feof($ipf)) {
+		list($key,$val)=fscanf($ipf,"%s%s");
+		if ($key=='stat')
+			$stat=$val;
+	}
+	return $stat;
+}
+
+function showcode($fln) {
+	$lcnt=0;
+	chmod($fln,0444);
+	$ipf=fopen($fln,"r");
+	while (!feof($ipf)) {
+		++$lcnt;
+		echo "<span style='width:10px;color:yellow;'>".$lcnt."</span>\t";
+		echo "<span>".htmlspecialchars(fgets($ipf))."</span>";
+	}
+	fclose($ipf);
+	chmod($fln,0000);
+}
+
+function showcodenl($fln) {
+	$lcnt=0;
+	chmod($fln,0444);
+	$ipf=fopen($fln,"r");
+	while (!feof($ipf)) {
+		++$lcnt;
+		echo "<span>".htmlspecialchars(fgets($ipf))."</span>";
+	}
+	fclose($ipf);
+	chmod($fln,0000);
+}
+
+function printcode($cid,$uid,$pid) {
+	$fln="./upload/".$cid."/".$uid."/".$pid;
+	if (is_file($fln.".cpp"))
+		$fln=$fln.".cpp";
+	else if (is_file($fln.".c"))
+		$fln=$fln.".c";
+	else if (is_file($fln.".pas"))
+		$fln=$fln.".pas";
+	else {
+		echo "No code";
+		return;
+	}
+	showcode($fln);
+}
 ?>

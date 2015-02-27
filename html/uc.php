@@ -17,15 +17,37 @@ if (strlen($cid) < 1) {
 }
 $corr=($_GET['cmd']=='correction');
 ?>
+<script>
+var corr=0;
+<?php
+if ($corr)
+	echo "corr=1;";
+?>
+</script>
+
+<table width='800px'>
+<tr>
+<td>
 <form action='uc.php' method='get'>
 <label for='cid'>Contest id:</label>
 <input type='text' size='10px' name='cid' id='cid' value='<?php echo $cid;?>'/>
 <input type='submit' name='submit' value='Go'>
+<input type='button' id='showstyletext' onclick='chgshowstyle();' value='Show score'/>
 </form>
-</tr></td>
+</td>
+
+<td>
+<div style='text-align:right;'>
+<a href='uc.php?cid=<?php echo $cid; if (!$corr) echo "&cmd=correction"; ?>' style='color:blue;padding:40px;'><?php if ($corr) echo "Standings"; else echo "Correction status" ?></a>
+</div>
+</td>
+</tr>
+</table>
+
+<hr/>
+</td></tr>
 
 <tr><td>
-<p id='showstyletext' style='text-align:right;cursor:pointer;' onclick='chgshowstyle();'>Show score</p>
 <div id='chartplace'></div>
 <script>
 <?php
@@ -117,10 +139,7 @@ if (is_file(".cjudgerunning"))
 </script>
 
 </td></tr>
-<?php
-$fln = "./upload/". $cid. "/uid.list";
-?>
-</td></tr>
+
 </table>
 <?php
 include('oj-footer.php');

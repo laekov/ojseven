@@ -19,7 +19,8 @@ else {
 	fclose($c_ipf);
 }
 ?>
-<table border='1' align='center' width='800px'>
+
+<div align='center' width='800px'>
 <?php
 
 $uid=getuid();
@@ -102,24 +103,20 @@ else if ($corr) {
 	header("Location: uc.php?cid=".$cid."&cmd=correction");
 }
 else {
-	echo("<tr>");
-	echo("<td width='200px'>Contest id</td>\n");
-	echo("<td width='600px'>". $cid. "</td></tr>\n");
-	echo("<tr><td>User name</td>\n");
-	echo("<td>". $uid. "</td>");
-	echo("</tr>");
+	echo("<div style='width:800px;text-align:left;'>");
+	echo("Contest id: ".$cid."<br/>");
+	echo("User name: ".$uid."<br/>");
+	echo("<hr/></div>");
 
 	$tmp_str = ('./upload/'. $cid);
-	if (!mkdir($tmp_str)) {
-		echo("mkdir3 failed<br/>");
+	if (!is_dir($tmp_str)) {
+		mkdir($tmp_str);
 	}
+
 	$tmp_str = ('./upload/'. $cid);
 	$tmp_str = ($tmp_str. '/'. $uid);
-	if (!mkdir($tmp_str)) {
-		echo("mkdir4 failed<br/>");
-	}
-	else {
-		//		chmod($tmp_str, 0777);
+	if (!is_dir($tmp_str)) {
+		mkdir($tmp_str);
 	}
 
 	$l_path = "./upload/". $cid. "/uid.list";
@@ -149,15 +146,11 @@ else {
 
 	for ($fi=1;$fi<=3;++$fi) {
 		$MSUC = false;
-		echo("<tr><td>Code". $fi. "</td><td>");
+		echo("<div style='text-align:left;width:800px;'>Code". $fi. "</br>");
 		$FF = 'f'. $fi;
 		if ($FO['error'] || $_FILES[$FF]['size'] == 0) {
 			echo("File". $fi. " error!<br/>");
 		}
-		//else if ($_FILES[$FF]['type'] != 'text/x-csrc' && $_FILES[$FF]['type'] != 'text/x-c++src' && $_FILES[$FF]['type'] != 'text/x-pascal') {
-		//	echo("Invalid file type!<br/>");
-		//	echo("Your filetype is:\t". $_FILES[$FF]['type']);
-		//}
 		else if ($_FILES[$FF]['size'] >= 64000000 && !strpos($_FILES[$FF]['name'], "zip")) {
 			echo("File size too huge!");
 			return;
@@ -165,9 +158,9 @@ else {
 		else {
 			echo("Name:\t". $_FILES[$FF]['name']. "<br/>");
 			echo("Size:\t". $_FILES[$FF]['size']. "byte<br/>");
-			echo("Type:\t". $_FILES[$FF]['type']. "<br/>");
+		//	echo("Type:\t". $_FILES[$FF]['type']. "<br/>");
 			$TP = './upload/'. $cid. '/'. $uid. '/'. $_FILES[$FF]['name'];
-			echo("Path:\t". $TP. "<br/>");
+		//	echo("Path:\t". $TP. "<br/>");
 			if (!move_uploaded_file($_FILES[$FF]['tmp_name'], $TP)) {
 				echo("Moving error<br/>");
 			}
@@ -176,16 +169,9 @@ else {
 			}
 			if ($MSUC) {
 				if (!strpos($_FILES[$FF]['name'], "zip")) {
-					echo("Code preview: <br/>");
-					echo("<pre class='scode'>");
-					$ipf = fopen($TP, "r");
-					for ($i = 0; !feof($ipf); ++ $i) {
-						$text = htmlspecialchars(fgets($ipf));
-						echo("\t". ($i + 1). "\t". $text);
-					}
-					echo("</pre>");
-					fclose(ipf);
-					chmod($TP, 0);
+					echo("Code preview: <br/><pre class='scode'>");
+					showcode($TP);
+					echo "</pre>";
 				}
 				else {
 					chmod($TP, 0777);
@@ -195,11 +181,11 @@ else {
 				}
 			}
 		}
-		echo("</tr></td>");
+		echo("<hr/></div>");
 	}
 }
 ?>
-</table>
+</div>
 <?php
 include('oj-footer.php');
 ?>

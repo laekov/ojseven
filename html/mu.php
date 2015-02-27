@@ -32,10 +32,12 @@ else if ($_GET['cmd'] == 'recv') {
 	$opf = fopen($fln, "w");
 	fprintf($opf, "%s\n%s\n", $uname, $grade);
 	fclose($opf);
-	$fln = "./users/". $uid. ".upasswd";
-	$opf=fopen($fln,"w");
-	fprintf($opf,"%s",MD5($passwd));
-	fclose($opf);
+	if (strlen($passwd)>0) {
+		$fln = "./users/". $uid. ".upasswd";
+		$opf=fopen($fln,"w");
+		fprintf($opf,"%s",MD5($passwd));
+		fclose($opf);
+	}
 	echo "<font style='font-size: 24px'>";
 	echo "User info successfully changed<br/>";
 	echo "User id: ". $uid. "<br/>";

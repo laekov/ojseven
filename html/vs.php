@@ -7,6 +7,8 @@
 <?php
 include('oj-header.php');
 ?>
+
+<div align='center'>
 <table align='center' width='800px'>
 <tr><td>
 <?php
@@ -17,13 +19,13 @@ echo("Contest id: ". $cid. "<br/>");
 echo("User id: ". $uid. "<br/>");
 
 function checkID($x) {
-		$len = strlen($x);
-		if ($len == 0 || $len > 20)
-				return false;
-		for ($i = 0; $i < $len; ++ $i)
-				if ($x[$i] > 'z' || $x[$i] < '1')
-						return false;
-		return true;
+	$len = strlen($x);
+	if ($len == 0 || $len > 20)
+		return false;
+	for ($i = 0; $i < $len; ++ $i)
+		if ($x[$i] > 'z' || $x[$i] < '1')
+			return false;
+	return true;
 }
 
 $fln = "./data/". $cid. '/'. $pid. ".cfg";
@@ -34,7 +36,7 @@ echo("Problem: ". $pname. "<br/>");
 ?>
 </td></tr>
 </table>
-<table border='1' align='center' width='800px'>
+<table width='800px'>
 <?php
 for ($j = 0; $j < 4; ++ $j)
 	$gtmp = fscanf($ipf, "%s");
@@ -52,20 +54,22 @@ if (is_dir("./upload/". $cid. "/". $uid. "/.ajtest")) {
 		list($res) = fscanf($ipf, "%s");
 		list($tot_sco) = fscanf($ipf, "%d");
 		if ($res == 'CE') {
-			echo "<tr><td>Compile error<br/>";
+			echo "<tr><td></td><td>Compile error<br/>";
 			if (is_file("./upload/". $cid. "/". $uid. "/.ajtest/compile". $pid. ".log")) {
-				$cipf = fopen(("./upload/". $cid. "/". $uid. "/.ajtest/compile". $pid. ".log"), "r");
-				echo "<pre>";
-				while (!feof($cipf))
-					echo htmlspecialchars(fgets($cipf));
-				fclose($cipf);
+				$fln=("./upload/". $cid. "/". $uid. "/.ajtest/compile". $pid. ".log");
+				echo "<pre style='scode'>";
+				showcodenl($fln);
 				echo "</pre>";
 			}
 			echo "</td></tr>";
+			$tot_sco=0;
 		}
 		else {
+			$cs=1;
+			$cols=Array("#eeffee","#eeeeff");
 			for ($i = 0; $i < strlen($res); ++ $i) {
-				echo "<tr><td>Case #". ($beg_n + $i). "</td>";
+				$cs=1-$cs;
+				echo "<tr style='background-color:".$cols[$cs]."'><td>Case #". ($beg_n + $i). "</td>";
 				list($wd, $rtime, $rmem, $sco) = fscanf($ipf, "%s%d%d%d");
 				echo "<td>";
 				//echo "test line: ". $res. " ". $tot_sco. "<br/>"; 
@@ -77,6 +81,8 @@ if (is_dir("./upload/". $cid. "/". $uid. "/.ajtest")) {
 					echo "<font style='color: darkorange'>";
 				elseif ($wd[0] == 'R')
 					echo "<font style='color: purple'>";
+				elseif ($wd[0] == 'F')
+					echo "<font style='color: white; background-color:black;'>";
 				else
 					echo "<font style='color:black'>";
 				echo $wd. " </font>";
@@ -87,7 +93,7 @@ if (is_dir("./upload/". $cid. "/". $uid. "/.ajtest")) {
 				echo "Score: <font style='color: blue'>". $sco. "</font>";
 				if ($wd[0] == 'W') {
 					if (is_file("./upload/". $cid. "/". $uid. "/.ajtest/diff". $pid. ($i + $beg_n). ".log")) {
-						echo "<pre class='wcode'>Difference: \n";
+						echo "<pre class='wcode'>Diffrence:\n";
 						$d_ipf = fopen(("./upload/". $cid. "/". $uid. "/.ajtest/diff". $pid. ($i + $beg_n). ".log"), "r");
 						while (!feof($d_ipf))
 							echo htmlspecialchars(fgets($d_ipf));
@@ -99,6 +105,8 @@ if (is_dir("./upload/". $cid. "/". $uid. "/.ajtest")) {
 			}
 		}
 		fclose($ipf);
+		echo "</table>";
+		echo "<div style='width:800px; text-align:left;'>Total score: ".$tot_sco."</div>";
 	}
 }
 else {
@@ -116,12 +124,9 @@ else {
 		else {
 			echo("Compile error!<br/>Compiler info:<br/>");
 			$cfln = "./upload/". $cid. "/". $uid. "/ajtest/compile". $pid. ".log";
-			echo("<pre>");
+			echo("<pre style='lcode'>");
 			if (is_file($cfln)) {
-				$cipf = fopen($cfln, "r");
-				while (!feof($cipf))
-					echo(htmlspecialchars(fgets($cipf)));
-				fclose($cipf);
+				showcode($cfln);
 			}
 			else {
 				echo "Compile log file not found!";
@@ -158,6 +163,19 @@ else {
 
 ?>
 </table>
+
+<?php
+if (check_stat($cid) >= 2) {
+	echo "<table width='800px'>";
+	echo "<tr style='height:30px'><td></td></tr>";
+	echo "<tr><td style='text-align:left;'>Code:</td></tr>";
+	echo "<tr><td><pre class='scode'>";
+	printcode($cid,$uid,$pname);
+	echo "</td></tr></table>";
+}
+?>
+</div>
+
 <?php
 include('oj-footer.php');
 ?>
