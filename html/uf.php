@@ -60,6 +60,7 @@ if (!$corr && !check_time()) {
 	return;
 }
 else if ($corr) {
+	
 	$ufid=($uid."-".date("Ymdhisa"));
 
 	$tmpstr = ('./upload/'.$cid);
@@ -72,6 +73,28 @@ else if ($corr) {
 
 	$tmpstr = ($tmpstr."/".$ufid);
 	mkdir($tmpstr);
+
+	$contd=("./data/".$cid."/");
+	$stat=0;
+	$ipf=fopen(($contd.".contcfg"),"r");
+	$hite=0;
+	while (!feof($ipf)) {
+		list($itid,$val)=fscanf($ipf,"%s %s");
+		if (strlen($itid)<1)
+			continue;
+		if ($itid=='stat') {
+			$stat=$val;
+		}
+		else {
+			echo "<li><a href='".$contd.$val."'>".$itid."</a></li>";
+		}
+		$hite=1;
+	}
+	fclose($ipf);
+	if ($stat<2) {
+		header("Location: error.php?word=How do you find this page?");
+		return;
+	}
 
 	for ($fi=1;$fi<=3;++$fi) {
 		$MSUC = false;
