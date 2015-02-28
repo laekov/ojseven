@@ -115,10 +115,15 @@ int judge_case(prob_cfg& pcfg, int id) {
 				full_sco_fln, 
 				sco_fln, 
 				pcfg. wpath, pcfg. pid, id);
-		system(od);
-		pf = fopen(sco_fln, "r");
-		if (!pf)
+		if (system(od)) {
+			puts("SPJ RE!!");
 			return 0;
+		}
+		pf = fopen(sco_fln, "r");
+		if (!pf) {
+			puts("SPJ ERROR!!");
+			return 0;
+		}
 		int dret;
 		fscanf(pf, "%d", &dret);
 		fclose(pf);
