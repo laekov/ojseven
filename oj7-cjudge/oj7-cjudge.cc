@@ -88,7 +88,7 @@ void make_res(int cid) {
 		}
 	}
 	sprintf(fln, "./results/%08d.rl", cid);
-	opf = fopen(fln, "w");
+	FILE* opf = fopen(fln, "w");
 	fprintf(opf, "%08d\n%d\n", cid, tu);
 	for (int i = 0, sl = 0x3f3f3f3f, rk = 0; i < tu; ++ i) {
 		if (ul[i]. tot_sco != sl) {
@@ -145,6 +145,8 @@ int main(int argc, char* args[]) {
 	}
 	else if (!strcmp(args[1], "res")) {
 		ref_users(cid);
+		sort(ul, ul + tu, cmpUser);
+		ref_ulist(cid);
 		make_res(cid);
 	}
 	else if (!strcmp(args[1], "rejudgeu")) {

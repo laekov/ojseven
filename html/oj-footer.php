@@ -5,7 +5,8 @@
 <table width='800px'><tr>
 <td>
 &copy;2014-2015 OJ7<br/>
-Judgement powered by <a href='https://github.com/laekov/acejudge' style='color: purple'>Acejudge</a>
+Based on oss  <a href='https://github.com/laekov/ojseven' style='color: purple'>OJseven</a><br/>
+Server time: <?php echo date("h:i:s a"); ?>
 </td>
 
 <td style='text-align:right;'>
