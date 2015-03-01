@@ -73,12 +73,26 @@ function showcode($fln) {
 	$lcnt=0;
 	chmod($fln,0444);
 	$ipf=fopen($fln,"r");
+	echo "<table><tr>";
+	echo "<td width='30px'><pre class='linear'>";
 	while (!feof($ipf)) {
+		fgets($ipf);
+		if (feof($ipf))
+			break;
 		++$lcnt;
-		echo "<span style='width:10px;color:yellow;'>".$lcnt."</span>\t";
-		echo "<span>".htmlspecialchars(fgets($ipf))."</span>";
+		echo "<span>";
+		printf("%3d",$lcnt);
+		echo "</span>\n";
+	}
+	fseek($ipf, 0);
+	echo "</pre></td><td width='770px'><pre class='scode'>";
+	for ($i = 0; $i < $lcnt; ++ $i) {
+		$txt = htmlspecialchars(fgets($ipf));
+		echo "<span>".$txt."</span>";
 	}
 	fclose($ipf);
+	echo "</pre></td>";
+	echo "</tr></table>";
 	chmod($fln,0000);
 }
 

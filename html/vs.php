@@ -111,65 +111,70 @@ if (is_dir("./upload/". $cid. "/". $uid. "/.ajtest")) {
 }
 else {
 	$fln = "./upload/". $cid. "/". $uid. "/". "res". $pid. ".rs";
-	$ipf = fopen($fln, "r");
-	$gtmp = fscanf($ipf, "%d");
-	list($cval) = $gtmp;
-	$gtmp = fscanf($ipf, "%d");
-	if ($cval != 0) {
-		echo("<tr><td>");
-		if ($cval == 2)
-			echo("No such file");
-		else if ($cval == 4)
-			echo("Dangerous word");
-		else {
-			echo("Compile error!<br/>Compiler info:<br/>");
-			$cfln = "./upload/". $cid. "/". $uid. "/ajtest/compile". $pid. ".log";
-			echo("<pre style='lcode'>");
-			if (is_file($cfln)) {
-				showcode($cfln);
-			}
+	if (is_file($fln)) {
+		$ipf = fopen($fln, "r");
+		$gtmp = fscanf($ipf, "%d");
+		list($cval) = $gtmp;
+		$gtmp = fscanf($ipf, "%d");
+		if ($cval != 0) {
+			echo("<tr><td>");
+			if ($cval == 2)
+				echo("No such file");
+			else if ($cval == 4)
+				echo("Dangerous word");
 			else {
-				echo "Compile log file not found!";
-			}
-			echo("</pre>");
-		}
-	}
-	else {
-		for ($i = 0; $i < $tot_p; ++ $i) {
-			echo("<tr><td>Test case #". ($i + 1). "</td>");
-			$gres = fgets($ipf);
-			$gtmp = fscanf($ipf, "%d%d");
-			list($sco, $rtime) = $gtmp;
-			echo("<td>". $gres. "<br/>");
-			echo("Time = ". $rtime. " ms<br/>");
-			if ($gres[0] == 'W') {
-				$num = $i + $beg_n;
-				$lpath = "./upload/". $cid. "/". $uid. "/ajtest/diff". $pid. $num. ".log"; 
-				$dipf = fopen($lpath, "r");
-				echo("Diff info:<pre><br/>");
-				for ($j = 0; $j < 50 && !feof($dipf); ++ $j) {
-					echo("\t");
-					echo(htmlspecialchars(fgets($dipf)));
-					echo("<br/>");
+				echo("Compile error!<br/>Compiler info:<br/>");
+				$cfln = "./upload/". $cid. "/". $uid. "/ajtest/compile". $pid. ".log";
+				echo("<pre style='lcode'>");
+				if (is_file($cfln)) {
+					showcode($cfln);
+				}
+				else {
+					echo "Compile log file not found!";
 				}
 				echo("</pre>");
-				fclose($dipf);
 			}
-			echo("</td>");
 		}
+		else {
+			for ($i = 0; $i < $tot_p; ++ $i) {
+				echo("<tr><td>Test case #". ($i + 1). "</td>");
+				$gres = fgets($ipf);
+				$gtmp = fscanf($ipf, "%d%d");
+				list($sco, $rtime) = $gtmp;
+				echo("<td>". $gres. "<br/>");
+				echo("Time = ". $rtime. " ms<br/>");
+				if ($gres[0] == 'W') {
+					$num = $i + $beg_n;
+					$lpath = "./upload/". $cid. "/". $uid. "/ajtest/diff". $pid. $num. ".log"; 
+					$dipf = fopen($lpath, "r");
+					echo("Diff info:<pre><br/>");
+					for ($j = 0; $j < 50 && !feof($dipf); ++ $j) {
+						echo("\t");
+						echo(htmlspecialchars(fgets($dipf)));
+						echo("<br/>");
+					}
+					echo("</pre>");
+					fclose($dipf);
+				}
+				echo("</td>");
+			}
+		}
+		fclose($ipf);
 	}
-	fclose($ipf);
+	else {
+		echo "<div style='color: blue;' >Pending</div>";
+	}
 }
 
 ?>
 </table>
 
 <?php
-if (check_stat($cid) >= 2) {
+if (check_stat($cid) >= 2 || ($_SESSION['signedin'] && ($_SESSION['uid'] == $uid || is_admin($_SESSION['uid'])))) {
 	echo "<table width='800px'>";
 	echo "<tr style='height:30px'><td></td></tr>";
 	echo "<tr><td style='text-align:left;'>Code:</td></tr>";
-	echo "<tr><td><pre class='scode'>";
+	echo "<tr><td>";
 	printcode($cid,$uid,$pname);
 	echo "</td></tr></table>";
 }

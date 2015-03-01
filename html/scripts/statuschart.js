@@ -40,7 +40,7 @@ function show_chart() {
 				else if (ul[i].a[j].wd=='CE')
 					text+="<font style='color:black'>Compile error</font>";
 				else if (ul[i].a[j].wd=='Pending')
-					text+="</a><font style='color:blue'>"+ul[i].a[j].wd+"</font><a>";
+					text+="<font style='color:blue'>"+ul[i].a[j].wd+"</font>";
 				else {
 					for (var l=0;l<ul[i].a[j].wd.length;++l) {
 						if (ul[i].a[j].wd[l]=='A')
