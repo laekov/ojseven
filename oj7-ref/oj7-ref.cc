@@ -114,7 +114,7 @@ void writeJS() {
 		fprintf(opf, "ul[%d].tot_c=%d;\n", i, ul[i]. tot_c);
 		fprintf(opf, "ul[%d].csco=new Array();\n", i);
 		fprintf(opf, "ul[%d].crk=new Array();\n", i);
-		fprintf(opf, "ul[%d].rating=%d;\n", i, (int)(778 / ul[i]. exp));
+		fprintf(opf, "ul[%d].rating=%d;\n", i, (int)((1.2555555555555 - ul[i]. exp) * 2000));
 		for (int j = 0; j < tc; ++ j) {
 			fprintf(opf, "ul[%d].csco[%d]=%d;\n", i, j, ul[i]. csco[j]);
 			fprintf(opf, "ul[%d].crk[%d]=%d;\n", i, j, ul[i]. crk[j]);
