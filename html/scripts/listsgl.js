@@ -17,45 +17,68 @@ function drawGraph(x) {
 		ctx.lineTo(cvs.width-spcd,(Math.round((cvs.height-spcd*2)/5*i)+spcd));
 		ctx.stroke();
 	}
+
 	ctx.stroke();
 	ctx.strokeStyle='#000000';
 	for (var i=0;i<6;++i)
 		ctx.strokeText(String(i*20)+"%",1,Math.round((cvs.height-spcd*2)/5*i)+spcd);
-	for (var i=0;i<t;++i)
-		ctx.strokeText(String("#")+(i+1),spcd+Math.round((cvs.width-spcd*2)/(t-1)*i),cvs.height-spcd/2);
+	ctx.stroke();
+
+	var stp=0,edp=t-1;
+	for (; stp<t&&x[stp]<0;++stp);
+	for (; edp > stp && x[edp] < 0; -- edp);
+	var gwid;
+	if (edp == stp)
+		gwid = (cvs.width-spcd*2)/2;
+	else
+		gwid = (cvs.width-spcd*2)/(edp-stp);
+
+	ctx.lineWidth=0.5;
+	ctx.strokeStyle='#000000';
+	for (var i=stp;i<=edp;++i)
+		if (stp<edp)
+			ctx.strokeText(String("#")+(i+1),spcd+gwid*(i-stp),cvs.height-spcd/2);
+		else
+			ctx.strokeText(String("#")+(i+1),spcd+gwid,cvs.height-spcd/2);
 	ctx.stroke();
 
 	var csl=ctx.createLinearGradient(0,0,0,cvs.height-1);
 	csl.addColorStop(0,'#fc0000');
 	csl.addColorStop(1,'#0000fc');
+	ctx.beginPath();
 	ctx.strokeStyle=csl;
 	ctx.lineWidth=2;
-//	ctx.strokeStyle="#000000";
-	ctx.beginPath();
-	//alert("haha "+x[t]);
-	
-	var stp=0;
-	for (; stp<t&&x[stp]<0;++stp);
-	ctx.moveTo(spcd+Math.round((cvs.width-spcd*2)/(t-1)*stp),x[stp]*(cvs.height-spcd*2)+spcd);
+	ctx.moveTo(spcd , x[stp]*(cvs.height-spcd*2)+spcd);
 	if (t>1) {
-		for (var i=stp+1;i<t;++i) 
-			if (x[i]>=0) 
-				ctx.lineTo(spcd+Math.round((cvs.width-spcd*2)/(t-1)*i),x[i]*(cvs.height-spcd*2)+spcd);
+		for (var i=stp+1;i<=edp;++i) 
+			if (x[i]>=0)
+				ctx.lineTo(spcd+Math.round(gwid*(i-stp)),x[i]*(cvs.height-spcd*2)+spcd);
 	}
 	ctx.stroke();
 
 	var prd=3,pa=4;
-	for (var i=0;i<t;++i) 
+	for (var i=stp;i<=edp;++i) 
 		if (x[i]>=0) {
 			ctx.fillStyle='#'+Math.round((1-x[i])*89+10)+"00"+Math.round(x[i]*89+10);
 			ctx.beginPath();
-			ctx.moveTo(spcd+Math.round((cvs.width-spcd*2)/(t-1)*i),x[i]*(cvs.height-spcd*2)+spcd);
-			ctx.rect(spcd+Math.round((cvs.width-spcd*2)/(t-1)*i)-prd,x[i]*(cvs.height-spcd*2)+spcd-prd,prd*2,prd*2);
-			ctx.fill();
-			ctx.strokeStyle="#3f3fff";
-			ctx.lineWidth=1.0;
-			ctx.strokeRect(spcd+Math.round((cvs.width-spcd*2)/(t-1)*i)-pa,x[i]*(cvs.height-spcd*2)+spcd-pa,pa*2,pa*2);
-			ctx.stroke();
+			if (stp < edp) {
+				ctx.moveTo(spcd+Math.round(gwid*(i-stp)),x[i]*(cvs.height-spcd*2)+spcd);
+				ctx.rect(spcd+gwid*(i-stp)-prd,x[i]*(cvs.height-spcd*2)+spcd-prd,prd*2,prd*2);
+				ctx.fill();
+				ctx.strokeStyle="#3f3fff";
+				ctx.lineWidth=1.0;
+				ctx.strokeRect(spcd+gwid*(i-stp)-pa,x[i]*(cvs.height-spcd*2)+spcd-pa,pa*2,pa*2);
+				ctx.stroke();
+			}
+			else {
+				ctx.moveTo(spcd+gwid,x[i]*(cvs.height-spcd*2)+spcd);
+				ctx.rect(spcd+gwid-prd,x[i]*(cvs.height-spcd*2)+spcd-prd,prd*2,prd*2);
+				ctx.fill();
+				ctx.strokeStyle="#3f3fff";
+				ctx.lineWidth=1.0;
+				ctx.strokeRect(spcd+gwid-pa,x[i]*(cvs.height-spcd*2)+spcd-pa,pa*2,pa*2);
+				ctx.stroke();
+			}
 		}
 }
 
