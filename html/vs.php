@@ -33,6 +33,20 @@ $ipf = fopen($fln, "r");
 $gtmp = fscanf($ipf, "%s");
 list($pname) = $gtmp;
 echo("Problem: ". $pname. "<br/>");
+
+if (check_stat($cid) >= 2 || ($_SESSION['signedin'] && ($_SESSION['uid'] == $uid || is_admin($_SESSION['uid'])))) {
+	$fln="./upload/".$cid."/".$uid."/".$pname;
+	if (is_file($fln.".cpp"))
+		$fln=$fln.".cpp";
+	else if (is_file($fln.".c"))
+		$fln=$fln.".c";
+	else if (is_file($fln.".pas"))
+		$fln=$fln.".pas";
+	chmod($fln,0444);
+	$fls=abs(filesize($fln));
+	chmod($fln,0000);
+	echo "Code length: ". $fls. " KB<br/>";
+}
 ?>
 </td></tr>
 </table>
