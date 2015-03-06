@@ -24,7 +24,7 @@ function show_chart() {
 		var i=od[ti];
 		text+="<tr style='background-color:"+col[ti%2]+";'>";
 		text+="<td>"+(i+1)+"</td>";
-		text+="<td><a href='cnt.php?uid="+ul[i].uid+"'>"+ul[i].uid+"</a></td>";
+		text+="<td><a href='cnt.php?uid="+(ul[i].uid.split('-')[0])+"'>"+ul[i].uid+"</a></td>";
 		for (var j=0;j<3;++j) {
 			var k;
 			if (j==0)
@@ -58,6 +58,8 @@ function show_chart() {
 						else 
 							text+="<font style='color:black;'>";
 						text+=ul[i].a[j].wd[l]+"</font>";
+						if (l % 25 == 24)
+							text += "<br/>";
 					}
 				}
 			}
