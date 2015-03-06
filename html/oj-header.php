@@ -35,4 +35,4 @@ else {
 </table>
 </div>
 
-<div style='height:36px'></div>
+<div style='height:48px'></div>

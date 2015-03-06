@@ -36,10 +36,10 @@ if ($corr)
 </form>
 </td>
 
-<td>
-<div style='text-align:right;'>
+<td style='text-align:right'>
+<span>
 <a href='uc.php?cid=<?php echo $cid; if (!$corr) echo "&cmd=correction"; ?>' style='color:blue;padding:40px;'><?php if ($corr) echo "Standings"; else echo "Correction status" ?></a>
-</div>
+</span>
 </td>
 </tr>
 </table>

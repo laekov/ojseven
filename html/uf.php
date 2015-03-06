@@ -60,20 +60,6 @@ if (!$corr && !check_time()) {
 	return;
 }
 else if ($corr) {
-	
-	$ufid=($uid."-".date("Ymdhisa"));
-
-	$tmpstr = ('./upload/'.$cid);
-	if (!is_dir($tmpstr))
-		mkdir($tmpstr);
-
-	$ulpt=fopen(($tmpstr."/cuid.list"),"a");
-	fprintf($ulpt,"%s\n",$ufid);
-	fclose($ulpt);
-
-	$tmpstr = ($tmpstr."/".$ufid);
-	mkdir($tmpstr);
-
 	$contd=("./data/".$cid."/");
 	$stat=0;
 	$ipf=fopen(($contd.".contcfg"),"r");
@@ -95,6 +81,19 @@ else if ($corr) {
 		header("Location: error.php?word=How do you find this page?");
 		return;
 	}
+	
+	$ufid=($uid."-".date("Ymdhisa"));
+
+	$tmpstr = ('./upload/'.$cid);
+	if (!is_dir($tmpstr))
+		mkdir($tmpstr);
+
+	$ulpt=fopen(($tmpstr."/cuid.list"),"a");
+	fprintf($ulpt,"%s\n",$ufid);
+	fclose($ulpt);
+
+	$tmpstr = ($tmpstr."/".$ufid);
+	mkdir($tmpstr);
 
 	for ($fi=1;$fi<=3;++$fi) {
 		$MSUC = false;
@@ -192,9 +191,9 @@ else {
 			}
 			if ($MSUC) {
 				if (!strpos($_FILES[$FF]['name'], "zip")) {
-					echo("Code preview: <br/><pre class='scode'>");
+					echo("Code preview: <br/><div>");
 					showcode($TP);
-					echo "</pre>";
+					echo "</div>";
 				}
 				else {
 					chmod($TP, 0777);

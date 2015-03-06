@@ -9,7 +9,7 @@ include('oj-header.php');
 <body>
 <table width="800px" align='center'>
 <tr><td>
-<h1 style='color: blue' align='center'>Welcome to OJ7 beta 3</h1>
+<h1 style='color: blue' align='center'>OJ7 beta 3</h1>
 <hr/>
 </td></tr>
 

@@ -45,7 +45,7 @@ if (check_stat($cid) >= 2 || ($_SESSION['signedin'] && ($_SESSION['uid'] == $uid
 	chmod($fln,0444);
 	$fls=abs(filesize($fln));
 	chmod($fln,0000);
-	echo "Code length: ". $fls. " KB<br/>";
+	echo "Code length: ". $fls. " B<br/>";
 }
 ?>
 </td></tr>

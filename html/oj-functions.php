@@ -77,8 +77,6 @@ function showcode($fln) {
 	echo "<td width='30px'><pre class='linear'>";
 	while (!feof($ipf)) {
 		fgets($ipf);
-		if (feof($ipf))
-			break;
 		++$lcnt;
 		echo "<span>";
 		printf("%3d",$lcnt);
@@ -90,6 +88,7 @@ function showcode($fln) {
 		$txt = htmlspecialchars(fgets($ipf));
 		echo "<span>".$txt."</span>";
 	}
+	echo " ";
 	fclose($ipf);
 	echo "</pre></td>";
 	echo "</tr></table>";
