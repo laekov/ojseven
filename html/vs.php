@@ -57,6 +57,8 @@ for ($j = 0; $j < 4; ++ $j)
 $gval = fscanf($ipf, "%d %d");
 list($beg_n, $end_n) = $gval;
 $tot_p = $end_n - $beg_n + 1;
+$tott = 0;
+$maxm = 0;
 fclose($ipf);
 if (is_dir("./upload/". $cid. "/". $uid. "/.ajtest")) {
 	$fln = "./upload/". $cid. "/". $uid. "/.ajtest/". $pid. ".rs";
@@ -87,8 +89,11 @@ if (is_dir("./upload/". $cid. "/". $uid. "/.ajtest")) {
 				list($wd, $rtime, $rmem, $sco) = fscanf($ipf, "%s%d%d%d");
 				echo "<td>";
 				//echo "test line: ". $res. " ". $tot_sco. "<br/>"; 
-				if ($wd[0] == 'A')
+				if ($wd[0] == 'A') {
 					echo "<font style='color: green'>";
+					$tott += $rtime;
+					$maxm = max($maxm, $rmem);
+				}
 				elseif ($wd[0] == 'W')
 					echo "<font style='color: red'>";
 				elseif ($wd[0] == 'M' || $wd[0] == 'T')
@@ -120,7 +125,11 @@ if (is_dir("./upload/". $cid. "/". $uid. "/.ajtest")) {
 		}
 		fclose($ipf);
 		echo "</table>";
-		echo "<div style='width:800px; text-align:left;'>Total score: ".$tot_sco."</div>";
+		echo "<div style='width:800px; text-align:left;'>";
+		echo "Total score: ".$tot_sco."<br/>";
+		echo "Total time: ".$tott." ms<br/>";
+		echo "Max memory: ".$maxm." KB<br/>";
+		echo "</div>";
 	}
 }
 else {

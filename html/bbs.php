@@ -14,19 +14,29 @@ include('oj-header.php');
 $c = 1;
 for ($c = 1; is_file("./bbs/text". $c. ".html"); ++ $c);
 $top = $c - 1;
+
 if (strlen($_GET['top']) > 0)
 	$top = $_GET['top'];
+$bot = max(1, $top - 16);
+if ($_GET['single'] == 'yes')
+	$bot = $top;
 echo "<tr><td width='800px' align='right'>";
 if ($top < $c - 1) {
-	$outmp = "<a href='bbs.php?top=". min($c - 1, $top + 16). "' style='text-decoration:none;'>Later Page</a>";
+	if ($_GET['single'] == 'yes')
+		$outmp = "<a href='bbs.php?top=". ($top + 1). "&single=yes' style='text-decoration:none;'>Later Page</a>";
+	else
+		$outmp = "<a href='bbs.php?top=". min($c - 1, $top + 16). "' style='text-decoration:none;'>Later Page</a>";
 	echo '['. $outmp. ']';
 }
-if ($top - 16 > 0) {
-	$outmp = "<a href='bbs.php?top=". max(16, $top - 16). "' style='text-decoration:none;'>Older Page</a>";
+if ($top > 0) {
+	if ($_GET['single'] == 'yes')
+		$outmp = "<a href='bbs.php?top=". max(0, $top - 1). "&single=yes' style='text-decoration:none;'>Older Page</a>";
+	else
+		$outmp = "<a href='bbs.php?top=". max(16, $top - 16). "' style='text-decoration:none;'>Older Page</a>";
 	echo '['. $outmp. ']';
 }
 echo "</td></tr>";
-for ($i = $top; is_file("bbs/text". $i. ".html") && $i >= $top - 16; -- $i) {
+for ($i = $top; $i >= $bot; -- $i) {
 	echo "<tr><td width='800px' style='word-break:break-all; word-wrap:break-word;'>";
 	echo "<div class='item'>";
 	$pf = fopen(("bbs/text". $i. ".html"), "r");
@@ -51,6 +61,8 @@ else */if (strpos($word, "/html")) {
 		//echo "<br/>";
 	}
 	fclose($pf);
+	if ($_GET['single'] != 'yes')
+		echo "<p><a href='bbs.php?top=".$i."&single=yes'>View single</a></span>";
 	echo "<hr/></div></td></tr>";
 }
 ?>
@@ -99,17 +111,11 @@ if (strlen($_POST['word']) > 0) {
 ?>
 </tr></td>
 
-<tr><td>
-<form action='bbs.php' method='post'>
-<label for='word'>Say something here: <br/>
-(html and javascript are supported. Please do not submit malicious code)</label>
-<textarea id='word' name='word' cols='90' rows='10'></textarea>
-<br/>
-<input type='checkbox' name="iscode" id='iscode'/>
-<label for='iscode'>This is a code</label><br/>
-<input type='submit' name='submit' value='Say'/>
-</form>
-</td></tr>
+<?php 
+
+if ($_GET['single'] != 'yes')
+	echo "<tr><td><form action='bbs.php' method='post'><label for='word'>Say something here: <br/>(html and javascript are supported. Please do not submit malicious code)</label><textarea id='word' name='word' cols='90' rows='10'></textarea><br/><input type='checkbox' name='iscode' id='iscode'/><label for='iscode'>This is a code</label><br/><input type='submit' name='submit' value='Say'/></form></td></tr>";
+?>
 
 </table>
 <?php

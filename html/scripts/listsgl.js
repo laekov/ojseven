@@ -62,13 +62,17 @@ function drawGraph(x) {
 			ctx.fillStyle='#'+Math.round((1-x[i])*89+10)+"00"+Math.round(x[i]*89+10);
 			ctx.beginPath();
 			if (stp < edp) {
-				ctx.moveTo(spcd+Math.round(gwid*(i-stp)),x[i]*(cvs.height-spcd*2)+spcd);
-				ctx.rect(spcd+gwid*(i-stp)-prd,x[i]*(cvs.height-spcd*2)+spcd-prd,prd*2,prd*2);
-				ctx.fill();
-				ctx.strokeStyle="#3f3fff";
+				var xo = spcd+gwid*(i-stp);
+				var yo = x[i]*(cvs.height-spcd*2)+spcd;
+			//	ctx.moveTo(spcd+Math.round(gwid*(i-stp)),x[i]*(cvs.height-spcd*2)+spcd);
+			//	ctx.rect(spcd+gwid*(i-stp)-prd,x[i]*(cvs.height-spcd*2)+spcd-prd,prd*2,prd*2);
+			//	ctx.fill();
+				ctx.strokeStyle="#000";
 				ctx.lineWidth=1.0;
-				ctx.strokeRect(spcd+gwid*(i-stp)-pa,x[i]*(cvs.height-spcd*2)+spcd-pa,pa*2,pa*2);
+				ctx.arc(xo, yo, prd, 0, 2 * Math.PI);
+			//	ctx.strokeRect(spcd+gwid*(i-stp)-pa,x[i]*(cvs.height-spcd*2)+spcd-pa,pa*2,pa*2);
 				ctx.stroke();
+				ctx.fill();
 			}
 			else {
 				ctx.moveTo(spcd+gwid,x[i]*(cvs.height-spcd*2)+spcd);
