@@ -16,6 +16,21 @@ if (strlen($cid) < 1) {
 }
 ?>
 
+<script>
+function chgstate(id) {
+	var bar = document.getElementById("cb" + id);
+	var item = document.getElementById("c" + id);
+	if (bar.innerHTML == 'Contract') {
+		item.style.display = 'none';
+		bar.innerHTML = 'Expand';
+	}
+	else {
+		item.style.display = '';
+		bar.innerHTML = 'Contract';
+	}
+}
+</script>
+
 <div align='center'>
 <?php
 $dir=opendir("./data");
@@ -31,16 +46,30 @@ rsort($cidl);
 for ($ti=0;$ti<$tot;++$ti) {
 	$contd=$cidl[$ti];
 	echo "<div style='width:800px;text-align:left;'>";
-	echo "<h2>".$contd."</h2><ul>";
+	echo "<span style='font-size:24px'>".$contd." </span>";
+	echo "<span style='cursor:pointer; font-size:16px; float: right;' id='cb".$contd."' onclick='chgstate(".$contd.")'>";
+	if ($ti > 3)
+		echo "Expand";
+	else
+		echo "Contract";
+	echo "</span>";
+	echo "<ul id='c".$contd."' ";
+	if ($ti > 3)
+		echo "style='display:none'";
+	echo ">";
 	$contd=("./data/".$contd."/");
 	$stat=0;
 	$ipf=fopen(($contd.".contcfg"),"r");
 	$hite=0;
 	while (!feof($ipf)) {
-		list($itid,$val)=fscanf($ipf,"%s %s");
+		$text = fgets($ipf);
+		list($itid, $val) = sscanf($text,"%s%s");
 		if (strlen($itid)<1)
 			continue;
-		if ($itid=='stat') {
+		if ($itid == '<self>') {
+			echo "<li>". $text. "</li>";
+		}
+		elseif ($itid=='stat') {
 			$stat=$val;
 		}
 		else {
