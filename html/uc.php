@@ -37,9 +37,7 @@ if ($corr)
 </td>
 
 <td style='text-align:right'>
-<span>
 <a href='uc.php?cid=<?php echo $cid; if (!$corr) echo "&cmd=correction"; ?>' style='color:blue;padding:40px;'><?php if ($corr) echo "Standings"; else echo "Correction status" ?></a>
-</span>
 </td>
 </tr>
 </table>
@@ -51,6 +49,11 @@ if ($corr)
 <div id='chartplace'></div>
 <script>
 <?php
+echo "var nonu=";
+if ($corr)
+	echo "1;";
+else
+	echo "0;";
 echo "var cid='".$cid."';\n";
 echo "var pname=new Array();\n";
 $cnt=0;
