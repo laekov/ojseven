@@ -7,7 +7,7 @@
 include('oj-header.php');
 ?>
 <body>
-<table width="800px" align='center'>
+<table width="80%" align='center'>
 <tr><td>
 <h1 style='color: blue' align='center'>OJ7 beta 3</h1>
 <hr/>

@@ -28,7 +28,7 @@ else {
 
 <div id='uploadcode' align='center'>
 <form action='uf.php<?php if ($corr) echo "?cmd=correction&cid=".$cid;?>' method='post' enctype='multipart/form-data'>
-<table width='800px' border='0'>
+<table width='80%' border='0'>
 <?php
 function gettl() {
 	$pf = fopen("conf/time.conf", "r");

@@ -20,7 +20,7 @@ else {
 }
 ?>
 
-<div align='center' width='800px'>
+<div align='center' width='80%'>
 <?php
 
 $uid=getuid();
@@ -125,7 +125,7 @@ else if ($corr) {
 	header("Location: uc.php?cid=".$cid."&cmd=correction");
 }
 else {
-	echo("<div style='width:800px;text-align:left;'>");
+	echo("<div style='width:80%;text-align:left;'>");
 	echo("Contest id: ".$cid."<br/>");
 	echo("User name: ".$uid."<br/>");
 	echo("<hr/></div>");
@@ -168,7 +168,7 @@ else {
 
 	for ($fi=1;$fi<=3;++$fi) {
 		$MSUC = false;
-		echo("<div style='text-align:left;width:800px;'>Code". $fi. "</br>");
+		echo("<div style='text-align:left;width:80%;'>Code". $fi. "</br>");
 		$FF = 'f'. $fi;
 		if ($FO['error'] || $_FILES[$FF]['size'] == 0) {
 			echo("File". $fi. " error!<br/>");

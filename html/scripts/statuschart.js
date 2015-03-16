@@ -9,7 +9,7 @@ var show_res=1;
 
 function show_chart() {
 	var text="";
-	text+="<table width='800px' style='text-align:center'>";
+	text+="<table width='100%' style='text-align:center'>";
 	text+="<tr style='background-color:#3f3fff; color:white;'>";
 	if (nonu)
 		text+="<td width='50px'>Index</td>";

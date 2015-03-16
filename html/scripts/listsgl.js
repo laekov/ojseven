@@ -1,5 +1,6 @@
 function drawGraph(x) {
 	var cvs=document.getElementById("graphplace");
+	cvs.width = window.innerWidth * 0.8;
 	var ctx=cvs.getContext("2d");
 	var csv=ctx.createLinearGradient(0,0,0,cvs.height-1);
 	var spcd=32;
@@ -89,7 +90,7 @@ function drawGraph(x) {
 function listsgl() {
 	var fbeg=fliterbeg.value;
 	var fend=fliterend.value;
-	var text="<table width='800px'>";
+	var text="<table width='100%'>";
 	var col=new Array();
 	col[0]='#eeffee';
 	col[1]='#eeeeff';
@@ -114,11 +115,11 @@ function listsgl() {
 	text=text+"<p style='text-align:left'>Total rounds: "+ul[uid].tot_c+"</p>";
 	text=text+"<p style='text-align:left'>Rating: "+ul[uid].rating+"</p>";
 	text=text+"<hr/></td></tr>";
-	text=text+"<tr><td><p style='text-align:left'>Rank graph: </p>";
-	text=text+"<canvas height='200' width='800' id='graphplace'>Java script not supported </canvas>";
+	text=text+"<tr><td width='100%'><p style='text-align:left'>Rank graph: </p>";
+	text=text+"<canvas height='200' id='graphplace'>Java script not supported </canvas>";
 	text=text+"<hr/></td></tr>";
 	text=text+"<tr><td>";
-	text=text+"<table width='800px'><tr style='text-align:center;background-color:#3f3fff;color:white;'><td width='50px'>Num</td><td>Contest</td><td>Score</td><td>Rank</td></tr>";
+	text=text+"<table width='100%'><tr style='text-align:center;background-color:#3f3fff;color:white;'><td width='50px'>Num</td><td>Contest</td><td>Score</td><td>Rank</td></tr>";
 	var x=new Array();
 	var t=0,c=0;
 	for (var i=0;i<tot_c;++i) {

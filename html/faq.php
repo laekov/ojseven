@@ -6,7 +6,7 @@
 <?php
 include('oj-header.php');
 ?>
-<table width="800px" align='center'>
+<table width="80%" align='center'>
 
 <tr><td><pre>
 <font color='red'>What is OJ7?

@@ -18,7 +18,7 @@ else
 	echo "cur_uid='nouser';";
 ?>
 </script>
-<table align='center' width='800px'><tr><td>
+<table align='center' width='80%'><tr><td>
 Begin contest id <input id='fliterbeg' type='text' onchange='fliterchg()' value='<?php if (strlen($_GET['fbeg'])>0) echo $_GET['fbeg']; else echo "00000000";?>' style='width:100px'/>
 &emsp;
 End contest id <input id='fliterend' type='text' onchange='fliterchg()'  value='<?php if (strlen($_GET['fend'])>0) echo $_GET['fend']; else echo "99999999";?>' style='width:100px'/>
@@ -47,6 +47,7 @@ if (strlen($_GET['uid'])>0)
 
 <hr/>
 </tr></td></table>
+<center><div style='width:80%'>
 <div id='showplace' align='center'></div>
 <p>
 <?php
@@ -61,6 +62,7 @@ else {
 }
 ?>
 </p>
+</center></div>
 <?php
 include('oj-footer.php');
 ?>

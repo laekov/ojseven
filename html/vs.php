@@ -9,7 +9,7 @@ include('oj-header.php');
 ?>
 
 <div align='center'>
-<table align='center' width='800px'>
+<table align='center' width='80%'>
 <tr><td>
 <?php
 $uid = $_GET['uid'];
@@ -50,7 +50,7 @@ if (check_stat($cid) >= 2 || ($_SESSION['signedin'] && ($_SESSION['uid'] == $uid
 ?>
 </td></tr>
 </table>
-<table width='800px'>
+<table width='80%'>
 <?php
 for ($j = 0; $j < 4; ++ $j)
 	$gtmp = fscanf($ipf, "%s");
@@ -125,7 +125,7 @@ if (is_dir("./upload/". $cid. "/". $uid. "/.ajtest")) {
 		}
 		fclose($ipf);
 		echo "</table>";
-		echo "<div style='width:800px; text-align:left;'>";
+		echo "<div style='width:80%; text-align:left;'>";
 		echo "Total score: ".$tot_sco."<br/>";
 		echo "Total time: ".$tott." ms<br/>";
 		echo "Max memory: ".$maxm." KB<br/>";
@@ -192,16 +192,15 @@ else {
 ?>
 </table>
 
+<div style='text-align:left;width:80%;'>
 <?php
+echo "<p>Code</p>";
 if (check_stat($cid) >= 2 || ($_SESSION['signedin'] && ($_SESSION['uid'] == $uid || is_admin($_SESSION['uid'])))) {
-	echo "<table width='800px'>";
-	echo "<tr style='height:30px'><td></td></tr>";
-	echo "<tr><td style='text-align:left;'>Code:</td></tr>";
-	echo "<tr><td>";
 	printcode($cid,$uid,$pname);
-	echo "</td></tr></table>";
 }
 ?>
+</div>
+
 </div>
 
 <?php

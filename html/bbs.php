@@ -8,7 +8,7 @@
 <?php
 include('oj-header.php');
 ?>
-<table width="800px" align='center'>
+<table width="80%" align='center'>
 
 <?php
 $c = 1;
@@ -20,7 +20,7 @@ if (strlen($_GET['top']) > 0)
 $bot = max(1, $top - 16);
 if ($_GET['single'] == 'yes')
 	$bot = $top;
-echo "<tr><td width='800px' align='right'>";
+echo "<tr><td width='80%' align='right'>";
 if ($top < $c - 1) {
 	if ($_GET['single'] == 'yes')
 		$outmp = "<a href='bbs.php?top=". ($top + 1). "&single=yes' style='text-decoration:none;'>Later Page</a>";
@@ -37,7 +37,7 @@ if ($top > 0) {
 }
 echo "</td></tr>";
 for ($i = $top; $i >= $bot; -- $i) {
-	echo "<tr><td width='800px' style='word-break:break-all; word-wrap:break-word;'>";
+	echo "<tr><td width='80%' style='word-break:break-all; word-wrap:break-word;'>";
 	echo "<div class='item'>";
 	$pf = fopen(("bbs/text". $i. ".html"), "r");
 	while (!feof($pf)) {

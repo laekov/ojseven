@@ -35,4 +35,6 @@ else {
 </table>
 </div>
 
+<script src='scripts/codehilighter.js'></script>
+
 <div style='height:48px'></div>

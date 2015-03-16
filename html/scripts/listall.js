@@ -6,8 +6,8 @@ function listall() {
 	var col=new Array();
 	col[0]='#eeffee';
 	col[1]='#eeeeff';
-	text=text+"<table width='800px' border='0' align='center'>";
-	text=text+"<tr style='text-align:center;background-color:#3f3fff;color:white;'><td>Rank</td><td width='450px'>User</td>";
+	text=text+"<table width='100%' border='0' align='center'>";
+	text=text+"<tr style='text-align:center;background-color:#3f3fff;color:white;'><td>Rank</td><td width='50%'>User</td>";
 	if (srat) {
 		var coi=0;
 		text=text+"<td>Rounds</td><td>Rating</td>";

@@ -45,7 +45,7 @@ closedir($dir);
 rsort($cidl);
 for ($ti=0;$ti<$tot;++$ti) {
 	$contd=$cidl[$ti];
-	echo "<div style='width:800px;text-align:left;'>";
+	echo "<div style='width:80%;text-align:left;'>";
 	echo "<span style='font-size:24px'>".$contd." </span>";
 	echo "<span style='cursor:pointer; font-size:16px; float: right;' id='cb".$contd."' onclick='chgstate(".$contd.")'>";
 	if ($ti > 3)

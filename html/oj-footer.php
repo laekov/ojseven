@@ -1,8 +1,8 @@
-<table align='center' width='800px'>
+<table align='center' width='80%'>
 <tr height='240px'><td></td></tr>
 <tr><td><hr/></td></tr>
 <tr><td>
-<table width='800px'><tr>
+<table width='100%'><tr>
 <td>
 &copy;2014-2015 OJ7<br/>
 Based on oss  <a href='https://github.com/laekov/ojseven' style='color: purple'>OJseven</a><br/>

@@ -6,7 +6,7 @@
 <?php
 include('oj-header.php');
 ?>
-<table align='center' border='0' width='800px'>
+<table align='center' border='0' width='80%'>
 <tr>
 <td style='color: blue; font-size: 30px;' align='center'>
 Contributors

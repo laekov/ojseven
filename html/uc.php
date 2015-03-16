@@ -6,7 +6,7 @@
 <?php
 include('oj-header.php');
 ?>
-<table align='center' width='800px'>
+<table align='center' width='80%'>
 <tr><td>
 <?php
 $cid = $_GET['cid'];
@@ -25,7 +25,7 @@ if ($corr)
 ?>
 </script>
 
-<table width='800px'>
+<table width='100%'>
 <tr>
 <td>
 <form action='uc.php' method='get'>

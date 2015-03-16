@@ -73,8 +73,8 @@ function showcode($fln) {
 	$lcnt=0;
 	chmod($fln,0444);
 	$ipf=fopen($fln,"r");
-	echo "<table><tr>";
-	echo "<td width='30px'><pre class='linear'>";
+	echo "<table algin='center' width='100%'><tr>";
+	echo "<td width='5%'><pre class='linear'>";
 	while (!feof($ipf)) {
 		fgets($ipf);
 		++$lcnt;
@@ -83,14 +83,17 @@ function showcode($fln) {
 		echo "</span>\n";
 	}
 	fseek($ipf, 0);
-	echo "</pre></td><td width='770px'><pre class='scode'>";
+    $codeid = md5_file($fln);
+	echo "</pre></td><td width='95%'><pre class='scode' id='".$codeid."'>";
 	for ($i = 0; $i < $lcnt; ++ $i) {
 		$txt = htmlspecialchars(fgets($ipf));
-		echo "<span>".$txt."</span>";
+		echo $txt;
 	}
 	echo " ";
 	fclose($ipf);
-	echo "</pre></td>";
+    echo "</pre>";
+    echo "<script>sethlById('".$codeid."');</script>";
+    echo "</td>";
 	echo "</tr></table>";
 	chmod($fln,0000);
 }
