@@ -56,7 +56,7 @@ int compile(prob_cfg& pcfg) {
 		return 1;
 	if (pcfg. prg_lang == 0)
 		return compile_gcc(pcfg);
-	else if (pcfg. prg_lang == 1)
+	else if (pcfg. prg_lang == 1 || pcfg. prg_lang == 3)
 		return compile_gpp(pcfg);
 	else if (pcfg. prg_lang == 2)
 		return compile_pas(pcfg);

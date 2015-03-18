@@ -42,7 +42,7 @@ run_res mkres(int, int, int);
 const int max_path = 256;
 const int max_line = 1024;
 const int max_case = 1024;
-const char lang_suf[3][4] = {"c", "cpp", "pas"};
+const char lang_suf[4][4] = {"c", "cpp", "pas", "cc"};
 
 struct prob_cfg {
 	char pid[max_path], wpath[max_path], prob_name[max_path];
