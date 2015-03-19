@@ -1,5 +1,6 @@
 <html>
 <head>
+<link rel='icon' href='src/ic.png' type='image/x-icon'/>
 <title>OJ7 - Ranklist</title>
 </head>
 <body>
@@ -44,6 +45,11 @@ if (strlen($_GET['uid'])>0)
 	echo "sgo.style.visibility='hidden';";
 ?>
 </script>
+<br/>
+<span style='display:<?php if (strlen($_GET['uid'])==0) echo ";"; else echo "none;"; ?>'>
+<label for='specify'>Specify</label>
+<input type='text' id='specify' value='' size='80px' onchange='listall()'></input>
+</span>
 
 <hr/>
 </tr></td></table>

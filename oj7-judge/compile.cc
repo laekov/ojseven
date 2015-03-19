@@ -11,6 +11,9 @@ bool check_code(char* fln) {
 		fgets(tmp, sizeof(tmp), ipf);
 		if (feof(ipf))
 			break;
+		char* x(strstr(tmp, "//"));
+		if (x)
+			*x = 0;
 		for (int i = 0; i < 3; ++ i)
 			if (strstr(tmp, ban_word[i])) {
 				fclose(ipf);

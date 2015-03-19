@@ -2,6 +2,7 @@
 <head>
 <title>OJ7</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel='icon' href='src/ic.png' type='image/x-icon'/>
 </head>
 <?php
 include('oj-header.php');

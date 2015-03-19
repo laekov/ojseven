@@ -87,6 +87,7 @@ function showcode($fln) {
 	echo "</pre></td><td width='95%'><pre class='scode' id='".$codeid."'>";
 	for ($i = 0; $i < $lcnt; ++ $i) {
 		$txt = htmlspecialchars(fgets($ipf));
+		//$txt = (fgets($ipf));
 		echo $txt;
 	}
 	echo " ";

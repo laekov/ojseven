@@ -1,5 +1,6 @@
 <html>
 <head>
+<link rel='icon' href='src/ic.png' type='image/x-icon'/>
 <title>OJ7 - Admin</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
@@ -117,6 +118,10 @@ else if ($_GET['cmd'] == 'cdwl') {
 	include("forms/cdwl.php");
 }
 else if ($_GET['cmd'] == 'cdwl_get') {
+	if (strstr($_POST['filename'], "admin.list") != false) {
+		header("Location: error.php?word=Dangerous!");
+		return;
+	}
 	if (strlen($_POST['dwl'])>0) {
 		write_file($_POST['filename'], $_POST['dwl']);
 		include("forms/cdwl.php");
@@ -137,6 +142,13 @@ else if ($_GET['cmd'] == 'rcmd_get') {
 	include("forms/rcmd.php");
 	echo "Command: ". $_POST['cmdline']. "<br/>";
 	echo "Run<br/>";
+}
+else if ($_GET['cmd'] == 'ls') {
+	$cid = read_fline("./conf/cont.conf");
+	$pth = "./data/".$cid;
+	if (strlen($_POST['path']) > 0)
+		$pth = $_POST['path'];
+	include("forms/ls.php");
 }
 ?>
 </div>

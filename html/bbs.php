@@ -1,5 +1,6 @@
 <html>
 <head>
+<link rel='icon' href='src/ic.png' type='image/x-icon'/>
 <title>OJ7 - bbs</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
@@ -121,5 +122,8 @@ if ($_GET['single'] != 'yes')
 <?php
 include('oj-footer.php');
 ?>
+
+<script src='scripts/codehilighter.js'></script>
+<script> sethls_special(); </script>
 </body>
 </html>

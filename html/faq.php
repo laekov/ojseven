@@ -1,5 +1,6 @@
 <html>
 <head>
+<link rel='icon' href='src/ic.png' type='image/x-icon'/>
 <title>OJ7 - F.A.Q.</title>
 </head>
 <body>
@@ -15,12 +16,16 @@ include('oj-header.php');
 
 <tr><td><pre>
 <font color='red'>How does OJ7 work?
-<font color='blue'>This is an online version of ojseven.
+<font color='blue'>The server of OJ7 locates in Room 404. OIers maintain it essentially.
 </pre></td></tr>
 
 <tr><td><pre>
 <font color='red'>What is the judging environment?
-<font color='blue'>I don't know
+<font color='blue'>Intel(R) Xeon(R) CPU X3440  2.53GHz
+4GB RAM
+Xubuntu 14.04 LTS
+gcc 4.8.2
+fpc 2.6.2
 </pre></td></tr>
 
 <tr><td><pre>

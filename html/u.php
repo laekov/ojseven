@@ -1,5 +1,6 @@
 <html>
 <head>
+<link rel='icon' href='src/ic.png' type='image/x-icon'/>
 <title>OJ7 - Upload file</title>
 </head>
 <?php
@@ -50,7 +51,10 @@ function check_time() {
 }
 
 if (!$corr && !check_time()) {
-	header("Location: error.php?word=Out of submit time");
+	if (check_stat($cid) == 2)
+		header("Location: u.php?cmd=correction&cid=".$cid);
+	else
+		header("Location: error.php?word=Out of submit time");
 	return;
 }
 echo("<tr height='30px'>");

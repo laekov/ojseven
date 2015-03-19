@@ -1,5 +1,6 @@
 <html>
 <head>
+<link rel='icon' href='src/ic.png' type='image/x-icon'/>
 	<meta http-equiv="Content-Type" content="text/html; charset=unicode" />
 <title>OJ7 - View state</title>
 </head>
@@ -38,6 +39,8 @@ if (check_stat($cid) >= 2 || ($_SESSION['signedin'] && ($_SESSION['uid'] == $uid
 	$fln="./upload/".$cid."/".$uid."/".$pname;
 	if (is_file($fln.".cpp"))
 		$fln=$fln.".cpp";
+	elseif (is_file($fln.".cc"))
+		$fln=$fln.".cc";
 	else if (is_file($fln.".c"))
 		$fln=$fln.".c";
 	else if (is_file($fln.".pas"))

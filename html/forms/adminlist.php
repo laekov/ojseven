@@ -10,6 +10,7 @@ fclose($cipf);
 <tr><td><a href='admin.php?cmd=cprob' class='infot'>Config problems</a></td></tr>
 <tr><td><a href='admin.php?cmd=rcmd' class='infot'>Run a command</a></td></tr>
 <tr><td><a href='adminfl.php?cmd=udata' class='infot'>Upload data</a></td></tr>
-<tr><td><a href='adminfl.php' class='infot'>Upload file</a></td></tr>
-<tr><td><a href='admin.php?cmd=cdwl' class='infot'>Edit a file</a></td></tr>
+<tr><td><a href='adminfl.php' class='infot' style='color:black'>//Upload file</a></td></tr>
+<tr><td><a href='admin.php?cmd=cdwl' class='infot' style='color:black'>//Edit a file</a></td></tr>
+<tr><td><a href='admin.php?cmd=ls' class='infot'>List data</a></td></tr>
 </table>

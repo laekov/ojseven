@@ -102,6 +102,7 @@ void make_res(int cid) {
 
 int main(int argc, char* args[]) {
 	int cid = getcid();
+	int pid = -1;
 	for (int i = 2; i < argc; ++ i)
 		if (args[i][0] == '-') {
 			if (!strcmp(args[i] + 1, "help")) {
@@ -114,6 +115,10 @@ int main(int argc, char* args[]) {
 			}
 			else if (!strcmp(args[i] + 1, "cid")) {
 				sscanf(args[i + 1], "%d", &cid);
+				++ i;
+			}
+			else if (!strcmp(args[i] + 1, "pid")) {
+				sscanf(args[i + 1], "%d", &pid);
 				++ i;
 			}
 		}
@@ -155,9 +160,12 @@ int main(int argc, char* args[]) {
 			strcpy(uid, args[2]);
 		else
 			return 1;
-		for (int j = 0; j < 3; ++ j)
+		int bi(0), ei(3);
+		if (pid > -1)
+			bi = pid, ei = pid + 1;
+		for (int j = bi; j < ei; ++ j)
 			clear_res(cid, uid, j + 97);
-		for (int j = 0; j < 3; ++ j) {
+		for (int j = bi; j < ei; ++ j) {
 			char od[max_path];
 			sprintf(od, "oj7-judge ./upload/%08d/%s ./data/%08d %c", cid, uid, cid, j + 97);
 			system(od);

@@ -1,5 +1,6 @@
 <html>
 <head>
+<link rel='icon' href='src/ic.png' type='image/x-icon'/>
 <title>OJ7 - Admin</title>
 </head>
 <body>
@@ -19,7 +20,7 @@ if (!is_admin()) {
 <table align='center' width='800px' border='1'>
 
 <tr>
-<td><label for='file'> File </td>
+<td><label for='file'> <?php if ($_GET['cmd']=='udata') echo "Data"; else echo "<span style='color:red'>File</span>";?> </td>
 <td><input type='file' id='file' name='file'></td>
 </tr>
 
@@ -53,11 +54,19 @@ if ($_FILES['file']['size'] > 0) {
 	if ($_GET['cmd'] == 'udata') {
 		$cid = getcid();
 		$dest = "./data/". $cid. "/". $_FILES['file']['name'];
+		if (strstr($dest, "admin.conf") != false) {
+			header("Location: error.php?word=Dangerous operation");
+			return;
+		}
 		if (strlen($_POST['dest']) > 0)
 			$dest = "./data/". $cid. "/". $_POST['dest'];
 	}
 	else if (strlen($_POST['dest']) > 0)
 		$dest = $_POST['dest'];
+	if (strstr($dest, "admin.conf") != false) {
+		header("Location: error.php?word=Dangerous operation");
+		return;
+	}
 	if (!move_uploaded_file($_FILES['file']['tmp_name'], $dest))
 		echo "File moving error<br/>";
 	else

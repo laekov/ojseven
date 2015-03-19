@@ -1,5 +1,6 @@
 <html>
 <head>
+<link rel='icon' href='src/ic.png' type='image/x-icon'/>
 <title>OJ7 - Receive file</title>
 <link rel="stylesheet" href="./temp.css" type="text/css">
 </head>
