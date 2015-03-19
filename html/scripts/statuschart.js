@@ -7,6 +7,17 @@ col[0]='#eeffee';
 col[1]='#eeeeff';
 var show_res=1;
 
+var cck = document.cookie.split(';');
+for (var i = 0; i < cck. length; ++ i) {
+	var g = cck[i]. split('=');
+	if (g[0].match("show_res")!= false) {
+		//alert(g[0]);
+		show_res = parseInt(g[1]);
+	}
+}
+if (show_res == 0)
+	document.getElementById("showstyletext").value='Show test cases';
+
 function show_chart() {
 	var text="";
 	text+="<table width='100%' style='text-align:center'>";
@@ -119,10 +130,12 @@ function chgshowstyle() {
 	if (show_res) {
 		show_res=0;
 		document.getElementById("showstyletext").value='Show test cases';
+		document.cookie="show_res=0;";
 	}
 	else {
 		show_res=1;
 		document.getElementById("showstyletext").value='Show score';
+		document.cookie="show_res=1;";
 	}
 	show_chart();
 }
