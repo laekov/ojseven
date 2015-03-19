@@ -5,6 +5,7 @@
 #include <cstdio>
 #include <cstring>
 #include <cstdlib>
+#include <cmath>
 #include <string>
 #include <algorithm>
 #include <dirent.h>
@@ -19,7 +20,7 @@ const int max_str = 256;
 struct user {
 	string uid, uname, grade;
 	int csco[maxc], crk[maxc], tot_c;
-	double exp;
+	double exp, exph[maxc];
 	user();
 };
 struct contest {

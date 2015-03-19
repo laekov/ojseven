@@ -78,12 +78,36 @@ void loadContests() {
 				++ tu;
 			}
 			ul[j]. csco[ci] = a;
+			if (a == 0)
+				b = cl[ci]. tot;
 			ul[j]. crk[ci] = b;
-			double r0 = (double)((ul[j]. csco[ci] == 0) ? (n - 1) : (ul[j]. crk[ci] - 1)) / (double)((n > 1) ? (n - 1) : 1);
-			ul[j]. exp += (r0 - ul[j]. exp) * 0.142857142857;
-			++ ul[j]. tot_c;
 		}
 		fclose(ipf);
+		double ratn = min(1.0, log(n + 3) / log(33.33));
+		for (int j = 0; j < tu; ++ j) {
+			if (ul[j]. crk[ci] == -1) {
+				//ul[j]. exp = pow(ul[j]. exp, 0.618);
+			}
+			else {
+				double r0 = (double)((ul[j]. csco[ci] == 0) ? (n - 1) : (ul[j]. crk[ci] - 1)) / (double)((n > 1) ? (n - 1) : 1);
+				//ul[j]. exp += (r0 - ul[j]. exp) * 0.142857142857;
+				++ ul[j]. tot_c;
+				if (ul[j]. tot_c >= 7) {
+					double dt(r0 - ul[j]. exp);
+					int sgn((dt < 0) ? -1 : 1);
+					dt = pow(fabs(dt), 0.66666) / pow(log(ul[j]. tot_c) + 5.111111111, 1.1111111);
+					dt *= ratn;
+					if (sgn == -1)
+						ul[j]. exp -= dt;
+					else
+						ul[j]. exp += dt;
+				}
+				else
+					ul[j]. exp += (r0 - ul[j]. exp) / 7.0;
+				//ul[j]. exp += log(r0 - ul[j]. exp) / log(2);;
+			}
+			ul[j]. exph[ci] = ul[j]. exp;
+		}
 	}
 	sort(ul, ul + tu, cmpExp);
 	closedir(drp);
@@ -93,6 +117,12 @@ void showUsers() {
 	for (int i = 0; i < tu; ++ i)
 		printf("%s: %.2lf (%d)\n", ul[i]. uid. c_str(), ul[i]. exp, ul[i]. tot_c);
 	printf("Total: %d\n", tu);
+}
+
+const double rxx = 1.0 / acos(-1);
+
+int getRating(double exp) {
+	return 1131.36 / (exp + rxx);
 }
 
 void writeJS() {
@@ -114,10 +144,12 @@ void writeJS() {
 		fprintf(opf, "ul[%d].tot_c=%d;\n", i, ul[i]. tot_c);
 		fprintf(opf, "ul[%d].csco=new Array();\n", i);
 		fprintf(opf, "ul[%d].crk=new Array();\n", i);
-		fprintf(opf, "ul[%d].rating=%d;\n", i, (int)((1.2555555555555 - ul[i]. exp) * 2000));
+		fprintf(opf, "ul[%d].hrating=new Array();\n", i);
+		fprintf(opf, "ul[%d].rating=%d;\n", i, getRating(ul[i]. exp));
 		for (int j = 0; j < tc; ++ j) {
 			fprintf(opf, "ul[%d].csco[%d]=%d;\n", i, j, ul[i]. csco[j]);
 			fprintf(opf, "ul[%d].crk[%d]=%d;\n", i, j, ul[i]. crk[j]);
+			fprintf(opf, "ul[%d].hrating[%d]=%d;\n", i, j, getRating(ul[i]. exph[j]));
 		}
 	}
 	fclose(opf);
