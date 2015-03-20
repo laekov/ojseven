@@ -8,7 +8,7 @@ function findArray(arr, item) {
 
 var typewords = Array("int", "void", "long", "fload", "double", "register", "static", "size_t", "char", "bool");
 var specialwords = Array("using", "namespace", "struct", "class", "public", "private", "for", "while", "if", "do", "return", "new", "delete", "const", "break", "continue", "else", "switch", "default", "sizeof", "inline", "typedef", "operator");
-var separatorwords = Array("(", ")", " ", "[", "]", "{", "}", "\t", "\,", "\r", '"', "+", "-", "*", "/", "~", "!");
+var separatorwords = Array("(", ")", " ", "[", "]", "{", "}", "\t", "\,", "\r", '"', "+", "-", "*", "/", "~", "!", "<", ">", ";", "=", "%");
 
 function isSeparator(x) {
 	for (var i = 0; separatorwords[i] != undefined; ++ i)
@@ -37,6 +37,9 @@ function dealLine(line) {
     var sepp = Array();
     var totsep = 0;
     line = " " + line + " ";
+	line = line. replace(/\&lt\;/g, "<");
+	line = line. replace(/\&gt\;/g, ">");
+	line = line. replace(/\&amp\;/g, "&");
     for (var i = 0; i < line.length; ++ i)
         if (isSeparator(line[i])) {
             sepp[totsep] = i;
