@@ -39,6 +39,8 @@ function gettl() {
 	return $tl;
 }
 function check_time() {
+	if (check_stat($cid) != 1)
+		return false;
 	$tc = date("his");
 	//echo $tc;
 	if (date("a") == "pm" && $tc < 120000)

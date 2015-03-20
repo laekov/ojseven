@@ -12,9 +12,12 @@ for (var i = 0; i < cck. length; ++ i) {
 	var g = cck[i]. split('=');
 	if (g[0].match("show_res")!= false) {
 		//alert(g[0]);
-		show_res = parseInt(g[1]);
+		if (g[1] != undefined)
+			show_res = parseInt(g[1]);
 	}
 }
+if (corr == 1)
+	show_res = 1;
 if (show_res == 0)
 	document.getElementById("showstyletext").value='Show test cases';
 

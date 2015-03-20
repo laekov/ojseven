@@ -119,16 +119,24 @@ function listsgl() {
 	text=text+"<canvas height='200' id='graphplace'>Java script not supported </canvas>";
 	text=text+"<hr/></td></tr>";
 	text=text+"<tr><td>";
-	text=text+"<table width='100%'><tr style='text-align:center;background-color:#3f3fff;color:white;'><td width='50px'>Num</td><td>Contest</td><td>Score</td><td>Rank</td></tr>";
+	text=text+"<table width='100%'><tr style='text-align:center;background-color:#3f3fff;color:white;'><td width='50px'>Num</td><td>Contest</td><td>Score</td><td>Rank</td><td width='20%'>Rating (change)</td></tr>";
 	var x=new Array();
-	var t=0,c=0;
+	var t=0,c=0, lr = 1111;
 	for (var i=0;i<tot_c;++i) {
 		if (cid[i]<fbeg||cid[i]>fend)
 			continue;
 		x[t]=ul[uid].crk[i];
 		if (ctot[i]>1&&x[t]>-1) {
 			x[t]=(x[t]-1)/(ctot[i]-1);
-			text=text+"<tr style='text-align:center;background-color:"+col[c%2]+"'><td>#"+(t+1)+"</td><td><a href='uc.php?cid="+cid[i]+"'>"+cid[i]+"</a></td><td>"+ul[uid].csco[i]+"</td><td>"+ul[uid].crk[i]+" / "+ctot[i]+"</td></tr>";
+			text=text+"<tr style='text-align:center;background-color:"+col[c%2]+"'><td>#"+(t+1)+"</td><td><a href='uc.php?cid="+cid[i]+"'>"+cid[i]+"</a></td><td>"+ul[uid].csco[i]+"</td><td>"+ul[uid].crk[i]+" / "+ctot[i]+"</td>";
+			text += "<td>" + ul[uid].hrating[i] + "(";
+			var dt = ul[uid].hrating[i] - lr;
+			lr = ul[uid].hrating[i];
+			if (dt > 0)
+				text += "<span style='color:green;'>+" + dt;
+			else
+				text += "<span style='color:red;'>" + dt;
+			text += "</span>)</td></tr>";
 			++c;
 		}
 		++t;
