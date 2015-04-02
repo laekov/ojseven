@@ -43,21 +43,23 @@ echo "<td>".$cid."</td></tr>";
 ?>
 
 <?php
-echo("<tr height='30px'>");
-echo("<td width='200px'>Submit time limit</td>\n");
-$ttl = gettl();
-$wx = 'am';
-if ($ttl >= 120000) {
-	$wx = 'pm';
-	if ($ttl >= 130000)
-		$ttl -= 120000;
+if (check_stat($cid) == 1) {
+	echo("<tr height='30px'>");
+	echo("<td width='200px'>Submit time limit</td>\n");
+	$ttl = gettl();
+	$wx = 'am';
+	if ($ttl >= 120000) {
+		$wx = 'pm';
+		if ($ttl >= 130000)
+			$ttl -= 120000;
+	}
+	printf("<td>%02d:%02d:00 %s</td></tr>", $ttl / 10000, $ttl % 10000 / 100, $wx);
 }
-printf("<td>%02d:%02d:00 %s</td></tr>", $ttl / 10000, $ttl % 10000 / 100, $wx);
 ?>
 </table>
 
 <p style='text-align:left;'>Problem infomation</p>
-<table width='100%' style='<?php if (check_stat($cid) > 2) echo "display:hidden;'" ?>'>
+<table width='100%' style='text-align:center;<?php if (check_stat($cid) > 2) echo "display:hidden;'" ?>'>
 <?php
 $cfgs = Array();
 for ($pi = 'a'; $pi < 'd'; ++ $pi) {
@@ -125,7 +127,7 @@ if (is_file($fln)) {
 			$stat=$val;
 		}
 		else {
-			echo "<li><a href='".$contd.$val."'>".$itid."</a></li>";
+			echo "<li><a href='./data/".$cid."/".$val."'>".$itid."</a></li>";
 		}
 		$hite=1;
 	}
@@ -143,6 +145,7 @@ else {
 <ul>
 <?php
 if ($stat <= '1') {
+	echo "<li><a href='./u.php?cid=".$cid."'>Submit</a></li>";
 	echo "<li><a href='./uc.php?cid=".$cid."'>Status</a></li>";
 }
 if ($stat == '2') {

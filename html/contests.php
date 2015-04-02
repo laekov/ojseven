@@ -37,20 +37,42 @@ function chgstate(id) {
 <?php
 $dir=opendir("./data");
 $cidl=Array();
+$ccfg = Array();
 $tot=0;
 while (($contd=readdir($dir))!=false)
 	if (is_file("./data/".$contd."/.contcfg")) {
 		$cidl[$tot]=$contd;
+		$fln = "./data/".$contd."/.contcfg";
 		++$tot;
 	}
 closedir($dir);
 rsort($cidl);
-echo "<table style='width:80%;align:center;text-align:center;'><tr height='42px'>";
+echo "<table style='width:80%;align:center;text-align:center;'><tr>";
+echo "<tr style='background-color:#3f3fff;color:white;'><td>Contest</td><td>Status</td><td>Participate</td></tr>";
 for ($ti=0;$ti<$tot;++$ti) {
+	if ($ti % 2 == 0)
+		echo "<tr style='background-color:#efffef;color:black;'>";
+	else
+		echo "<tr style='background-color:#efefff;color:black;'>";
 	$contd=$cidl[$ti];
+	$cfgfln = "./data/".$contd."/.contcfg";
+	$curcfg = readccfg($cfgfln);
 	echo "<td><a href='cur.php?cid=".$contd."'>".$contd."</a> </td>";
-	if ($ti % 4 == 3)
-		echo "</tr><tr height='42px'>";
+	if ($curcfg['stat'] == '1') {
+		echo "<td><span style='color:red'>Running</span></td>";
+	}
+	elseif ($curcfg['stat'] == '2') {
+		echo "<td><span style='color:green'>Finished</span></td>";
+	}
+	else {
+		echo "<td><span style='color:black'Unknown</span></td>";
+	}
+	$csu = cntline("./upload/".$contd."/uid.list");
+	$cco = cntline("./upload/".$contd."/cuid.list");
+	echo "<td><a href='uc.php?cid=".$contd."'>";
+	echo "x".$csu;
+	echo "</a></td>";
+	echo "</tr>";
 }
 ?>
 </div>

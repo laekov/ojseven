@@ -125,4 +125,60 @@ function printcode($cid,$uid,$pid) {
 	}
 	showcode($fln);
 }
+
+function readcfg($fln) {
+	$ret = Array();
+	if (is_file($fln)) {
+		$ipf = fopen($fln, "r");
+		list($pid) = fscanf($ipf, "%s");
+		list($inf) = fscanf($ipf, "%s");
+		list($ouf) = fscanf($ipf, "%s");
+		list($inff) = fscanf($ipf, "%s");
+		list($ouff) = fscanf($ipf, "%s");
+		list($beg_n, $end_n) = fscanf($ipf, "%d %d");
+		list($tl, $ml) = fscanf($ipf, "%d %d");
+		$ret['pid'] = $pid;
+		$ret['inf'] = $inf;
+		$ret['ouf'] = $ouf;
+		$ret['ccase'] = $end_n - $beg_n + 1;
+		$ret['tl'] = $tl;
+		$ret['ml'] = $ml;
+		while (!feof($ipf)) {
+			list($str) = fscanf($ipf, "%s");
+			$ret[$str] = 'yes';
+		}
+		fclose($ipf);
+	}
+	return $ret;
+}
+
+function readccfg($fln) {
+	$ret = Array();
+	if (is_file($fln)) {
+		$ipf = fopen($fln, "r");
+		while (!feof($ipf)) {
+			$line = fgets($ipf);
+			list($id, $item) = sscanf($line, "%s %s");
+			if ($id == "<self>")
+				continue;
+			$ret[$id] = $item;
+		}
+		fclose($ipf);
+	}
+	return $ret;
+}
+
+function cntline($fln) {
+	$ret = 0;
+	if (is_file($fln)) {
+		$ipf = fopen($fln, "r");
+		while (!feof($ipf)) {
+			$ln = fgets($ipf);
+			++ $ret;
+		}
+		fclose($ipf);
+		-- $ret;
+	}
+	return $ret;
+}
 ?>
