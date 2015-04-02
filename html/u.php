@@ -14,6 +14,8 @@ if (!$_SESSION['signedin']) {
 }
 ?>
 
+<center>
+<div style='width:80%;'>
 <?php
 $corr=($_GET['cmd']=='correction');
 $cid=0;
@@ -29,9 +31,8 @@ if (check_stat($cid) == 2)
 	$corr = 1;
 ?>
 
-<div id='uploadcode' align='center'>
 <form action='uf.php<?php if ($corr) echo "?cmd=correction&cid=".$cid;?>' method='post' enctype='multipart/form-data'>
-<table width='80%' border='0'>
+<table width='100%' border='0'>
 <?php
 function gettl() {
 	$pf = fopen("conf/time.conf", "r");
@@ -72,12 +73,6 @@ else
 
 <?php
 echo("<tr height='30px'>");
-echo("<td width='200px'>Current time</td>\n");
-echo("<td>". date("h:i:s a"). "</td></tr>\n");
-?>
-
-<?php
-echo("<tr height='30px'>");
 echo("<td width='200px'>Submit time limit</td>\n");
 $ttl = gettl();
 $wx = 'am';
@@ -88,12 +83,15 @@ if ($ttl >= 120000) {
 }
 printf("<td>%02d:%02d:00 %s</td></tr>", $ttl / 10000, $ttl % 10000 / 100, $wx);
 ?>
+</table>
 
+<table width='100%' align='center'>
 <tr height='30px'>
 <td width='200px'><label for 'name'> Username </td>
 </font></label></td>
 <td><?php echo getuid(); ?></td>
-</td></tr>
+</td>
+</tr>
 <?php
 for ($i=1;$i<=3;++$i) {
 	echo("<tr height='30px'><td><label for='f". $i. "'>");
@@ -108,6 +106,8 @@ for ($i=1;$i<=3;++$i) {
 <input type='submit' name='submit' value='Submit' align='center'/>
 </form>
 </div>
+</center>
+
 <?php
 include('oj-footer.php');
 ?>

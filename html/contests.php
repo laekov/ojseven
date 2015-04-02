@@ -45,51 +45,12 @@ while (($contd=readdir($dir))!=false)
 	}
 closedir($dir);
 rsort($cidl);
+echo "<table style='width:80%;align:center;text-align:center;'><tr height='42px'>";
 for ($ti=0;$ti<$tot;++$ti) {
 	$contd=$cidl[$ti];
-	echo "<div style='width:80%;text-align:left;'>";
-	echo "<span style='font-size:24px'>".$contd." </span>";
-	echo "<span style='cursor:pointer; font-size:16px; float: right;' id='cb".$contd."' onclick='chgstate(".$contd.")'>";
-	if ($ti > 3)
-		echo "Expand";
-	else
-		echo "Contract";
-	echo "</span>";
-	echo "<ul id='c".$contd."' ";
-	if ($ti > 3)
-		echo "style='display:none'";
-	echo ">";
-	$contd=("./data/".$contd."/");
-	$stat=0;
-	$ipf=fopen(($contd.".contcfg"),"r");
-	$hite=0;
-	while (!feof($ipf)) {
-		$text = fgets($ipf);
-		list($itid, $val) = sscanf($text,"%s%s");
-		if (strlen($itid)<1)
-			continue;
-		if ($itid == '<self>') {
-			echo "<li>". $text. "</li>";
-		}
-		elseif ($itid=='stat') {
-			$stat=$val;
-		}
-		else {
-			echo "<li><a href='".$contd.$val."'>".$itid."</a></li>";
-		}
-		$hite=1;
-	}
-	fclose($ipf);
-
-	if ($stat <= '1') {
-		echo "<li><a href='./uc.php?cid=".$cidl[$ti]."'>Status</a></li>";
-	}
-	if ($stat == '2') {
-		echo "<li><a href='./uc.php?cid=".$cidl[$ti]."'>Standings</a></li>";
-		echo "<li><a href='u.php?cmd=correction&cid=".$cidl[$ti]."'>Submit correction</a></li>";
-		echo "<li><a href='uc.php?cmd=correction&cid=".$cidl[$ti]."'>Correction status</a></li>";
-	}
-	echo "</ul><hr/></div>";
+	echo "<td><a href='cur.php?cid=".$contd."'>".$contd."</a> </td>";
+	if ($ti % 4 == 3)
+		echo "</tr><tr height='42px'>";
 }
 ?>
 </div>
