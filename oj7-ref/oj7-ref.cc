@@ -92,7 +92,7 @@ void loadContests() {
 				double r0 = (double)((ul[j]. csco[ci] == 0) ? (n - 1) : (ul[j]. crk[ci] - 1)) / (double)((n > 1) ? (n - 1) : 1);
 				//ul[j]. exp += (r0 - ul[j]. exp) * 0.142857142857;
 				++ ul[j]. tot_c;
-				if (ul[j]. tot_c >= 7) {
+				if (ul[j]. tot_c >= 3) {
 					double dt(r0 - ul[j]. exp);
 					int sgn((dt < 0) ? -1 : 1);
 					dt = pow(fabs(dt), 0.66666) / pow(log(ul[j]. tot_c) + 5.111111111, 1.1111111);
@@ -103,7 +103,7 @@ void loadContests() {
 						ul[j]. exp += dt;
 				}
 				else
-					ul[j]. exp += (r0 - ul[j]. exp) / 7.0;
+					ul[j]. exp += (r0 - ul[j]. exp) / 3.0;
 				//ul[j]. exp += log(r0 - ul[j]. exp) / log(2);;
 			}
 			ul[j]. exph[ci] = ul[j]. exp;

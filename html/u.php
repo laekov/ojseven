@@ -25,6 +25,8 @@ else {
 	list($cid)=fscanf($pf,"%s");
 	fclose($pf);
 }
+if (check_stat($cid) == 2)
+	$corr = 1;
 ?>
 
 <div id='uploadcode' align='center'>
@@ -39,13 +41,16 @@ function gettl() {
 	return $tl;
 }
 function check_time() {
-	if (check_stat($cid) != 1)
-		return false;
 	$tc = date("his");
 	//echo $tc;
 	if (date("a") == "pm" && $tc < 120000)
 		$tc += 120000;
 	//echo $tc;
+	$c_ipf = fopen("conf/cont.conf", "r");
+	$cid = fread($c_ipf, 8);
+	fclose($c_ipf);
+	if (check_stat($cid) != 1)
+		return false;
 	if ($tc <= gettl())
 		return true;
 	else
@@ -53,10 +58,7 @@ function check_time() {
 }
 
 if (!$corr && !check_time()) {
-	if (check_stat($cid) == 2)
-		header("Location: u.php?cmd=correction&cid=".$cid);
-	else
-		header("Location: error.php?word=Out of submit time");
+	header("Location: error.php?word=Out of submit time");
 	return;
 }
 echo("<tr height='30px'>");
