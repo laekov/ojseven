@@ -8,29 +8,37 @@
 include('oj-header.php');
 ?>
 <body>
-<table width="80%" align='center'>
-<tr><td>
 <h1 style='color: blue' align='center'>OJ7 beta 3</h1>
-<hr/>
-</td></tr>
 
-<tr><td>
+<center>
+<div style='align:center;width:80%;text-align:left;'>
+
+<div style='float:left;width:60%'>
+<div>
 <h2 align='center'>Notice</h2>
-<pre class='bcode'><?php include("conf/notice.list"); ?></pre>
-<hr/>
-</td></tr>
+<?php include("conf/notice.list"); ?>
+</div>
 
-
-<tr><td>
+<div>
 <h2 align='center'>Updates</h2>
-<pre class='bcode'><?php include("conf/upd.list"); ?></pre>
-<hr/>
-</td></tr>
+<?php 
+$ipf = fopen("conf/upd.list", "r"); 
+for ($i = 0; $i < 8 && !feof($ipf); ++ $i)
+	echo fgets($ipf)."<br/>";
+fclose($ipf);
+?>
+</div>
 
-<tr><td>
+</div>
+
+<div style='float:left;width:5%'>
+<p></p>
+</div>
+
+<div style='float:left;width:35%'>
+<div>
 <h2 align='center'> <a href='dw.php' style='text-decoration:none; color:blue'>Source packages</a></h2>
-Recent:
-<pre class='bcode'>
+Recent:<br/>
 <?php
 $upd_f = fopen("conf/download.list", "r");
 $cnt = 0;
@@ -39,17 +47,14 @@ while (!feof($upd_f) && $cnt <= 10) {
 	$tx = fgets($upd_f);
 	echo("<a href='". $tx. "'/>");
 	echo($tx);
-	echo("</a>");
+	echo("</a><br/>");
 }
 fclose($upd_f);
 ?>
-</pre>
-<hr/>
-</td></tr>
+</div>
 
-<tr><td>
+<div>
 <h2 align='center'>Common software</a></h2>
-<pre class='bcode'>
 <?php
 $upd_f = fopen("conf/soft.list", "r");
 $cnt = 0;
@@ -58,13 +63,15 @@ while (!feof($upd_f) && $cnt <= 10) {
 	$tx = fgets($upd_f);
 	echo("<a href='". $tx. "'/>");
 	echo($tx);
-	echo("</a>");
+	echo("</a><br/>");
 }
 fclose($upd_f);
 ?>
-</pre>
-</td></tr>
-</table>
+</div>
+</div>
+<div style='clear:both'></div>
+</div>
+</center>
 <?php
 include('oj-footer.php');
 ?>

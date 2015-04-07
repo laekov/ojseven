@@ -47,8 +47,10 @@ if (check_stat($cid) >= 2 || ($_SESSION['signedin'] && ($_SESSION['uid'] == $uid
 		$fln=$fln.".pas";
 	chmod($fln,0444);
 	$fls=abs(filesize($fln));
+	$crt = filemtime($fln);
 	chmod($fln,0000);
 	echo "Code length: ". $fls. " B<br/>";
+	echo "Submit time: ". date("Y-m-d H:m:s", $crt). "<br/>";
 }
 ?>
 </td></tr>

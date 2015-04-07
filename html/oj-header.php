@@ -9,8 +9,8 @@ include("oj-functions.php");
 <tr>
 <td align='center' width='14%' bgcolor='red' style='color:white; cursor: pointer; font-size: 200%; font-family: Monospace;' onclick=location.href='index.php' class='hitem'> 
 OJ7 </td>
-<td align='center' width='14%' bgcolor='orange' style='color:darkblue; cursor: pointer;' onclick=location.href='u.php' class='hitem'> 
-Submit </td>
+<td align='center' width='14%' bgcolor='orange' style='color:darkblue; cursor: pointer;' onclick=location.href='cur.php' class='hitem'> 
+Current </td>
 <td align='center' width='14%' bgcolor='yellow' style='color:blue; cursor: pointer;' onclick=location.href='uc.php' class='hitem'> 
 Status </td>
 <td align='center' width='14%' bgcolor='green' style='color:white; cursor: pointer;' onclick=location.href='contests.php' class='hitem'> 

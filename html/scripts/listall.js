@@ -1,6 +1,16 @@
+function inarr(key, arr) {
+	for (var i = 0; arr[i] != undefined; ++ i)
+		if (key == arr[i])
+			return true;
+	return false;
+}
+
 function listall() {
 	var fbeg=fliterbeg.value;
 	var fend=fliterend.value;
+	var speit = document.getElementById('specify').value.split(',');
+	if (speit[0]. length == 8)
+		fend = '00000000';
 	var srat=(fbeg=='00000000'&&fend=='99999999');
 	var text="";
 	var col=new Array();
@@ -29,7 +39,7 @@ function listall() {
 	else {
 		var coi=0;
 		for (var i=0;i<tot_c;++i)
-			if (cid[i]>=fbeg && cid[i]<=fend)
+			if ((cid[i]>=fbeg && cid[i]<=fend)|| inarr(cid[i], speit))
 				text=text+"<td><a style='color:yellow' href='uc.php?cid="+cid[i]+"'>"+cid[i]+"</a></td>";
 		text=text+"<td>Total</td></tr>";
 		var tsco=new Array(),cod=new Array();
@@ -39,12 +49,13 @@ function listall() {
 				continue;
 			var allz=1;
 			tsco[i]=0;
-			for (var j=0;j<tot_c==1;++j)
-				if (cid[j]>=fbeg && cid[j]<=fend)
+			for (var j=0;j<tot_c;++j) {
+				if ((cid[j]>=fbeg && cid[j]<=fend)|| inarr(cid[j], speit))
 					if (ul[i].csco[j]>-1) {
 						tsco[i]+=ul[i].csco[j];
 						allz=0;
 					}
+			}
 			if (allz==1)
 				continue;
 			cod[n]=i;
@@ -66,7 +77,7 @@ function listall() {
 				text=text+"(<font style='color:green'>"+ul[i].uname+"</font>)";
 			text=text+"</a></td>";
 			for (var j=0;j<tot_c;++j)
-				if (cid[j]>=fbeg && cid[j]<=fend)
+				if ((cid[j]>=fbeg && cid[j]<=fend)|| inarr(cid[j], speit))
 					if (ul[i].csco[j]>-1)
 						text=text+"<td>"+ul[i].csco[j]+" ("+ul[i].crk[j]+")</td>";
 					else

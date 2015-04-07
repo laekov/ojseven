@@ -59,7 +59,7 @@ function write_cfg($cid, $pid, $ptitle) {
 	fprintf($pf, "%s\n%s.in\n%s.out\n", $ptitle, $ptitle, $ptitle);
 	fprintf($pf, "%s/%s%%d.in\n", $ptitle, $ptitle);
 	fprintf($pf, "%s/%s%%d.out\n", $ptitle, $ptitle);
-	fprintf($pf, "1 10\n1000 128\n");
+	fprintf($pf, "1 10\n1000 256\n");
 	fclose($pf);
 	return true;
 }

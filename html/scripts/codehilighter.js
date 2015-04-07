@@ -112,7 +112,8 @@ function sethls_special() {
 	var tas = document.getElementsByTagName("pre");
 	//document.write(tas.length);
 	for (var i = 0; i < tas.length; ++ i)
-		sethl_special(tas[i]);
+		if (tas[i]['class'] == 'scode')
+			sethl_special(tas[i]);
 }
 
 function sethlById(id) {

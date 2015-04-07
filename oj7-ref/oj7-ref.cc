@@ -104,6 +104,8 @@ void loadContests() {
 				}
 				else
 					ul[j]. exp += (r0 - ul[j]. exp) / 3.0;
+				//if (strstr(ul[j]. uid. c_str(), "yjq"))
+					//ul[j]. exp = 1;
 				//ul[j]. exp += log(r0 - ul[j]. exp) / log(2);;
 			}
 			ul[j]. exph[ci] = ul[j]. exp;
@@ -119,10 +121,10 @@ void showUsers() {
 	printf("Total: %d\n", tu);
 }
 
-const double rxx = 1.0 / acos(-1);
+const double rxx = acos(-1);
 
 int getRating(double exp) {
-	return 1131.36 / (exp + rxx);
+	return log((rxx - exp) * 1000) / log(1.0000001) * 0.00142443 - 110000;
 }
 
 void writeJS() {

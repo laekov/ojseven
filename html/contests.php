@@ -65,7 +65,7 @@ for ($ti=0;$ti<$tot;++$ti) {
 		echo "<td><span style='color:green'>Finished</span></td>";
 	}
 	else {
-		echo "<td><span style='color:black'Unknown</span></td>";
+		echo "<td><span style='color:black'>Unknown</span></td>";
 	}
 	$csu = cntline("./upload/".$contd."/uid.list");
 	$cco = cntline("./upload/".$contd."/cuid.list");

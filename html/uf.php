@@ -78,7 +78,7 @@ else if ($corr) {
 		$hite=1;
 	}
 	fclose($ipf);
-	if ($stat<2) {
+	if ($stat<2 && !is_admin($uid)) {
 		header("Location: error.php?word=How do you find this page?");
 		return;
 	}
