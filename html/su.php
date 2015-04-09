@@ -41,13 +41,13 @@ if ($_GET['cmd'] == 'recv') {
 		return;
 	}
 	else {
-		$fln = "./users/". $uid. ".uinfo";
+		$fln = "../users/". $uid. ".uinfo";
 		if (is_file($fln))
 			header("Location: error.php?word=User id already used");
 		$opf = fopen($fln, "w");
 		fprintf($opf, "%s\n%s\n", $uname, $grade);
 		fclose($opf);
-		$fln = "./users/". $uid. ".upasswd";
+		$fln = "../users/". $uid. ".upasswd";
 		$opf=fopen($fln,"w");
 		fprintf($opf,"%s",MD5($passwd));
 		fclose($opf);

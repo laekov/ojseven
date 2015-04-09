@@ -53,13 +53,13 @@ if ($_FILES['file']['size'] > 0) {
 	$dest = ("./packs/". $_FILES['file']['name']);
 	if ($_GET['cmd'] == 'udata') {
 		$cid = getcid();
-		$dest = "./data/". $cid. "/". $_FILES['file']['name'];
+		$dest = "../data/". $cid. "/". $_FILES['file']['name'];
 		if (strstr($dest, "admin.conf") != false) {
 			header("Location: error.php?word=Dangerous operation");
 			return;
 		}
 		if (strlen($_POST['dest']) > 0)
-			$dest = "./data/". $cid. "/". $_POST['dest'];
+			$dest = "../data/". $cid. "/". $_POST['dest'];
 	}
 	else if (strlen($_POST['dest']) > 0)
 		$dest = $_POST['dest'];
@@ -74,7 +74,7 @@ if ($_FILES['file']['size'] > 0) {
 	if ($_GET['cmd'] == 'udata') {
 		if (strpos($dest, "zip") != false) {
 			chmod($dest, 0777);
-			$cmd = "unzip -o -q ./". $dest. " -d ./data/". $cid;
+			$cmd = "unzip -o -q ./". $dest. " -d ../data/". $cid;
 			echo exec($cmd);
 		}
 	}

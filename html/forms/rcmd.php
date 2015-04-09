@@ -13,6 +13,8 @@
 <li>Start judge: <br/><pre>oj7-cjudge run</pre></li>
 <li>Start judge on time: <br/><pre>oj7-timer 12:30:01 oj7-cjudge run</pre></li>
 <li>Compile spj: <br/><pre>g++ ./data/20150319/sort/spj.cpp -o ./data/20150319/sort/spj</pre></li>
+<li>Rejudge a person: <br/><pre>oj7-cjudge rejudgeu [uid]</pre></li>
+<li>Rejudge a problem: <br/><pre>oj7-cjudge rejudgep [a/b/c]</pre></li>
 </ul>
 </div>
 </center>

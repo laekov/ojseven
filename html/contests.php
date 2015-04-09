@@ -35,14 +35,14 @@ function chgstate(id) {
 
 <div align='center'>
 <?php
-$dir=opendir("./data");
+$dir=opendir("../data");
 $cidl=Array();
 $ccfg = Array();
 $tot=0;
 while (($contd=readdir($dir))!=false)
-	if (is_file("./data/".$contd."/.contcfg")) {
+	if (is_file("../data/".$contd."/.contcfg")) {
 		$cidl[$tot]=$contd;
-		$fln = "./data/".$contd."/.contcfg";
+		$fln = "../data/".$contd."/.contcfg";
 		++$tot;
 	}
 closedir($dir);
@@ -55,7 +55,7 @@ for ($ti=0;$ti<$tot;++$ti) {
 	else
 		echo "<tr style='background-color:#efefff;color:black;'>";
 	$contd=$cidl[$ti];
-	$cfgfln = "./data/".$contd."/.contcfg";
+	$cfgfln = "../data/".$contd."/.contcfg";
 	$curcfg = readccfg($cfgfln);
 	echo "<td><a href='cur.php?cid=".$contd."'>".$contd."</a> </td>";
 	if ($curcfg['stat'] == '1') {
@@ -67,8 +67,8 @@ for ($ti=0;$ti<$tot;++$ti) {
 	else {
 		echo "<td><span style='color:black'>Unknown</span></td>";
 	}
-	$csu = cntline("./upload/".$contd."/uid.list");
-	$cco = cntline("./upload/".$contd."/cuid.list");
+	$csu = cntline("../upload/".$contd."/uid.list");
+	$cco = cntline("../upload/".$contd."/cuid.list");
 	echo "<td><a href='uc.php?cid=".$contd."'>";
 	echo "x".$csu;
 	echo "</a></td>";

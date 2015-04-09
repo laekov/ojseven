@@ -1,6 +1,6 @@
 <?php
 function check_passwd($uid,$passwd) {
-	$pfln=("./users/".$uid);
+	$pfln=("../users/".$uid);
 	if (!is_file($pfln.".uinfo")) {
 		return 1;
 	}
@@ -24,7 +24,7 @@ function getuid() {
 }
 
 function getUname($uid) {
-	$fln=("./users/".$uid.".uinfo");
+	$fln=("../users/".$uid.".uinfo");
 	$ipf=fopen($fln,"r");
 	list($id)=fscanf($ipf,"%s");
 	fclose($ipf);
@@ -32,7 +32,7 @@ function getUname($uid) {
 }
 
 function getUgrade($uid) {
-	$fln=("./users/".$uid.".uinfo");
+	$fln=("../users/".$uid.".uinfo");
 	$ipf=fopen($fln,"r");
 	list($id)=fscanf($ipf,"%s");
 	list($id)=fscanf($ipf,"%s");
@@ -56,7 +56,7 @@ function is_admin($uid) {
 }
 
 function check_stat($cid) {
-	$fln=("./data/".$cid."/.contcfg");
+	$fln=("../data/".$cid."/.contcfg");
 	if (!is_file($fln))
 		return 0;
 	$ipf=fopen($fln,"r");
@@ -112,7 +112,7 @@ function showcodenl($fln) {
 }
 
 function printcode($cid,$uid,$pid) {
-	$fln="./upload/".$cid."/".$uid."/".$pid;
+	$fln="../upload/".$cid."/".$uid."/".$pid;
 	if (is_file($fln.".cpp"))
 		$fln=$fln.".cpp";
 	else if (is_file($fln.".c"))

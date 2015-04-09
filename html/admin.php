@@ -48,13 +48,13 @@ function write_file($filename, $item) {
 	return true;
 }
 function write_cfg($cid, $pid, $ptitle) {
-	if (!is_dir("./data/". $cid)) {
-		if (!mkdir("./data/". $cid)) {
+	if (!is_dir("../data/". $cid)) {
+		if (!mkdir("../data/". $cid)) {
 			echo "Mkdir failed";
 			return false;
 		}
 	}
-	$pf = fopen(("data/". $cid. "/". $pid. ".cfg"), "w");
+	$pf = fopen(("../data/". $cid. "/". $pid. ".cfg"), "w");
 	//fputs($pf, $ptitle);
 	fprintf($pf, "%s\n%s.in\n%s.out\n", $ptitle, $ptitle, $ptitle);
 	fprintf($pf, "%s/%s%%d.in\n", $ptitle, $ptitle);
@@ -65,13 +65,13 @@ function write_cfg($cid, $pid, $ptitle) {
 }
 
 function write_ccfg($cid) {
-	if (!is_dir("./data/". $cid)) {
-		if (!mkdir("./data/". $cid)) {
+	if (!is_dir("../data/". $cid)) {
+		if (!mkdir("../data/". $cid)) {
 			echo "Mkdir failed";
 			return false;
 		}
 	}
-	$pf = fopen(("data/". $cid. "/.contcfg"), "w");
+	$pf = fopen(("../data/". $cid. "/.contcfg"), "w");
 	fprintf($pf,"stat 1");
 	fclose($pf);
 }
@@ -94,9 +94,9 @@ else if ($_GET['cmd'] == 'ccont_get') {
 	else
 		echo "End time not changed<br/>";
 	for ($i = 'a'; $i <= 'c'; ++ $i)
-		if (!is_file("./data/".$_POST['cid']."/".$i.".cfg"))
+		if (!is_file("../data/".$_POST['cid']."/".$i.".cfg"))
 			write_cfg($cid, $i, $_POST[$i]);
-	if (!is_file("./data/".$_POST['cid']."/.contcfg"))
+	if (!is_file("../data/".$_POST['cid']."/.contcfg"))
 		write_ccfg($cid);
 	include("forms/ccont.php");
 	echo "Changed<br/>";
@@ -108,7 +108,7 @@ else if ($_GET['cmd'] == 'cprob_get') {
 	$cid = read_fline("./conf/cont.conf");
 	for ($i = 'a'; $i <= 'c'; ++ $i)
 		if (strlen($_POST[$i]) > 0) {
-			$cfln = ("./data/". $cid. "/". $i. ".cfg");
+			$cfln = ("../data/". $cid. "/". $i. ".cfg");
 			write_file($cfln, $_POST[$i]);
 		}
 	include("./forms/cprob.php");
@@ -145,7 +145,7 @@ else if ($_GET['cmd'] == 'rcmd_get') {
 }
 else if ($_GET['cmd'] == 'ls') {
 	$cid = read_fline("./conf/cont.conf");
-	$pth = "./data/".$cid;
+	$pth = "../data/".$cid;
 	if (strlen($_POST['path']) > 0)
 		$pth = $_POST['path'];
 	include("forms/ls.php");

@@ -63,7 +63,7 @@ if (check_stat($cid) == 1) {
 <?php
 $cfgs = Array();
 for ($pi = 'a'; $pi < 'd'; ++ $pi) {
-	$cfgs[$pi] = readcfg("./data/".$cid."/".$pi.".cfg");
+	$cfgs[$pi] = readcfg("../data/".$cid."/".$pi.".cfg");
 }
 echo "<tr style='background-color:#3f3fff;color:white;'><td>Problem</td>";
 for ($pi = 'a'; $pi < 'd'; ++ $pi)
@@ -112,7 +112,7 @@ echo "</tr>";
 <ul>
 <?php
 $stat = 0;
-$fln = "./data/".$cid."/.contcfg";
+$fln = "../data/".$cid."/.contcfg";
 if (is_file($fln)) {
 	$ipf = fopen($fln, "r");
 	while (!feof($ipf)) {
@@ -127,7 +127,8 @@ if (is_file($fln)) {
 			$stat=$val;
 		}
 		else {
-			echo "<li><a href='./data/".$cid."/".$val."'>".$itid."</a></li>";
+			$dwid = "download.php?cid=".$cid."&packid=".$val;
+			echo "<li><a href='".$dwid."'>".$itid."</a></li>";
 		}
 		$hite=1;
 	}

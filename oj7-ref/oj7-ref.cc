@@ -128,7 +128,7 @@ int getRating(double exp) {
 }
 
 void writeJS() {
-	FILE* opf = fopen("./rescnt/data.js", "w");
+	FILE* opf = fopen("./html/rescnt/data.js", "w");
 	fprintf(opf, "var tot_c=%d;\n", tc);
 	fprintf(opf, "var cid=new Array();\n");
 	fprintf(opf, "var ctot=new Array();\n");
@@ -160,7 +160,7 @@ void writeJS() {
 int main(int argc, char* args[]) {
 	//if (argc > 1)
 	//	chdir(args[1]);
-	chdir("/var/www/html");
+	chdir("/var/www");
 	loadUsers();
 	loadContests();
 	showUsers();

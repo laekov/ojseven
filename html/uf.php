@@ -61,7 +61,7 @@ if (!$corr && !check_time()) {
 	return;
 }
 else if ($corr) {
-	$contd=("./data/".$cid."/");
+	$contd=("../data/".$cid."/");
 	$stat=0;
 	$ipf=fopen(($contd.".contcfg"),"r");
 	$hite=0;
@@ -85,9 +85,11 @@ else if ($corr) {
 	
 	$ufid=($uid."-".date("Ymdhisa"));
 
-	$tmpstr = ('./upload/'.$cid);
-	if (!is_dir($tmpstr))
+	$tmpstr = ('../upload/'.$cid);
+	if (!is_dir($tmpstr)) {
 		mkdir($tmpstr);
+		chmod(0777, $tmpstr);
+	}
 
 	$ulpt=fopen(($tmpstr."/cuid.list"),"a");
 	fprintf($ulpt,"%s\n",$ufid);
@@ -95,6 +97,7 @@ else if ($corr) {
 
 	$tmpstr = ($tmpstr."/".$ufid);
 	mkdir($tmpstr);
+	chmod(0777,$tmpstr);
 
 	for ($fi=1;$fi<=3;++$fi) {
 		$MSUC = false;
@@ -104,7 +107,7 @@ else if ($corr) {
 			return;
 		}
 		else if (strlen($_FILES[$FF]['name'])>0) {
-			$TP = './upload/'. $cid. '/'. $ufid. '/'. $_FILES[$FF]['name'];
+			$TP = '../upload/'. $cid. '/'. $ufid. '/'. $_FILES[$FF]['name'];
 			if (!move_uploaded_file($_FILES[$FF]['tmp_name'], $TP)) {
 				header("Location: error.php?word=Moving error!".$TP);
 				return;
@@ -114,7 +117,7 @@ else if ($corr) {
 			}
 			if ($MSUC && strpos($_FILES[$FF]['name'], "zip")) {
 				chmod($TP, 0777);
-				$cmd = ("unzip -o -q ". $TP. " -d ". "./upload/". $cid. "/". $uid);
+				$cmd = ("unzip -o -q ". $TP. " -d ". "../upload/". $cid. "/". $uid);
 				exec($cmd);
 			}
 		}
@@ -131,18 +134,20 @@ else {
 	echo("User name: ".$uid."<br/>");
 	echo("<hr/></div>");
 
-	$tmp_str = ('./upload/'. $cid);
+	$tmp_str = ('../upload/'. $cid);
 	if (!is_dir($tmp_str)) {
 		mkdir($tmp_str);
+		chmod(0777,$tmp_str);
 	}
 
-	$tmp_str = ('./upload/'. $cid);
+	$tmp_str = ('../upload/'. $cid);
 	$tmp_str = ($tmp_str. '/'. $uid);
 	if (!is_dir($tmp_str)) {
 		mkdir($tmp_str);
+		chmod(0777,$tmp_str);
 	}
 
-	$l_path = "./upload/". $cid. "/uid.list";
+	$l_path = "../upload/". $cid. "/uid.list";
 	if (!is_file($l_path)) {
 		$pf = fopen($l_path, "w");
 		fclose($pf);
@@ -182,7 +187,7 @@ else {
 			echo("Name:\t". $_FILES[$FF]['name']. "<br/>");
 			echo("Size:\t". $_FILES[$FF]['size']. "byte<br/>");
 		//	echo("Type:\t". $_FILES[$FF]['type']. "<br/>");
-			$TP = './upload/'. $cid. '/'. $uid. '/'. $_FILES[$FF]['name'];
+			$TP = '../upload/'. $cid. '/'. $uid. '/'. $_FILES[$FF]['name'];
 		//	echo("Path:\t". $TP. "<br/>");
 			if (!move_uploaded_file($_FILES[$FF]['tmp_name'], $TP)) {
 				echo("Moving error<br/>");
@@ -198,7 +203,7 @@ else {
 				}
 				else {
 					chmod($TP, 0777);
-					$cmd = ("unzip -o -q ". $TP. " -d ". "./upload/". $cid. "/". $uid);
+					$cmd = ("unzip -o -q ". $TP. " -d ". "../upload/". $cid. "/". $uid);
 					//echo $cmd;
 					exec($cmd);
 				}

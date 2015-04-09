@@ -60,7 +60,7 @@ echo "var pname=new Array();\n";
 $cnt=0;
 $pid=array();
 for ($i='a';$i<='c';++$i) {
-	$fln=("./data/".$cid."/".$i.".cfg");
+	$fln=("../data/".$cid."/".$i.".cfg");
 	if (!is_file($fln))
 		header("Location: error.php?word=Wrong contest");
 	$ipf=fopen($fln, "r");
@@ -69,9 +69,9 @@ for ($i='a';$i<='c';++$i) {
 	echo "pname[".($cnt)."]='".$pid[$cnt]."';\n";
 	++$cnt;
 }
-$fln=("./upload/".$cid."/uid.list");
+$fln=("../upload/".$cid."/uid.list");
 if ($corr)
-	$fln=("./upload/".$cid."/cuid.list");
+	$fln=("../upload/".$cid."/cuid.list");
 if (!is_file($fln)) {
 	header("Location: error.php?word=No submissions");
 	return;
@@ -92,13 +92,13 @@ while (true) {
 	echo "ul[".$cu."].a=new Array();\n";
 	for ($i='a';$i<='c';++$i) {
 		echo "ul[".$cu."].a[".$pn."]={};\n";
-		$pprf=('./upload/'.$cid."/".$uid."/".$pid[$pn]);
+		$pprf=('../upload/'.$cid."/".$uid."/".$pid[$pn]);
 		if (!is_file($pprf.".cpp")&&!is_file($pprf.".c")&&!is_file($pprf.".pas")&&!is_file($pprf.".zip")) {
 			echo "ul[".$cu."].a[".$pn."].wd='No file';\n";
 			echo "ul[".$cu."].a[".$pn."].sco=-1;\n";
 		}
 		else {
-			$pprf=('./upload/'.$cid."/".$uid."/.ajtest/".$i.".rs");
+			$pprf=('../upload/'.$cid."/".$uid."/.ajtest/".$i.".rs");
 			if (!is_file($pprf)) {
 				echo "ul[".$cu."].a[".$pn."].wd='Pending';\n";
 				echo "ul[".$cu."].a[".$pn."].sco=-1;\n";

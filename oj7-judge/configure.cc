@@ -17,6 +17,7 @@ void prob_cfg :: load(char *arg1, char* arg2, char* arg3) {
 		fscanf(ipf, "%d%d%d%d", &beg_num, &end_num, &time_lmt, &mem_lmt);
 		spj = 0;
 		ansonly = 0;
+		co2 = 0;
 		while (fscanf(ipf, "%s", tmpstr) != EOF)
 			if (!strcmp(tmpstr, "spj")) {
 				spj = 1;
@@ -25,6 +26,8 @@ void prob_cfg :: load(char *arg1, char* arg2, char* arg3) {
 			else if (!strcmp(tmpstr, "ansonly")) {
 				ansonly = 1;
 			}
+			else if (!strcmp(tmpstr, "co2"))
+				co2 = 1;
 		fclose(ipf);
 	}
 	if (ansonly) {
@@ -47,7 +50,7 @@ void prob_cfg :: load(char *arg1, char* arg2, char* arg3) {
 	strcpy(opt_fmt, tmpstr);
 
 	prg_lang = -1;
-	for (int i = 0; i < 4; ++ i) {
+	for (int i = 0; i < 3; ++ i) {
 		sprintf(prg_name, "%s/%s.%s", arg1, prob_name, lang_suf[i]);
 		if (access(prg_name, 0) == 0) {
 			prg_lang = i;

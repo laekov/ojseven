@@ -23,11 +23,11 @@ echo("<br/>");
 <td>User</td><td>Uploaded code</td>
 </tr>
 <?php
-$c_dir = opendir('./upload/'. $cid);
+$c_dir = opendir('../upload/'. $cid);
 $tot_p = 0;
 $tot_c = 0;
 while (($u_dir = readdir($c_dir)) != false) {
-	$sub_dir = opendir('./upload/'. $cid. '/'. $u_dir); 
+	$sub_dir = opendir('../upload/'. $cid. '/'. $u_dir); 
 	if ($u_dir == '.' || $u_dir == '..')
 		continue;
 	else {

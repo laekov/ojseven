@@ -29,14 +29,14 @@ function checkID($x) {
 	return true;
 }
 
-$fln = "./data/". $cid. '/'. $pid. ".cfg";
+$fln = "../data/". $cid. '/'. $pid. ".cfg";
 $ipf = fopen($fln, "r");
 $gtmp = fscanf($ipf, "%s");
 list($pname) = $gtmp;
 echo("Problem: ". $pname. "<br/>");
 
 if (check_stat($cid) >= 2 || ($_SESSION['signedin'] && ($_SESSION['uid'] == $uid || is_admin($_SESSION['uid'])))) {
-	$fln="./upload/".$cid."/".$uid."/".$pname;
+	$fln="../upload/".$cid."/".$uid."/".$pname;
 	if (is_file($fln.".cpp"))
 		$fln=$fln.".cpp";
 	elseif (is_file($fln.".cc"))
@@ -65,8 +65,8 @@ $tot_p = $end_n - $beg_n + 1;
 $tott = 0;
 $maxm = 0;
 fclose($ipf);
-if (is_dir("./upload/". $cid. "/". $uid. "/.ajtest")) {
-	$fln = "./upload/". $cid. "/". $uid. "/.ajtest/". $pid. ".rs";
+if (is_dir("../upload/". $cid. "/". $uid. "/.ajtest")) {
+	$fln = "../upload/". $cid. "/". $uid. "/.ajtest/". $pid. ".rs";
 	if (!is_file($fln)) {
 		header("Location: error.php?word=Judgement not finished");
 	}
@@ -76,8 +76,8 @@ if (is_dir("./upload/". $cid. "/". $uid. "/.ajtest")) {
 		list($tot_sco) = fscanf($ipf, "%d");
 		if ($res == 'CE') {
 			echo "<tr><td></td><td>Compile error<br/>";
-			if (is_file("./upload/". $cid. "/". $uid. "/.ajtest/compile". $pid. ".log")) {
-				$fln=("./upload/". $cid. "/". $uid. "/.ajtest/compile". $pid. ".log");
+			if (is_file("../upload/". $cid. "/". $uid. "/.ajtest/compile". $pid. ".log")) {
+				$fln=("../upload/". $cid. "/". $uid. "/.ajtest/compile". $pid. ".log");
 				echo "<pre style='scode'>";
 				showcodenl($fln);
 				echo "</pre>";
@@ -116,9 +116,9 @@ if (is_dir("./upload/". $cid. "/". $uid. "/.ajtest")) {
 					$sco=0;
 				echo "Score: <font style='color: blue'>". $sco. "</font>";
 				if ($wd[0] == 'W') {
-					if (is_file("./upload/". $cid. "/". $uid. "/.ajtest/diff". $pid. ($i + $beg_n). ".log")) {
+					if (is_file("../upload/". $cid. "/". $uid. "/.ajtest/diff". $pid. ($i + $beg_n). ".log")) {
 						echo "<pre class='wcode'>Diffrence:\n";
-						$d_ipf = fopen(("./upload/". $cid. "/". $uid. "/.ajtest/diff". $pid. ($i + $beg_n). ".log"), "r");
+						$d_ipf = fopen(("../upload/". $cid. "/". $uid. "/.ajtest/diff". $pid. ($i + $beg_n). ".log"), "r");
 						while (!feof($d_ipf))
 							echo htmlspecialchars(fgets($d_ipf));
 						fclose($d_ipf);
@@ -138,7 +138,7 @@ if (is_dir("./upload/". $cid. "/". $uid. "/.ajtest")) {
 	}
 }
 else {
-	$fln = "./upload/". $cid. "/". $uid. "/". "res". $pid. ".rs";
+	$fln = "../upload/". $cid. "/". $uid. "/". "res". $pid. ".rs";
 	if (is_file($fln)) {
 		$ipf = fopen($fln, "r");
 		$gtmp = fscanf($ipf, "%d");
@@ -152,7 +152,7 @@ else {
 				echo("Dangerous word");
 			else {
 				echo("Compile error!<br/>Compiler info:<br/>");
-				$cfln = "./upload/". $cid. "/". $uid. "/ajtest/compile". $pid. ".log";
+				$cfln = "../upload/". $cid. "/". $uid. "/ajtest/compile". $pid. ".log";
 				echo("<pre style='lcode'>");
 				if (is_file($cfln)) {
 					showcode($cfln);
@@ -173,7 +173,7 @@ else {
 				echo("Time = ". $rtime. " ms<br/>");
 				if ($gres[0] == 'W') {
 					$num = $i + $beg_n;
-					$lpath = "./upload/". $cid. "/". $uid. "/ajtest/diff". $pid. $num. ".log"; 
+					$lpath = "../upload/". $cid. "/". $uid. "/ajtest/diff". $pid. $num. ".log"; 
 					$dipf = fopen($lpath, "r");
 					echo("Diff info:<pre><br/>");
 					for ($j = 0; $j < 50 && !feof($dipf); ++ $j) {

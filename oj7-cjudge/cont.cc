@@ -12,7 +12,7 @@ bool cmpUser(const user& a, const user& b) {
 }
 
 int getcid() {
-	FILE* pf = fopen("conf/cont.conf", "r");
+	FILE* pf = fopen("./html/conf/cont.conf", "r");
 	if (!pf)
 		return 0;
 	int x;

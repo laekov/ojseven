@@ -17,7 +17,7 @@ for ($i = 'a'; $i <= 'c'; ++ $i) {
 	echo "<tr>\n";
 	echo "<td><label for='". $i. "'> Problem ". $i. "</td>\n";
 	if (strlen($cid) > 0)
-		echo "<td><input type='text' id='pid". $i. "' name='". $i. "'". " value='". read_fline("./data/". $cid. "/". $i. ".cfg"). "'/></td>";
+		echo "<td><input type='text' id='pid". $i. "' name='". $i. "'". " value='". read_fline("../data/". $cid. "/". $i. ".cfg"). "'/></td>";
 	else
 		echo "<td><input type='text' id='". $i. "' name='". $i. "'/></td>";
 	echo "</tr>";

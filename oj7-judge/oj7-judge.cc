@@ -42,8 +42,10 @@ int main(int argc, char* args[]) {
 	puts(ccfg. prg_name);
 	setcolor(0);
 
-	if (ccfg. prg_lang == -1)
+	if (ccfg. prg_lang == -1) {
 		cres. write_ce((char*)"No code");
+		cpres = 1;
+	}
 	else if (!ccfg. ansonly) {
 		cpres = compile(ccfg);
 		if (cpres == 1)

@@ -13,10 +13,10 @@ int main(int argc, char* args[]) {
 	if (argc > 1)
 		chdir(args[1]);
 	else
-		chdir("/var/www/html");
+		chdir("/var/www");
 	while (1) {
-		if (access(".runrequire", 0) > -1) {
-			FILE* ipf = fopen(".runrequire", "r");
+		if (access("html/.runrequire", 0) > -1) {
+			FILE* ipf = fopen("html/.runrequire", "r");
 			while (!feof(ipf)) {
 				fgets(gcmd, sizeof(gcmd), ipf);
 				if (feof(ipf))
@@ -29,10 +29,8 @@ int main(int argc, char* args[]) {
 				}
 			}
 			fclose(ipf);
-			system("rm .runrequire");
+			system("rm html/.runrequire");
 		}
 		sleep(1);
-		time_t tt = time(0);
-		printf("oj7-watcher running. curtime: %s", ctime(&tt));
 	}
 }

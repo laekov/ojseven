@@ -60,6 +60,8 @@ struct prob_cfg {
 	int beg_num, end_num;
 	int time_lmt, mem_lmt;
 
+	bool co2;
+
 	prob_cfg();
 	void load(char*, char*, char*);
 };

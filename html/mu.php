@@ -29,12 +29,12 @@ else if ($_GET['cmd'] == 'recv') {
 		header("Location: error.php?word=Password not match!");
 		return;
 	}
-	$fln = "./users/". $uid. ".uinfo";
+	$fln = "../users/". $uid. ".uinfo";
 	$opf = fopen($fln, "w");
 	fprintf($opf, "%s\n%s\n", $uname, $grade);
 	fclose($opf);
 	if (strlen($passwd)>0) {
-		$fln = "./users/". $uid. ".upasswd";
+		$fln = "../users/". $uid. ".upasswd";
 		$opf=fopen($fln,"w");
 		fprintf($opf,"%s",MD5($passwd));
 		fclose($opf);
