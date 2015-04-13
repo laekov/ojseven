@@ -126,6 +126,8 @@ if (is_file($fln)) {
 		elseif ($itid=='stat') {
 			$stat=$val;
 		}
+		elseif ($itid=='tag') {
+		}
 		else {
 			$dwid = "download.php?cid=".$cid."&packid=".$val;
 			echo "<li><a href='".$dwid."'>".$itid."</a></li>";

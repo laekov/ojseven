@@ -38,8 +38,13 @@ if ($corr)
 </td>
 
 <td style='text-align:right'>
-<a href='uc.php?cid=<?php echo $cid; if (!$corr) echo "&cmd=correction"; ?>' style='color:blue;padding:40px;'><?php if ($corr) echo "Standings"; else echo "Correction status" ?></a>
+<a href='uc.php?cid=<?php echo $cid; if (!$corr) echo "&cmd=correction"; ?>'><?php if ($corr) echo "Standings"; else echo "Correction status" ?></a>
 </td>
+
+<td style='text-align:right'>
+<a href='cur.php?cid=<?php echo $cid; ?>'>Back</a>
+</td>
+</tr>
 </tr>
 </table>
 
@@ -137,7 +142,7 @@ show_chart();
 
 <script>
 <?php
-if (is_file(".cjudgerunning"))
+if (is_file("../.cjudgerunning"))
 	echo 'setTimeout("window.location.reload()",1000);';
 ?>
 </script>

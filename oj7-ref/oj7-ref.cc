@@ -41,6 +41,31 @@ void loadUsers() {
 	closedir(drp);
 }
 
+bool isUnrated(char* cid) {
+	char tmp[100], *i;
+	sprintf(tmp, "./data/%s/.contcfg", cid);
+	FILE* ipf(fopen(tmp, "r"));
+	if (ipf) {
+		while (1) {
+			fgets(tmp, sizeof(tmp), ipf);
+			if (feof(ipf))
+				break;
+			for (i = tmp; *i && *i != 32; ++ i);
+			*i = 0;
+			if (!strcmp(tmp, "tag")) {
+				if (strstr(i + 1, "unrated")) {
+					fclose(ipf);
+					return 1;
+				}
+			}
+		}
+		fclose(ipf);
+		return 0;
+	}
+	else
+		return 0;
+}
+
 void loadContests() {
 	char tmpstr[max_str];
 	tc = 0;
@@ -55,6 +80,10 @@ void loadContests() {
 				continue;
 			int n;
 			fscanf(ipf, "%s%d", tmpstr, &n);
+			if (isUnrated(tmpstr)) {
+				fclose(ipf);
+				continue;
+			}
 			cl[tc]. cid = string(tmpstr);
 			cl[tc]. tot = n;
 			++ tc;
@@ -105,7 +134,7 @@ void loadContests() {
 				else
 					ul[j]. exp += (r0 - ul[j]. exp) / 3.0;
 				//if (strstr(ul[j]. uid. c_str(), "yjq"))
-					//ul[j]. exp = 1;
+				//ul[j]. exp = 1;
 				//ul[j]. exp += log(r0 - ul[j]. exp) / log(2);;
 			}
 			ul[j]. exph[ci] = ul[j]. exp;

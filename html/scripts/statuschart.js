@@ -32,6 +32,8 @@ function show_chart() {
 	else
 		text+="<td width='50px'>Rank</td>";
 	text+="<td>User</td>";
+	if (corr == 1)
+		text+="<td>Time</td>";
 	for (var i=0;i<3;++i)
 		text+="<td style='cursor:pointer;' onclick='resortprob("+i+")'>"+pname[i]+"</td>";
 	text+="<td width='100px' style='cursor:pointer' onclick='resortprob(-1);'>Total</td>";
@@ -44,7 +46,9 @@ function show_chart() {
 		else if (ti > 0 && ul[ti].tot_sco != ul[od[ti - 1]]. tot_sco)
 			trk = ti;
 		text+="<td>"+(trk+1)+"</td>";
-		text+="<td><a href='cnt.php?uid="+(ul[i].uid.split('-')[0])+"'>"+ul[i].uid+"</a></td>";
+		text+="<td><a href='cnt.php?uid="+(ul[i].uid.split('-')[0])+"'>"+ul[i].uid.split('-')[0]+"</a></td>";
+		if (corr == 1) 
+			text+="<td>"+ul[i].uid.split('-')[1]+"</td>";
 		for (var j=0;j<3;++j) {
 			var k;
 			if (j==0)
