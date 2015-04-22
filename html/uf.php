@@ -19,6 +19,14 @@ else {
 	$cid = fread($c_ipf, 8);
 	fclose($c_ipf);
 }
+if (!$_SESSION['signedin']) {
+	header("Location: error.php?word=Please sign in first");
+	return;
+}
+if (!checkaccess($cid, $_SESSION['uid'])) {
+	header("Location: error.php?word=Access denied");
+	return;
+}
 ?>
 
 <div align='center' width='80%'>

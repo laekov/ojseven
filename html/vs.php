@@ -16,6 +16,16 @@ include('oj-header.php');
 $uid = $_GET['uid'];
 $cid = $_GET['cid'];
 $pid = $_GET['pid'];
+
+if (!$_SESSION['signedin']) {
+	header("Location: error.php?word=Please sign in first");
+	return;
+}
+if (!checkaccess($cid, $_SESSION['uid'])) {
+	header("Location: error.php?word=Access denied");
+	return;
+}
+
 echo("Contest id: ". $cid. "<br/>");
 echo("User id: ". $uid. "<br/>");
 

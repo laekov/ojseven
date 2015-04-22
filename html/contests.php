@@ -54,11 +54,13 @@ closedir($dir);
 rsort($cidl);
 echo "<table style='width:80%;align:center;text-align:center;'><tr>";
 echo "<tr style='background-color:#3f3fff;color:white;'><td width='10%'>Index</td><td>Contest</td><td>Status</td><td>Participate</td><td>Problems</td></tr>";
+$coli = 1;
 for ($ti=0;$ti<$tot;++$ti) {
 	$contd=$cidl[$ti];
 	if (!checkaccess($contd, $_SESSION['uid']))
 		continue;
-	if ($ti % 2 == 0)
+	++$coli;
+	if ($coli % 2 == 0)
 		echo "<tr style='background-color:#efffef;color:black;'>";
 	else
 		echo "<tr style='background-color:#efefff;color:black;'>";
