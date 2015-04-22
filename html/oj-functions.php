@@ -198,6 +198,10 @@ function checkaccess($cid, $pid) {
 			if (strstr($gid, "group@") != false) {
 				$grid = substr($gid, 6);
 				$fln = ("../users/".$grid.".group");
+				if ($grid == 'all') {
+					fclose($ipf);
+					return true;
+				}
 				if (!is_file($fln)) {
 					continue;
 				}
