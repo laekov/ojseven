@@ -3,7 +3,7 @@
 
 struct user {
 	char *uid;
-	int sco[3], tot_sco;
+	int sco[6], tot_sco;
 
 	user();
 };

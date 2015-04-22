@@ -12,8 +12,11 @@
 </tr>
 
 <?php
-$cid = read_fline("./conf/cont.conf");
-for ($i = 'a'; $i <= 'c'; ++ $i) {
+if ($cid == -1)
+	$cid = read_fline("./conf/cont.conf");
+$ccfg = readccfg("../data/".$cid."/.contcfg");
+$eid = chr(97 + $ccfg['totprob']);
+for ($i = 'a'; $i < $eid; ++ $i) {
 	echo "<tr>\n";
 	echo "<td><label for='". $i. "'> Problem ". $i. "</td>\n";
 	if (strlen($cid) > 0)
@@ -34,5 +37,6 @@ function clrpname() {
 	document.getElementById('pida').value="";
 	document.getElementById('pidb').value="";
 	document.getElementById('pidc').value="";
+	document.getElementById('pidd').value="";
 }
 </script>

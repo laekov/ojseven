@@ -2,10 +2,13 @@
 <form action='admin.php?cmd=cprob_get' method='post' enctype='multipart/form-data'>
 <table align='center' width='800px' border='1'>
 <?php
-$cid = read_fline("./conf/cont.conf");
+if ($cid == -1)
+	$cid = read_fline("./conf/cont.conf");
 if (strlen($cid) < 8)
 	header("Location: error.php?word=No contest");
-for ($i = 'a'; $i <= 'c'; ++ $i) {
+$ccfg = readccfg("../data/".$cid."/.contcfg");
+$eid = chr(97 + $ccfg['totprob']);
+for ($i = 'a'; $i < $eid; ++ $i) {
 	$cfln = ("../data/". $cid. "/". $i. ".cfg");
 	echo "<tr>\n";
 	echo "<td width='24%'><label for='". $i. "'>". $i. ".cfg</td>\n";

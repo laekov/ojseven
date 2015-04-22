@@ -37,11 +37,11 @@ void ref_users(int cid) {
 		sprintf(upath, "./upload/%08d/%s", cid, ul[i]. uid);
 		ul[i]. tot_sco = 0;
 		if (access(upath, 0) == -1) {
-			for (int j = 0; j < 3; ++ j)
+			for (int j = 0; j < 4; ++ j)
 				ul[i]. sco[j] = 0;
 		}
 		else {
-			for (int j = 0; j < 3; ++ j) {
+			for (int j = 0; j < 4; ++ j) {
 				sprintf(fln, "%s/.ajtest/%c.rs", upath, j + 97);
 				FILE* ipf = fopen(fln, "r");
 				if (!ipf)
@@ -75,8 +75,8 @@ void ref_ulist(int cid) {
 }
 
 void make_res(int cid) {
-	char fln[max_path], tmpstr[max_path], pid[3][max_path];
-	for (int i = 0; i < 3; ++ i) {
+	char fln[max_path], tmpstr[max_path], pid[4][max_path];
+	for (int i = 0; i < 4; ++ i) {
 		sprintf(fln, "./data/%08d/%c.cfg", cid, i + 97);
 		FILE* ipf = fopen(fln, "r");
 		if (ipf) {
@@ -100,9 +100,22 @@ void make_res(int cid) {
 	fclose(opf);
 }
 
+int totprob(int cid) {
+	char fln[max_path], ite[max_path];
+	sprintf(fln, "./data/%08d/.contcfg", cid);
+	int ret(3);
+	FILE* ipf(fopen(fln, "r"));
+	while (fscanf(ipf, "%s", ite) != EOF)
+		if (!strcmp(ite, "totprob"))
+			fscanf(ipf, "%d", &ret);
+	fclose(ipf);
+	return ret;
+}
+
 int main(int argc, char* args[]) {
 	int cid = getcid();
 	int pid = -1;
+	int tot_prob = totprob(cid);
 	for (int i = 2; i < argc; ++ i)
 		if (args[i][0] == '-') {
 			if (!strcmp(args[i] + 1, "help")) {
@@ -127,10 +140,10 @@ int main(int argc, char* args[]) {
 		bool paused = 0;
 		system("echo >.cjudgerunning");
 		for (int i = 0; i < tu && !paused; ++ i)
-			for (int j = 0; j < 3 && !paused; ++ j)
+			for (int j = 0; j < tot_prob && !paused; ++ j)
 				clear_res(cid, ul[i]. uid, j + 97);
 		for (int i = 0; i < tu && !paused; ++ i)
-			for (int j = 0; j < 3 && !paused; ++ j) {
+			for (int j = 0; j < tot_prob && !paused; ++ j) {
 				char od[max_path];
 				sprintf(od, "oj7-judge ./upload/%08d/%s ./data/%08d %c", cid, ul[i]. uid, cid, j + 97);
 				system(od);
@@ -160,7 +173,7 @@ int main(int argc, char* args[]) {
 			strcpy(uid, args[2]);
 		else
 			return 1;
-		int bi(0), ei(3);
+		int bi(0), ei(tot_prob);
 		if (pid > -1)
 			bi = pid, ei = pid + 1;
 		for (int j = bi; j < ei; ++ j)
@@ -181,9 +194,9 @@ int main(int argc, char* args[]) {
 			strcpy(uid, args[2]);
 		else
 			return 1;
-		for (int j = 0; j < 3; ++ j)
+		for (int j = 0; j < tot_prob; ++ j)
 			clear_res(cid, uid, j + 97);
-		for (int j = 0; j < 3; ++ j) {
+		for (int j = 0; j < tot_prob; ++ j) {
 			char od[max_path];
 			sprintf(od, "oj7-judge ./upload/%08d/%s ./data/%08d %c", cid, uid, cid, j + 97);
 			system(od);

@@ -8,12 +8,6 @@
 include('oj-header.php');
 ?>
 <body>
-<?php
-if (!$_SESSION['signedin']) {
-	header("Location: error.php?word=Please sign in first");
-	return;
-}
-?>
 
 <center>
 <div style='width:80%;'>
@@ -23,6 +17,14 @@ if (strlen($cid) == 0) {
 	$pf = fopen("conf/cont.conf","r");
 	list($cid)=fscanf($pf,"%s");
 	fclose($pf);
+}
+if (!$_SESSION['signedin']) {
+	header("Location: error.php?word=Please sign in first");
+	return;
+}
+if (!checkaccess($cid, $_SESSION['uid'])) {
+	header("Location: error.php?word=Access denied");
+	return;
 }
 ?>
 
@@ -62,47 +64,49 @@ if (check_stat($cid) == 1) {
 <table width='100%' style='text-align:center;<?php if (check_stat($cid) > 2) echo "display:hidden;'" ?>'>
 <?php
 $cfgs = Array();
-for ($pi = 'a'; $pi < 'd'; ++ $pi) {
+$ccfg = readccfg("../data/".$cid."/.contcfg");
+$epid = chr(97 + $ccfg['totprob']);
+for ($pi = 'a'; $pi < $epid; ++ $pi) {
 	$cfgs[$pi] = readcfg("../data/".$cid."/".$pi.".cfg");
 }
 echo "<tr style='background-color:#3f3fff;color:white;'><td>Problem</td>";
-for ($pi = 'a'; $pi < 'd'; ++ $pi)
-	echo "<td width='25%'>".$cfgs[$pi]['pid']."</td>";
+for ($pi = 'a'; $pi < $epid; ++ $pi)
+	echo "<td width='20%'>".$cfgs[$pi]['pid']."</td>";
 echo "</tr>";
 echo "<tr style='background-color:#efffef;color:black;'><td>Code name</td>";
-for ($pi = 'a'; $pi < 'd'; ++ $pi)
-	echo "<td width='25%'>".$cfgs[$pi]['pid']."</td>";
+for ($pi = 'a'; $pi < $epid; ++ $pi)
+	echo "<td width='20%'>".$cfgs[$pi]['pid']."</td>";
 echo "</tr>";
 echo "<tr style='background-color:#efefff;color:black;'><td>Input file name</td>";
-for ($pi = 'a'; $pi < 'd'; ++ $pi)
-	echo "<td width='25%'>".$cfgs[$pi]['inf']."</td>";
+for ($pi = 'a'; $pi < $epid; ++ $pi)
+	echo "<td width='20%'>".$cfgs[$pi]['inf']."</td>";
 echo "</tr>";
 echo "<tr style='background-color:#efffef;color:black;'><td>Output file name</td>";
-for ($pi = 'a'; $pi < 'd'; ++ $pi)
-	echo "<td width='25%'>".$cfgs[$pi]['ouf']."</td>";
+for ($pi = 'a'; $pi < $epid; ++ $pi)
+	echo "<td width='20%'>".$cfgs[$pi]['ouf']."</td>";
 echo "</tr>";
 echo "<tr style='background-color:#efefff;color:black;'><td>Time limit</td>";
-for ($pi = 'a'; $pi < 'd'; ++ $pi)
-	echo "<td width='25%'>".$cfgs[$pi]['tl']." ms</td>";
+for ($pi = 'a'; $pi < $epid; ++ $pi)
+	echo "<td width='20%'>".$cfgs[$pi]['tl']." ms</td>";
 echo "</tr>";
 echo "<tr style='background-color:#efffef;color:black;'><td>Memory limit</td>";
-for ($pi = 'a'; $pi < 'd'; ++ $pi)
-	echo "<td width='25%'>".$cfgs[$pi]['ml']." MB</td>";
+for ($pi = 'a'; $pi < $epid; ++ $pi)
+	echo "<td width='20%'>".$cfgs[$pi]['ml']." MB</td>";
 echo "</tr>";
 echo "<tr style='background-color:#efefff;color:black;'><td>Has spj</td>";
-for ($pi = 'a'; $pi < 'd'; ++ $pi) {
+for ($pi = 'a'; $pi < $epid; ++ $pi) {
 	if ($cfgs[$pi]['spj'])
-		echo "<td width='25%'>Yes</td>";
+		echo "<td width='20%'>Yes</td>";
 	else
-		echo "<td width='25%'>No</td>";
+		echo "<td width='20%'>No</td>";
 }
 echo "</tr>";
 echo "<tr style='background-color:#efffef;color:black;'><td>Type</td>";
-for ($pi = 'a'; $pi < 'd'; ++ $pi)
+for ($pi = 'a'; $pi < $epid; ++ $pi)
 	if ($cfgs[$pi]['ansonly'])
-		echo "<td width='25%'>Answer only</td>";
+		echo "<td width='20%'>Answer only</td>";
 	else
-		echo "<td width='25%'>Traditional</td>";
+		echo "<td width='20%'>Traditional</td>";
 echo "</tr>";
 ?>
 </table>
@@ -127,6 +131,8 @@ if (is_file($fln)) {
 			$stat=$val;
 		}
 		elseif ($itid=='tag') {
+		}
+		elseif ($itid=='totprob') {
 		}
 		else {
 			$dwid = "download.php?cid=".$cid."&packid=".$val;

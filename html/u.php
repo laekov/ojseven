@@ -93,7 +93,8 @@ printf("<td>%02d:%02d:00 %s</td></tr>", $ttl / 10000, $ttl % 10000 / 100, $wx);
 </td>
 </tr>
 <?php
-for ($i=1;$i<=3;++$i) {
+$ccfg = readccfg("../data/".$cid."/.contcfg");
+for ($i=1;$i<=$ccfg['totprob'];++$i) {
 	echo("<tr height='30px'><td><label for='f". $i. "'>");
 	echo("Code ". $i. "</label>");
 	echo('</td><td>');

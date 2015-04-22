@@ -17,6 +17,15 @@ if (strlen($cid) < 1) {
 	fclose($c_ipf);
 }
 $corr=($_GET['cmd']=='correction');
+
+if (!$_SESSION['signedin']) {
+	header("Location: error.php?word=Please sign in first");
+	return;
+}
+if (!checkaccess($cid, $_SESSION['uid'])) {
+	header("Location: error.php?word=Access denied");
+	return;
+}
 ?>
 <script>
 var corr=0;
@@ -55,6 +64,8 @@ if ($corr)
 <div id='chartplace'></div>
 <script>
 <?php
+$ccfg = readccfg("../data/".$cid."/.contcfg");
+echo "var totprob = ". $ccfg['totprob']. ";";
 echo "var nonu=";
 if ($corr)
 	echo "1;";
@@ -64,10 +75,13 @@ echo "var cid='".$cid."';\n";
 echo "var pname=new Array();\n";
 $cnt=0;
 $pid=array();
-for ($i='a';$i<='c';++$i) {
+if (!is_file("../data/".$cid."/.contcfg")) {
+	header("Location: error.php?word=Wrong contest");
+	return;
+}
+$epid = chr(97 + $ccfg['totprob']);
+for ($i='a';$i<$epid;++$i) {
 	$fln=("../data/".$cid."/".$i.".cfg");
-	if (!is_file($fln))
-		header("Location: error.php?word=Wrong contest");
 	$ipf=fopen($fln, "r");
 	list($pid[$cnt])=fscanf($ipf,"%s");
 	fclose($ipf);
@@ -95,7 +109,7 @@ while (true) {
 	echo "ul[".$cu."]={};\n";
 	echo "ul[".$cu."].uid='".$uid."';\n";
 	echo "ul[".$cu."].a=new Array();\n";
-	for ($i='a';$i<='c';++$i) {
+	for ($i='a';$i<='d';++$i) {
 		echo "ul[".$cu."].a[".$pn."]={};\n";
 		$pprf=('../upload/'.$cid."/".$uid."/".$pid[$pn]);
 		if (!is_file($pprf.".cpp")&&!is_file($pprf.".c")&&!is_file($pprf.".pas")&&!is_file($pprf.".zip")) {

@@ -56,6 +56,8 @@ function check_time() {
 		return false;
 }
 
+$ccfg = readccfg("../data/".$cid."/.contcfg");
+
 if (!$corr && !check_time()) {
 	header("Location: error.php?word=Out of submit time");
 	return;
@@ -99,7 +101,7 @@ else if ($corr) {
 	mkdir($tmpstr);
 	chmod(0777,$tmpstr);
 
-	for ($fi=1;$fi<=3;++$fi) {
+	for ($fi=1;$fi<=$ccfg['totprob'];++$fi) {
 		$MSUC = false;
 		$FF = 'f'. $fi;
 		if ($_FILES[$FF]['size'] >= 64000000 && !strpos($_FILES[$FF]['name'], "zip")) {
@@ -172,7 +174,7 @@ else {
 		fclose($l_opf);
 	}
 
-	for ($fi=1;$fi<=3;++$fi) {
+	for ($fi=1;$fi<=$ccfg['totprob'];++$fi) {
 		$MSUC = false;
 		echo("<div style='text-align:left;width:80%;'>Code". $fi. "</br>");
 		$FF = 'f'. $fi;

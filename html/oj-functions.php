@@ -165,6 +165,8 @@ function readccfg($fln) {
 		}
 		fclose($ipf);
 	}
+	if ($ret['totprob'] == null)
+		$ret['totprob'] = 3;
 	return $ret;
 }
 
@@ -180,5 +182,45 @@ function cntline($fln) {
 		-- $ret;
 	}
 	return $ret;
+}
+
+function checkaccess($cid, $pid) {
+	$fln = ("../data/".$cid."/access.list");
+	if (is_admin($pid))
+		return true;
+	elseif (!is_file($fln)) {
+		return true;
+	}
+	else {
+		$ipf = fopen($fln, "r");
+		while (!feof($ipf)) {
+			list($gid) = fscanf($ipf, "%s");
+			if (strstr($gid, "group@") != false) {
+				$grid = substr($gid, 6);
+				$fln = ("../users/".$grid.".group");
+				if (!is_file($fln)) {
+					continue;
+				}
+				$ig = false;
+				$gipf = fopen($fln, "r");
+				while (!feof($gipf)) {
+					list($xid) = fscanf($gipf, "%s");
+					if ($pid == $xid)
+						$ig = true;
+				}
+				fclose($gipf);
+				if ($ig == true) {
+					fclose($ipf);
+					return true;
+				}
+			}
+			elseif ($gid == $pid) {
+				fclose($ipf);
+				return true;
+			}
+		}
+		fclose($ipf);
+		return false;
+	}
 }
 ?>

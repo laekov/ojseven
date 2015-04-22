@@ -16,6 +16,11 @@ if (strlen($cid) < 1) {
 	$cid = fread($c_ipf, 8);
 	fclose($c_ipf);
 }
+
+if (!$_SESSION['signedin']) {
+	header("Location: error.php?word=Please sign in first");
+	return;
+}
 ?>
 
 <script>
@@ -48,13 +53,16 @@ while (($contd=readdir($dir))!=false)
 closedir($dir);
 rsort($cidl);
 echo "<table style='width:80%;align:center;text-align:center;'><tr>";
-echo "<tr style='background-color:#3f3fff;color:white;'><td>Contest</td><td>Status</td><td>Participate</td></tr>";
+echo "<tr style='background-color:#3f3fff;color:white;'><td width='10%'>Index</td><td>Contest</td><td>Status</td><td>Participate</td><td>Problems</td></tr>";
 for ($ti=0;$ti<$tot;++$ti) {
+	$contd=$cidl[$ti];
+	if (!checkaccess($contd, $_SESSION['uid']))
+		continue;
 	if ($ti % 2 == 0)
 		echo "<tr style='background-color:#efffef;color:black;'>";
 	else
 		echo "<tr style='background-color:#efefff;color:black;'>";
-	$contd=$cidl[$ti];
+	echo "<td>".($tot-$ti-1)."</td>";
 	$cfgfln = "../data/".$contd."/.contcfg";
 	$curcfg = readccfg($cfgfln);
 	echo "<td><a href='cur.php?cid=".$contd."'>".$contd."</a> </td>";
@@ -72,6 +80,7 @@ for ($ti=0;$ti<$tot;++$ti) {
 	echo "<td><a href='uc.php?cid=".$contd."'>";
 	echo "x".$csu;
 	echo "</a></td>";
+	echo "<td>".$curcfg['totprob']."</td>";
 	echo "</tr>";
 }
 ?>

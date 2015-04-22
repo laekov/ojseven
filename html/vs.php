@@ -190,7 +190,7 @@ else {
 		fclose($ipf);
 	}
 	else {
-		echo "<div style='color: blue;' >Pending</div>";
+		echo "<tr><td><div style='color: blue;text-align:left;' >Pending</div></td></tr>";
 	}
 }
 

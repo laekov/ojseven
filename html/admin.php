@@ -76,6 +76,10 @@ function write_ccfg($cid) {
 	fclose($pf);
 }
 
+$cid = -1;
+if (strlen($_GET['cid']) == 8)
+	$cid = $_GET['cid'];
+
 if (!strlen($_GET['cmd'])) {
 	include("forms/adminlist.php");
 }
@@ -106,7 +110,7 @@ else if ($_GET['cmd'] == 'cprob') {
 }
 else if ($_GET['cmd'] == 'cprob_get') {
 	$cid = read_fline("./conf/cont.conf");
-	for ($i = 'a'; $i <= 'c'; ++ $i)
+	for ($i = 'a'; $i <= 'd'; ++ $i)
 		if (strlen($_POST[$i]) > 0) {
 			$cfln = ("../data/". $cid. "/". $i. ".cfg");
 			write_file($cfln, $_POST[$i]);

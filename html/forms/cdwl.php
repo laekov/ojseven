@@ -13,7 +13,7 @@ else if (strlen($_GET['filename'])>0)
 
 <tr>
 <td>File name</td>
-<td><input type='input' name='filename' value='<?php echo $fln; ?>' onchange='clritem("dwl");'/></td>
+<td><input type='input' size='50px' name='filename' value='<?php echo $fln; ?>' onchange='clritem("dwl");'/></td>
 </tr>
 
 <tr>

@@ -34,7 +34,7 @@ function show_chart() {
 	text+="<td>User</td>";
 	if (corr == 1)
 		text+="<td>Time</td>";
-	for (var i=0;i<3;++i)
+	for (var i=0;i<totprob;++i)
 		text+="<td style='cursor:pointer;' onclick='resortprob("+i+")'>"+pname[i]+"</td>";
 	text+="<td width='100px' style='cursor:pointer' onclick='resortprob(-1);'>Total</td>";
 	text+="</tr>";
@@ -49,14 +49,16 @@ function show_chart() {
 		text+="<td><a href='cnt.php?uid="+(ul[i].uid.split('-')[0])+"'>"+ul[i].uid.split('-')[0]+"</a></td>";
 		if (corr == 1) 
 			text+="<td>"+ul[i].uid.split('-')[1]+"</td>";
-		for (var j=0;j<3;++j) {
+		for (var j=0;j<totprob;++j) {
 			var k;
 			if (j==0)
 				k='a';
 			else if (j==1)
 				k='b';
-			else 
+			else if (j == 2)
 				k='c';
+			else
+				k='d';
 			text+="<td><a style='font-family:Monospace;' class='wcode' href='vs.php?uid="+ul[i].uid+"&cid="+cid+"&pid="+k+"'>";
 			if (show_res) {
 				if (ul[i].a[j].wd=='No file')
