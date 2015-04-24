@@ -65,6 +65,10 @@ function check_time() {
 }
 
 $ccfg = readccfg("../data/".$cid."/.contcfg");
+$pcfgs = Array();
+for ($i = 0; $i < $ccfg['totprob']; ++ $i) {
+	$pcfgs[chr($i + 97)] = readcfg("../data/".$cid."/".chr($i + 97).".cfg");
+}
 
 if (!$corr && !check_time()) {
 	header("Location: error.php?word=Out of submit time");
@@ -72,22 +76,7 @@ if (!$corr && !check_time()) {
 }
 else if ($corr) {
 	$contd=("../data/".$cid."/");
-	$stat=0;
-	$ipf=fopen(($contd.".contcfg"),"r");
-	$hite=0;
-	while (!feof($ipf)) {
-		list($itid,$val)=fscanf($ipf,"%s %s");
-		if (strlen($itid)<1)
-			continue;
-		if ($itid=='stat') {
-			$stat=$val;
-		}
-		else {
-			echo "<li><a href='".$contd.$val."'>".$itid."</a></li>";
-		}
-		$hite=1;
-	}
-	fclose($ipf);
+	$stat=$ccfg['stat'];
 	if ($stat<2 && !is_admin($uid)) {
 		header("Location: error.php?word=How do you find this page?");
 		return;
@@ -133,17 +122,14 @@ else if ($corr) {
 		}
 	}
 
-	$cmdpf=fopen(".runrequire","a");
+	$cmdpf=fopen(".judgerequire","a");
 	fprintf($cmdpf, "oj7-cjudge cor %s -cid %s\n", $ufid, $cid);
+	fclose($cmdpf);
 
 	header("Location: uc.php?cid=".$cid."&cmd=correction");
 }
-else {
-	echo("<div style='width:80%;text-align:left;'>");
-	echo("Contest id: ".$cid."<br/>");
-	echo("User name: ".$uid."<br/>");
-	echo("<hr/></div>");
 
+else {
 	$tmp_str = ('../upload/'. $cid);
 	if (!is_dir($tmp_str)) {
 		mkdir($tmp_str);
@@ -184,32 +170,63 @@ else {
 
 	for ($fi=1;$fi<=$ccfg['totprob'];++$fi) {
 		$MSUC = false;
-		echo("<div style='text-align:left;width:80%;'>Code". $fi. "</br>");
 		$FF = 'f'. $fi;
-		if ($FO['error'] || $_FILES[$FF]['size'] == 0) {
-			echo("File". $fi. " error!<br/>");
+		$ufln = $_FILES[$FF]['name'];
+		$fpid = -1;
+		for ($i = 0; $i < $ccfg['totprob']; ++ $i) {
+			$cpid = $pcfgs[chr($i + 97)]['pid'];
+			if ($ufln == ($cpid.".pas"))
+				$fpid = $i;
+			if ($ufln == ($cpid.".cpp"))
+				$fpid = $i;
+			if ($ufln == ($cpid.".c"))
+				$fpid = $i;
+			if ($ufln == ($cpid.".zip"))
+				$fpid = $i;
+		}
+		if ($fpid == -1) {
+		}
+		elseif ($FO['error'] || $_FILES[$FF]['size'] == 0) {
 		}
 		else if ($_FILES[$FF]['size'] >= 64000000 && !strpos($_FILES[$FF]['name'], "zip")) {
-			echo("File size too huge!");
+			header("Location: error.php?word=File size too huge!");
 			return;
 		}
 		else {
-			echo("Name:\t". $_FILES[$FF]['name']. "<br/>");
-			echo("Size:\t". $_FILES[$FF]['size']. "byte<br/>");
+			if ($ccfg['judgetype'] == 'ioi') {
+				$cntfln = ("../upload/".$cid."/".$uid."/".chr($fpid+97).".cnt");
+				$ctm = 0;
+				if (is_file($cntfln)) {
+					$cipf = fopen($cntfln, "r");
+					list($ctm) = fscanf($cipf, "%d");
+					fclose($cipf);
+				}
+				if ($ctm >= 30) {
+					header("Location: error.php?word=Too many submissions");
+					continue;
+				}
+				else {
+					$copf = fopen($cntfln, "w");
+					fprintf($copf, "%d", $ctm + 1);
+					fclose($copf);
+				}
+			}
+			//echo("Name:\t". $_FILES[$FF]['name']. "<br/>");
+			//echo("Size:\t". $_FILES[$FF]['size']. "byte<br/>");
 		//	echo("Type:\t". $_FILES[$FF]['type']. "<br/>");
 			$TP = '../upload/'. $cid. '/'. $uid. '/'. $_FILES[$FF]['name'];
 		//	echo("Path:\t". $TP. "<br/>");
 			if (!move_uploaded_file($_FILES[$FF]['tmp_name'], $TP)) {
-				echo("Moving error<br/>");
+				//echo("Moving error<br/>");
 			}
 			else {
 				$MSUC = true;
 			}
 			if ($MSUC) {
 				if (!strpos($_FILES[$FF]['name'], "zip")) {
-					echo("Code preview: <br/><div>");
-					showcode($TP);
-					echo "</div>";
+					//echo("Code preview: <br/><div>");
+					//showcode($TP);
+					//echo "</div>";
 				}
 				else {
 					chmod($TP, 0777);
@@ -217,9 +234,21 @@ else {
 					//echo $cmd;
 					exec($cmd);
 				}
+				if ($ccfg['judgetype'] == 'ioi') {
+					$cmdpf=fopen(".judgerequire","a");
+					fprintf($cmdpf, "oj7-cjudge ioijudge %s -cid %s -pid %d\n", $uid, $cid, $fpid);
+					fclose($cmdpf);
+					$cmdpf=fopen(".runrequire","a");
+					fprintf($cmdpf, ("rm upload/".$cid."/".$uid."/.ajtest/".chr($fpid + 97).".rs\n"));
+					fclose($cmdpf);
+				}
 			}
 		}
-		echo("<hr/></div>");
+		//echo("<hr/></div>");
+	}
+	if ($ccfg['judgetype'] == 'ioi') {
+		header("Location: uc.php?cid=".$cid);
+		return;
 	}
 }
 ?>

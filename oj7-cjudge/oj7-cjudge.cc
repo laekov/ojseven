@@ -113,6 +113,8 @@ int totprob(int cid) {
 }
 
 int main(int argc, char* args[]) {
+	while (access(".cjudgerunning", 0) != -1);
+	system("echo >.cjudgerunning");
 	int cid = getcid();
 	int pid = -1;
 	int tot_prob = totprob(cid);
@@ -136,9 +138,9 @@ int main(int argc, char* args[]) {
 			}
 		}
 	load_users(cid);
+	printf("%d %d\n", cid, pid);
 	if (!strcmp(args[1], "run")) {
 		bool paused = 0;
-		system("echo >.cjudgerunning");
 		for (int i = 0; i < tu && !paused; ++ i)
 			for (int j = 0; j < tot_prob && !paused; ++ j)
 				clear_res(cid, ul[i]. uid, j + 97);
@@ -158,7 +160,6 @@ int main(int argc, char* args[]) {
 			sort(ul, ul + tu, cmpUser);
 			ref_ulist(cid);
 			make_res(cid);
-			system("rm .cjudgerunning");
 		}
 	}
 	else if (!strcmp(args[1], "res")) {
@@ -167,7 +168,7 @@ int main(int argc, char* args[]) {
 		ref_ulist(cid);
 		make_res(cid);
 	}
-	else if (!strcmp(args[1], "rejudgeu")) {
+	else if (!strcmp(args[1], "rejudgeu") || !strcmp(args[1], "ioijudge")) {
 		char uid[max_path];
 		if (args[2])
 			strcpy(uid, args[2]);
@@ -186,7 +187,8 @@ int main(int argc, char* args[]) {
 		ref_users(cid);
 		sort(ul, ul + tu, cmpUser);
 		ref_ulist(cid);
-		make_res(cid);
+		if (strcmp(args[1], "ioijudge"))
+			make_res(cid);
 	}
 	else if (!strcmp(args[1], "cor")) {
 		char uid[max_path];
@@ -207,7 +209,6 @@ int main(int argc, char* args[]) {
 			return 1;
 		int j = args[2][0] - 97;
 		bool paused = 0;
-		system("echo >.cjudgerunning");
 		for (int i = 0; i < tu; ++ i)
 			clear_res(cid, ul[i]. uid, j + 97);
 		for (int i = 0; i < tu && !paused; ++ i) {
@@ -225,8 +226,9 @@ int main(int argc, char* args[]) {
 			sort(ul, ul + tu, cmpUser);
 			ref_ulist(cid);
 			make_res(cid);
-			system("rm .cjudgerunning");
 		}
 	}
+	if (access(".cjudgerunning", 0) != -1)
+		system("rm .cjudgerunning");
 }
 

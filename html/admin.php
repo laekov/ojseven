@@ -98,8 +98,18 @@ else if ($_GET['cmd'] == 'ccont_get') {
 	else
 		echo "End time not changed<br/>";
 	for ($i = 'a'; $i <= 'c'; ++ $i)
-		if (!is_file("../data/".$_POST['cid']."/".$i.".cfg"))
-			write_cfg($cid, $i, $_POST[$i]);
+		if (strlen($_POST[$i]) > 0) {
+			$fln = ("../data/".$_POST['cid']."/".$i.".cfg");
+			if (!is_file($fln)) {
+				write_cfg($cid, $i, $_POST[$i]);
+			}
+			else {
+				$pcfg = readcfg($fln);
+				if ($_POST[$i] != $pcfg['pid']) {
+					write_cfg($cid, $i, $_POST[$i]);
+				}
+			}
+		}
 	if (!is_file("../data/".$_POST['cid']."/.contcfg"))
 		write_ccfg($cid);
 	include("forms/ccont.php");

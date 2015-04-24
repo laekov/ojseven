@@ -26,6 +26,13 @@ if (!checkaccess($cid, $_SESSION['uid'])) {
 	return;
 }
 
+$ccfg = readccfg("../data/".$cid."/.contcfg");
+
+if (!is_admin($_SESSION['uid']) && $ccfg['stat'] < 2 && $uid != $_SESSION['uid']) {
+	header("Location: error.php?word=Access denied");
+	return;
+}
+
 echo("Contest id: ". $cid. "<br/>");
 echo("User id: ". $uid. "<br/>");
 
@@ -126,14 +133,15 @@ if (is_dir("../upload/". $cid. "/". $uid. "/.ajtest")) {
 					$sco=0;
 				echo "Score: <font style='color: blue'>". $sco. "</font>";
 				if ($wd[0] == 'W') {
-					if (is_file("../upload/". $cid. "/". $uid. "/.ajtest/diff". $pid. ($i + $beg_n). ".log")) {
-						echo "<pre class='wcode'>Diffrence:\n";
-						$d_ipf = fopen(("../upload/". $cid. "/". $uid. "/.ajtest/diff". $pid. ($i + $beg_n). ".log"), "r");
-						while (!feof($d_ipf))
-							echo htmlspecialchars(fgets($d_ipf));
-						fclose($d_ipf);
-						echo "</pre>";
-					}
+					if ($ccfg['judgetype'] != 'ioi' || $ccfg['stat'] == 2)
+						if (is_file("../upload/". $cid. "/". $uid. "/.ajtest/diff". $pid. ($i + $beg_n). ".log")) {
+							echo "<pre class='wcode'>Diffrence:\n";
+							$d_ipf = fopen(("../upload/". $cid. "/". $uid. "/.ajtest/diff". $pid. ($i + $beg_n). ".log"), "r");
+							while (!feof($d_ipf))
+								echo htmlspecialchars(fgets($d_ipf));
+							fclose($d_ipf);
+							echo "</pre>";
+						}
 				}
 				echo "</td></tr>";
 			}

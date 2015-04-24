@@ -26,6 +26,7 @@ if (!checkaccess($cid, $_SESSION['uid'])) {
 	header("Location: error.php?word=Access denied");
 	return;
 }
+$ccfg = readccfg("../data/".$cid."/.contcfg");
 ?>
 <script>
 var corr=0;
@@ -47,7 +48,20 @@ if ($corr)
 </td>
 
 <td style='text-align:right'>
-<a href='uc.php?cid=<?php echo $cid; if (!$corr) echo "&cmd=correction"; ?>'><?php if ($corr) echo "Standings"; else echo "Correction status" ?></a>
+<?php
+if ($ccfg['stat'] == 2 || is_admin($_SESSION['uid'])) {
+	echo "<a href='uc.php?cid=";
+	echo $cid; 
+	if (!$corr) 
+		echo "&cmd=correction";
+	echo "'>";
+	if ($corr) 
+		echo "Standings"; 
+	else 
+		echo "Correction status";
+	echo "</a>";
+}
+?>
 </td>
 
 <td style='text-align:right'>
@@ -64,7 +78,6 @@ if ($corr)
 <div id='chartplace'></div>
 <script>
 <?php
-$ccfg = readccfg("../data/".$cid."/.contcfg");
 echo "var totprob = ". $ccfg['totprob']. ";";
 echo "var nonu=";
 if ($corr)
@@ -97,6 +110,8 @@ if (!is_file($fln)) {
 }
 $uidpf=fopen($fln,"r");
 $cu=0;
+$totu = 0;
+$uidarr = Array();
 echo "var ul=new Array();\n";
 while (true) {
 	list($uid)=fscanf($uidpf,"%s");
@@ -104,45 +119,57 @@ while (true) {
 		break;
 	if (strlen($uid)<2)
 		continue;
+	$uidarr[$totu] = $uid;
+	++ $totu;
+}
+fclose($uidpf);
+if ($ccfg['stat'] == 1 && !is_admin($_SESSION['uid'])) {
+	$totu = 1;
+	$uidarr[0] = $_SESSION['uid'];
+}
+for ($ui = 0; $ui < $totu; ++ $ui) {
+	$uid = $uidarr[$ui];
+	//echo "alert('".$uid."');";
 	$pn=0;
 	$tots=0;
-	echo "ul[".$cu."]={};\n";
-	echo "ul[".$cu."].uid='".$uid."';\n";
-	echo "ul[".$cu."].a=new Array();\n";
-	for ($i='a';$i<='d';++$i) {
-		echo "ul[".$cu."].a[".$pn."]={};\n";
+	echo "ul[".$ui."]={};\n";
+	echo "ul[".$ui."].uid='".$uid."';\n";
+	echo "ul[".$ui."].a=new Array();\n";
+	for ($i='a';$i<=$epid;++$i) {
+		echo "ul[".$ui."].a[".$pn."]={};\n";
 		$pprf=('../upload/'.$cid."/".$uid."/".$pid[$pn]);
-		if (!is_file($pprf.".cpp")&&!is_file($pprf.".c")&&!is_file($pprf.".pas")&&!is_file($pprf.".zip")) {
-			echo "ul[".$cu."].a[".$pn."].wd='No file';\n";
-			echo "ul[".$cu."].a[".$pn."].sco=-1;\n";
+		if (!is_admin($_SESSION['uid']) && $ccfg['judgetype'] == 'ioi' && $uid != $_SESSION['uid']) {
+			echo "ul[".$ui."].a[".$pn."].wd='Hidden';\n";
+			echo "ul[".$ui."].a[".$pn."].sco=-1;\n";
+		}
+		elseif (!is_file($pprf.".cpp")&&!is_file($pprf.".c")&&!is_file($pprf.".pas")&&!is_file($pprf.".zip")) {
+			echo "ul[".$ui."].a[".$pn."].wd='No file';\n";
+			echo "ul[".$ui."].a[".$pn."].sco=-1;\n";
 		}
 		else {
 			$pprf=('../upload/'.$cid."/".$uid."/.ajtest/".$i.".rs");
 			if (!is_file($pprf)) {
-				echo "ul[".$cu."].a[".$pn."].wd='Pending';\n";
-				echo "ul[".$cu."].a[".$pn."].sco=-1;\n";
+				echo "ul[".$ui."].a[".$pn."].wd='Pending';\n";
+				echo "ul[".$ui."].a[".$pn."].sco=-1;\n";
 			}
 			else {
 				$ripf=fopen($pprf,"r");
 				list($pwd)=fscanf($ripf,"%s");
 				list($psc)=fscanf($ripf,"%s");
 				fclose($ripf);
-				echo "ul[".$cu."].a[".$pn."].wd='".$pwd."';\n";
-	//echo "alert('".$cu."');";
+				echo "ul[".$ui."].a[".$pn."].wd='".$pwd."';\n";
 				if ($pwd=='CE')
 					$psc=-1;
-				echo "ul[".$cu."].a[".$pn."].sco=".$psc.";\n";
+				echo "ul[".$ui."].a[".$pn."].sco=".$psc.";\n";
 				if ($psc>-1)
 					$tots+=$psc;
 			}
 		}
 		++$pn;
 	}
-	echo "ul[".$cu."].tot_sco=".$tots.";\n";
-	++$cu;
+	echo "ul[".$ui."].tot_sco=".$tots.";\n";
 }
-fclose($uidpf);
-echo "var tot_u=".$cu.";\n";
+echo "var tot_u=".$totu.";\n";
 ?>
 </script>
 <script src='scripts/statuschart.js'></script>

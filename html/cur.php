@@ -26,6 +26,7 @@ if (!checkaccess($cid, $_SESSION['uid'])) {
 	header("Location: error.php?word=Access denied");
 	return;
 }
+$ccfg = readccfg("../data/".$cid."/.contcfg");
 ?>
 
 <form action='uf.php<?php if ($corr) echo "?cmd=correction&cid=".$cid;?>' method='post' enctype='multipart/form-data'>
@@ -58,13 +59,19 @@ if (check_stat($cid) == 1) {
 	printf("<td>%02d:%02d:00 %s</td></tr>", $ttl / 10000, $ttl % 10000 / 100, $wx);
 }
 ?>
+
+<?php
+echo("<tr height='30px'>");
+echo("<td width='200px'>Judge type</td>\n");
+echo("<td>".$ccfg['judgetype']."</td>\n");
+echo("</tr>");
+?>
 </table>
 
 <p style='text-align:left;'>Problem infomation</p>
 <table width='100%' style='text-align:center;<?php if (check_stat($cid) > 2) echo "display:hidden;'" ?>'>
 <?php
 $cfgs = Array();
-$ccfg = readccfg("../data/".$cid."/.contcfg");
 $epid = chr(97 + $ccfg['totprob']);
 for ($pi = 'a'; $pi < $epid; ++ $pi) {
 	$cfgs[$pi] = readcfg("../data/".$cid."/".$pi.".cfg");
@@ -108,6 +115,22 @@ for ($pi = 'a'; $pi < $epid; ++ $pi)
 	else
 		echo "<td width='20%'>Traditional</td>";
 echo "</tr>";
+
+if ($ccfg['judgetype'] == 'ioi' && $ccfg['stat'] == 1) {
+	echo "<tr style='background-color:#efefff;color:black;'><td>Submissions left</td>";
+	for ($pi = 'a'; $pi < $epid; ++ $pi) {
+		$fln = ("../upload/".$cid."/".$_SESSION['uid']."/".$pi.".cnt");
+		$lef = 30;
+		if (is_file($fln)) {
+			$cipf = fopen($fln, "r");
+			list($cue) = fscanf($cipf, "%d");
+			$lef -= $cue;
+			fclose($cipf);
+		}
+		echo "<td>".$lef."</td>";
+	}
+	echo "</tr>";
+}
 ?>
 </table>
 
@@ -133,6 +156,8 @@ if (is_file($fln)) {
 		elseif ($itid=='tag') {
 		}
 		elseif ($itid=='totprob') {
+		}
+		elseif ($itid=='judgetype') {
 		}
 		else {
 			$dwid = "download.php?cid=".$cid."&packid=".$val;

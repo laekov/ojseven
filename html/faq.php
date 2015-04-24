@@ -29,10 +29,21 @@ fpc 2.6.2
 </pre></td></tr>
 
 <tr><td><pre>
-<font color='red'>Compile command:
+<font color='red'>Normal compile command:(There may be -O2 if it is required by the problem setter)
 <font color='blue'>for c++: g++ %s.cpp
 for c: gcc %s.c
 for pascal: fpc %s.pas
+</td></tr>
+
+<tr><td><pre>
+<font color='red'>How to submit answer-only problems on OJ7?
+<font color='blue'>Assume that the answers are xxx1.out ... xxx10.out
+You should submit a zip file named xxx.zip.
+You may use the following command to make such a zip file:
+<span style='color:black'>zip xxx.zip xxx1.out xxx2.out ... xxx10.out</span>
+or
+<span style='color:black'>zip xxx.zip xxx*.out</span>
+That means if you double-click this zip file under GUI, you can see xxx?.out immediately.
 </pre></td></tr>
 
 <tr><td><pre>

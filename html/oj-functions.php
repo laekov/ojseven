@@ -167,6 +167,8 @@ function readccfg($fln) {
 	}
 	if ($ret['totprob'] == null)
 		$ret['totprob'] = 3;
+	if ($ret['judgetype'] == null)
+		$ret['judgetype'] = 'noi';
 	return $ret;
 }
 
