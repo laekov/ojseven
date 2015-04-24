@@ -203,7 +203,7 @@ else {
 				}
 				if ($ctm >= 30) {
 					header("Location: error.php?word=Too many submissions");
-					continue;
+					return;
 				}
 				else {
 					$copf = fopen($cntfln, "w");

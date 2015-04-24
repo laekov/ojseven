@@ -138,7 +138,7 @@ for ($ui = 0; $ui < $totu; ++ $ui) {
 	for ($i='a';$i<=$epid;++$i) {
 		echo "ul[".$ui."].a[".$pn."]={};\n";
 		$pprf=('../upload/'.$cid."/".$uid."/".$pid[$pn]);
-		if (!is_admin($_SESSION['uid']) && $ccfg['judgetype'] == 'ioi' && $uid != $_SESSION['uid']) {
+		if (!is_admin($_SESSION['uid']) && $ccfg['judgetype'] == 'ioi' && $uid != $_SESSION['uid'] && $ccfg['stat'] == 1) {
 			echo "ul[".$ui."].a[".$pn."].wd='Hidden';\n";
 			echo "ul[".$ui."].a[".$pn."].sco=-1;\n";
 		}
