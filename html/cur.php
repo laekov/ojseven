@@ -155,6 +155,8 @@ if (is_file($fln)) {
 		}
 		elseif ($itid=='tag') {
 		}
+		elseif ($itid=='nojudge') {
+		}
 		elseif ($itid=='totprob') {
 		}
 		elseif ($itid=='judgetype') {

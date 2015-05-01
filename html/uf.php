@@ -1,10 +1,3 @@
-<html>
-<head>
-<link rel='icon' href='src/ic.png' type='image/x-icon'/>
-<title>OJ7 - Receive file</title>
-<link rel="stylesheet" href="./temp.css" type="text/css">
-</head>
-<body>
 <?php
 include('oj-header.php');
 ?>
@@ -29,7 +22,6 @@ if (!checkaccess($cid, $_SESSION['uid'])) {
 }
 ?>
 
-<div align='center' width='80%'>
 <?php
 
 $uid=getuid();
@@ -116,7 +108,7 @@ else if ($corr) {
 			}
 			if ($MSUC && strpos($_FILES[$FF]['name'], "zip")) {
 				chmod($TP, 0777);
-				$cmd = ("unzip -o -q ". $TP. " -d ". "../upload/". $cid. "/". $uid);
+				$cmd = ("unzip -o -q ". $TP. " -d ". "../upload/". $cid. "/". $ufid);
 				exec($cmd);
 			}
 		}
@@ -234,7 +226,7 @@ else {
 					//echo $cmd;
 					exec($cmd);
 				}
-				if ($ccfg['judgetype'] == 'ioi') {
+				if ($ccfg['nojudge'] != 'yes') {
 					$cmdpf=fopen(".judgerequire","a");
 					fprintf($cmdpf, "oj7-cjudge ioijudge %s -cid %s -pid %d\n", $uid, $cid, $fpid);
 					fclose($cmdpf);
@@ -246,15 +238,7 @@ else {
 		}
 		//echo("<hr/></div>");
 	}
-	if ($ccfg['judgetype'] == 'ioi') {
-		header("Location: uc.php?cid=".$cid);
-		return;
-	}
+	header("Location: uc.php?cid=".$cid);
+	return;
 }
 ?>
-</div>
-<?php
-include('oj-footer.php');
-?>
-</body>
-</html>

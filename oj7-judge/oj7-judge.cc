@@ -34,23 +34,26 @@ int main(int argc, char* args[]) {
 	ccfg. load(args[1], args[2], args[3]);
 	cres. init(ccfg);
 
-	int cpres;
+	int cpres(0);
 
 	setcolor(0);
-	printf("Testing program: ");
 	setcolor(35);
 	puts(ccfg. prg_name);
 	setcolor(0);
 
-	if (ccfg. prg_lang == -1) {
+	if (ccfg. ansonly) {
+		cpres = 0;
+	}
+	else if (ccfg. prg_lang == -1) {
 		cres. write_ce((char*)"No code");
 		cpres = 1;
 	}
-	else if (!ccfg. ansonly) {
+	else {
 		cpres = compile(ccfg);
 		if (cpres == 1)
 			cres. write_ce((char*)"Dangerous word!");
 	}
+	printf("Ret %d\n", cpres);
 	if (!cpres) {
 		setcolor(32);
 		puts("Compile ok");

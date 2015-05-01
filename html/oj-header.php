@@ -7,7 +7,7 @@ include("oj-functions.php");
 <div id='hbar' class='hbar'>
 <table align='center' width='98%' border='0'>
 <tr>
-<td align='center' width='14%' bgcolor='red' style='color:white; cursor: pointer; font-size: 200%; font-family: Monospace;' onclick=location.href='index.php' class='hitem'> 
+<td align='center' width='14%' bgcolor='red' style='color:white; cursor: pointer; font-size: 200%; font-family: Monospace;' onclick=location.href='/' class='hitem'> 
 OJ7 </td>
 <td align='center' width='14%' bgcolor='orange' style='color:darkblue; cursor: pointer;' onclick=location.href='cur.php' class='hitem'> 
 Current </td>

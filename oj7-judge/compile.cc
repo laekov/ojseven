@@ -27,9 +27,9 @@ bool check_code(char* fln) {
 int compile_gcc(prob_cfg& pcfg) {
 	char od[max_path];
 	if (pcfg.co2)
-		sprintf(od, "gcc %s -o %s/testtmp 2>%s/compile%s.log -O2", pcfg. prg_name, pcfg. wpath, pcfg. wpath, pcfg. pid);
+		sprintf(od, "gcc %s -o %s/testtmp%s 2>%s/compile%s.log -O2", pcfg. prg_name, pcfg. wpath, pcfg. prob_name, pcfg. wpath, pcfg. pid);
 	else
-		sprintf(od, "gcc %s -o %s/testtmp 2>%s/compile%s.log", pcfg. prg_name, pcfg. wpath, pcfg. wpath, pcfg. pid);
+		sprintf(od, "gcc %s -o %s/testtmp%s 2>%s/compile%s.log", pcfg. prg_name, pcfg. wpath, pcfg. prob_name, pcfg. wpath, pcfg. pid);
 	int rres = system(od);
 	if (rres)
 		return 2;
@@ -40,9 +40,10 @@ int compile_gcc(prob_cfg& pcfg) {
 int compile_gpp(prob_cfg& pcfg) {
 	char od[max_path];
 	if (pcfg.co2)
-		sprintf(od, "g++ %s -o %s/testtmp 2>%s/compile%s.log -O2", pcfg. prg_name, pcfg. wpath, pcfg. wpath, pcfg. pid);
+		sprintf(od, "g++ %s -o %s/testtmp%s 2>%s/compile%s.log -O2", pcfg. prg_name, pcfg. wpath, pcfg. prob_name, pcfg. wpath, pcfg. pid);
 	else
-		sprintf(od, "g++ %s -o %s/testtmp 2>%s/compile%s.log", pcfg. prg_name, pcfg. wpath, pcfg. wpath, pcfg. pid);
+		sprintf(od, "g++ %s -o %s/testtmp%s 2>%s/compile%s.log", pcfg. prg_name, pcfg. wpath, pcfg. prob_name, pcfg. wpath, pcfg. pid);
+	puts(od);
 	int rres = system(od);
 	if (rres)
 		return 2;
@@ -53,9 +54,9 @@ int compile_gpp(prob_cfg& pcfg) {
 int compile_pas(prob_cfg& pcfg) {
 	char od[max_path];
 	if (pcfg.co2)
-		sprintf(od, "fpc %s -o%s/testtmp >%s/compile%s.log -O2", pcfg. prg_name, pcfg. wpath, pcfg. wpath, pcfg. pid);
+		sprintf(od, "fpc %s -o%s/testtmp%s >%s/compile%s.log -O2", pcfg. prg_name, pcfg. wpath, pcfg. prob_name, pcfg. wpath, pcfg. pid);
 	else
-		sprintf(od, "fpc %s -o%s/testtmp >%s/compile%s.log", pcfg. prg_name, pcfg. wpath, pcfg. wpath, pcfg. pid);
+		sprintf(od, "fpc %s -o%s/testtmp%s >%s/compile%s.log", pcfg. prg_name, pcfg. wpath, pcfg. prob_name, pcfg. wpath, pcfg. pid);
 	int rres = system(od);
 	if (rres)
 		return 2;

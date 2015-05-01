@@ -82,10 +82,13 @@ $tot_p = $end_n - $beg_n + 1;
 $tott = 0;
 $maxm = 0;
 fclose($ipf);
-if (is_dir("../upload/". $cid. "/". $uid. "/.ajtest")) {
+if (!is_admin($_SESSION['uid']) && $ccfg['stat'] == 1 && $ccfg['judgetype'] != 'ioi') {
+	echo "<tr><td><div style='color: blue;text-align:left;' >Pending</div></td></tr>";
+}
+elseif (is_dir("../upload/". $cid. "/". $uid. "/.ajtest")) {
 	$fln = "../upload/". $cid. "/". $uid. "/.ajtest/". $pid. ".rs";
 	if (!is_file($fln)) {
-		header("Location: error.php?word=Judgement not finished");
+		echo "<tr><td><div style='color: blue;text-align:left;' >Pending</div></td></tr>";
 	}
 	else {
 		$ipf = fopen($fln, "r");
@@ -133,7 +136,7 @@ if (is_dir("../upload/". $cid. "/". $uid. "/.ajtest")) {
 					$sco=0;
 				echo "Score: <font style='color: blue'>". $sco. "</font>";
 				if ($wd[0] == 'W') {
-					if ($ccfg['judgetype'] != 'ioi' || $ccfg['stat'] == 2)
+					if ($ccfg['judgetype'] != 'ioi' || $ccfg['stat'] == 2 || is_admin($_SESSION['uid']))
 						if (is_file("../upload/". $cid. "/". $uid. "/.ajtest/diff". $pid. ($i + $beg_n). ".log")) {
 							echo "<pre class='wcode'>Diffrence:\n";
 							$d_ipf = fopen(("../upload/". $cid. "/". $uid. "/.ajtest/diff". $pid. ($i + $beg_n). ".log"), "r");

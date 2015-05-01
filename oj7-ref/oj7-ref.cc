@@ -52,6 +52,12 @@ bool isUnrated(char* cid) {
 				break;
 			for (i = tmp; *i && *i != 32; ++ i);
 			*i = 0;
+			if (!strcmp(tmp, "stat")) {
+				if (strstr(i + 1, "1")) {
+					fclose(ipf);
+					return 1;
+				}
+			}
 			if (!strcmp(tmp, "tag")) {
 				if (strstr(i + 1, "unrated")) {
 					fclose(ipf);

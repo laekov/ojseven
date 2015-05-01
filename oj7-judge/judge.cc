@@ -37,7 +37,8 @@ run_res run_case(prob_cfg& pcfg, int id) {
 
 	if (pcfg. ansonly) {
 		sprintf(ofn, pcfg. prg_ou, id);
-		//puts(pcfg. prg_ou);
+		puts(ofn);
+	//	puts(pcfg. prg_ou);
 		setcolor(36);
 		printf("Test case %d	", id);
 		if (access(ofn, 0) == -1)
@@ -65,7 +66,9 @@ run_res run_case(prob_cfg& pcfg, int id) {
 		if (!pid) {
 			chdir(pcfg. wpath);
 			getcwd(argrp, sizeof(argrp));
-			strcat(argrp, "/testtmp");
+			char tmpstr[100];
+			sprintf(tmpstr, "/testtmp%s", pcfg. prob_name);
+			strcat(argrp, tmpstr);
 			//printf("I'm at %s\n", argrp);
 			freopen(arglg, "w", stderr);
 			lmtN. rlim_cur = pcfg. mem_lmt * 1024 * 1280;
@@ -146,7 +149,7 @@ int judge_case(prob_cfg& pcfg, int id) {
 void clean_test(prob_cfg& pcfg, int id) {
 	char od[max_path];
 	if (id == -1) {
-		sprintf(od, "rm %s/testtmp", pcfg. wpath);
+		sprintf(od, "rm %s/testtmp%s", pcfg. wpath, pcfg. prob_name);
 		system(od);
 		sprintf(od, "rm %s/.in", pcfg. wpath);
 		system(od);

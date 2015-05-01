@@ -47,11 +47,11 @@ int main(int argc, char* args[]) {
 					system(gcmd);
 					return 0;
 				}
-				else {
+				/*else {
 					int status;
 					struct rusage ru;
 					wait4(pid, &status, 0, &ru);
-				}
+				}*/
 			}
 			fclose(ipf);
 			system("rm html/.judgerequire");

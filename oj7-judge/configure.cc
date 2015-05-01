@@ -4,6 +4,7 @@ prob_cfg :: prob_cfg() {
 }
 
 void prob_cfg :: load(char *arg1, char* arg2, char* arg3) {
+	puts("Reading config");
 	char tmpstr[max_path];
 	sprintf(tmpstr, "%s/%s.cfg", arg2, arg3);
 	FILE* ipf = fopen(tmpstr, "r");

@@ -104,28 +104,31 @@ for ($i='a';$i<$epid;++$i) {
 $fln=("../upload/".$cid."/uid.list");
 if ($corr)
 	$fln=("../upload/".$cid."/cuid.list");
-if (!is_file($fln)) {
-	header("Location: error.php?word=No submissions");
-	return;
-}
-$uidpf=fopen($fln,"r");
-$cu=0;
 $totu = 0;
 $uidarr = Array();
-echo "var ul=new Array();\n";
-while (true) {
-	list($uid)=fscanf($uidpf,"%s");
-	if (feof($uidpf))
-		break;
-	if (strlen($uid)<2)
-		continue;
-	$uidarr[$totu] = $uid;
-	++ $totu;
+if (is_file($fln)) {
+	$uidpf=fopen($fln,"r");
+	echo "var ul=new Array();\n";
+	while (true) {
+		list($uid)=fscanf($uidpf,"%s");
+		if (feof($uidpf))
+			break;
+		if (strlen($uid)<2)
+			continue;
+		$uidarr[$totu] = $uid;
+		++ $totu;
+	}
+	fclose($uidpf);
 }
-fclose($uidpf);
-if ($ccfg['stat'] == 1 && !is_admin($_SESSION['uid'])) {
+if ($ccfg['judgetype'] != 'noiacm' && $ccfg['stat'] == 1 && !is_admin($_SESSION['uid'])) {
 	$totu = 1;
 	$uidarr[0] = $_SESSION['uid'];
+}
+if ($ccfg['judgetype'] != "noi") {
+	echo "var printtime=1;";
+}
+else {
+	echo "var printtime=0;";
 }
 for ($ui = 0; $ui < $totu; ++ $ui) {
 	$uid = $uidarr[$ui];
@@ -138,12 +141,23 @@ for ($ui = 0; $ui < $totu; ++ $ui) {
 	for ($i='a';$i<=$epid;++$i) {
 		echo "ul[".$ui."].a[".$pn."]={};\n";
 		$pprf=('../upload/'.$cid."/".$uid."/".$pid[$pn]);
-		if (!is_admin($_SESSION['uid']) && $ccfg['judgetype'] == 'ioi' && $uid != $_SESSION['uid'] && $ccfg['stat'] == 1) {
-			echo "ul[".$ui."].a[".$pn."].wd='Hidden';\n";
+		if (!$corr) {
+			$tfln = ("../upload/".$cid."/".$uid."/".$i.".cnt");
+			$tt = 0;
+			if (is_file($tfln)) {
+				$tipf = fopen($tfln, "r");
+				list($tt) = fscanf($tipf, "%d");
+				fclose($tt);
+			}
+			echo "ul[".$ui."].a[".$pn."].ctime=".$tt.";\n";
+		}
+		if (!is_file($pprf.".cpp")&&!is_file($pprf.".c")&&!is_file($pprf.".pas")&&!is_file($pprf.".zip")) {
+			echo "ul[".$ui."].a[".$pn."].wd='No file';\n";
 			echo "ul[".$ui."].a[".$pn."].sco=-1;\n";
 		}
-		elseif (!is_file($pprf.".cpp")&&!is_file($pprf.".c")&&!is_file($pprf.".pas")&&!is_file($pprf.".zip")) {
-			echo "ul[".$ui."].a[".$pn."].wd='No file';\n";
+		elseif (!is_admin($_SESSION['uid']) && $ccfg['stat'] == 1 && $ccfg['judgetype'] == 'noi') {
+			$pprf=('../upload/'.$cid."/".$uid."/.ajtest/".$i.".rs");
+			echo "ul[".$ui."].a[".$pn."].wd='Pending';\n";
 			echo "ul[".$ui."].a[".$pn."].sco=-1;\n";
 		}
 		else {

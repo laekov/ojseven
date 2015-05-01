@@ -87,6 +87,8 @@ function show_chart() {
 						if (l % 25 == 24)
 							text += "<br/>";
 					}
+					if (printtime == 1 && ul[i].a[j].ctime != undefined && ul[i].a[j].ctime > 1)
+						text += "<span style='color:red;'>(-" + (ul[i].a[j].ctime - 1) + ")</span>";
 				}
 			}
 			else {
