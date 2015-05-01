@@ -187,8 +187,7 @@ int main(int argc, char* args[]) {
 		ref_users(cid);
 		sort(ul, ul + tu, cmpUser);
 		ref_ulist(cid);
-		if (strcmp(args[1], "ioijudge"))
-			make_res(cid);
+		make_res(cid);
 	}
 	else if (!strcmp(args[1], "cor")) {
 		char uid[max_path];

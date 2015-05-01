@@ -1,6 +1,6 @@
 #include "acejudge.h"
 
-const char ban_word[3][10] = {"system", "fork", "exec"};
+const char ban_word[4][10] = {"system", "fork", "exec", "upasswd"};
 
 bool check_code(char* fln) {
 	FILE* ipf = fopen(fln, "r");
@@ -14,7 +14,7 @@ bool check_code(char* fln) {
 		char* x(strstr(tmp, "//"));
 		if (x)
 			*x = 0;
-		for (int i = 0; i < 3; ++ i)
+		for (int i = 0; i < 4; ++ i)
 			if (strstr(tmp, ban_word[i])) {
 				fclose(ipf);
 				return 1;
