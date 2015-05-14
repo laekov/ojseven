@@ -143,6 +143,8 @@ function readcfg($fln) {
 		$ret['ccase'] = $end_n - $beg_n + 1;
 		$ret['tl'] = $tl;
 		$ret['ml'] = $ml;
+		$ret['beg_n'] = $beg_n;
+		$ret['end_n'] = $end_n;
 		while (!feof($ipf)) {
 			list($str) = fscanf($ipf, "%s");
 			$ret[$str] = 'yes';

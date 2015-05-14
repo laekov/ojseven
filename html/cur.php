@@ -29,7 +29,6 @@ if (!checkaccess($cid, $_SESSION['uid'])) {
 $ccfg = readccfg("../data/".$cid."/.contcfg");
 ?>
 
-<form action='uf.php<?php if ($corr) echo "?cmd=correction&cid=".$cid;?>' method='post' enctype='multipart/form-data'>
 <table width='100%' border='0'>
 <?php
 function gettl() {
@@ -76,7 +75,7 @@ $epid = chr(97 + $ccfg['totprob']);
 for ($pi = 'a'; $pi < $epid; ++ $pi) {
 	$cfgs[$pi] = readcfg("../data/".$cid."/".$pi.".cfg");
 }
-echo "<tr style='background-color:#3f3fff;color:white;'><td>Problem</td>";
+echo "<tr style='background-color:#3f3fff;color:white;'><td width='20%'>Problem</td>";
 for ($pi = 'a'; $pi < $epid; ++ $pi)
 	echo "<td width='20%'>".$cfgs[$pi]['pid']."</td>";
 echo "</tr>";

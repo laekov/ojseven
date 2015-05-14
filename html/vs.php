@@ -108,6 +108,7 @@ elseif (is_dir("../upload/". $cid. "/". $uid. "/.ajtest")) {
 		else {
 			$cs=1;
 			$cols=Array("#eeffee","#eeeeff");
+			$cfs = 100 / ($tot_p);
 			for ($i = 0; $i < strlen($res); ++ $i) {
 				$cs=1-$cs;
 				echo "<tr style='background-color:".$cols[$cs]."'><td>Case #". ($beg_n + $i). "</td>";
@@ -135,7 +136,7 @@ elseif (is_dir("../upload/". $cid. "/". $uid. "/.ajtest")) {
 				if ($sco<0)
 					$sco=0;
 				echo "Score: <font style='color: blue'>". $sco. "</font>";
-				if ($wd[0] == 'W') {
+				if ($wd[0] == 'W' || ($wd[0] == 'A' && $sco != $cfs)) {
 					if ($ccfg['judgetype'] != 'ioi' || $ccfg['stat'] == 2 || is_admin($_SESSION['uid']))
 						if (is_file("../upload/". $cid. "/". $uid. "/.ajtest/diff". $pid. ($i + $beg_n). ".log")) {
 							echo "<pre class='wcode'>Diffrence:\n";

@@ -81,6 +81,10 @@ function show_chart() {
 							text+="<font style='background-color:purple;color:white;'>";
 						else if (ul[i].a[j].wd[l]=='F')
 							text+="<font style='background-color:black;color:white;'>";
+						else if (ul[i].a[j].wd[l]=='P')
+							text+="<font style='background-color:none;color:blue;'>";
+						else if (ul[i].a[j].wd[l]=='N')
+							text+="<font style='background-color:none;color:pink;'>";
 						else 
 							text+="<font style='color:black;'>";
 						text+=ul[i].a[j].wd[l]+"</font>";

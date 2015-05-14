@@ -130,6 +130,9 @@ if ($ccfg['judgetype'] != "noi") {
 else {
 	echo "var printtime=0;";
 }
+for ($pi = 'a'; $pi < $epid; ++ $pi) {
+	$cfgs[$pi] = readcfg("../data/".$cid."/".$pi.".cfg");
+}
 for ($ui = 0; $ui < $totu; ++ $ui) {
 	$uid = $uidarr[$ui];
 	//echo "alert('".$uid."');";
@@ -138,7 +141,7 @@ for ($ui = 0; $ui < $totu; ++ $ui) {
 	echo "ul[".$ui."]={};\n";
 	echo "ul[".$ui."].uid='".$uid."';\n";
 	echo "ul[".$ui."].a=new Array();\n";
-	for ($i='a';$i<=$epid;++$i) {
+	for ($i='a';$i< $epid;++$i) {
 		echo "ul[".$ui."].a[".$pn."]={};\n";
 		$pprf=('../upload/'.$cid."/".$uid."/".$pid[$pn]);
 		if (!$corr) {
@@ -151,7 +154,37 @@ for ($ui = 0; $ui < $totu; ++ $ui) {
 			}
 			echo "ul[".$ui."].a[".$pn."].ctime=".$tt.";\n";
 		}
-		if (!is_file($pprf.".cpp")&&!is_file($pprf.".c")&&!is_file($pprf.".pas")&&!is_file($pprf.".zip")) {
+		//echo "alert('".$cfgs[$ui]['ansonly']."');";
+		if ($cfgs[$i]['ansonly'] == 'yes') {
+			$pprf=('../upload/'.$cid."/".$uid."/.ajtest/".$i.".rs");
+			if (!is_file($pprf) || ($ccfg['stat'] != 2 && $ccfg['judgetype'] == 'noi' && !is_admin($_SESSION['uid']))) {
+				echo "ul[".$ui."].a[".$pn."].wd='";
+				for ($csi = $cfgs[$i]['beg_n']; $csi <= $cfgs[$i]['end_n']; ++ $csi) {
+					$ansfld = ("../upload/".$cid."/".$uid."/");
+					$ansfln = sprintf($cfgs[$i]['ouf'], $csi);
+					$ansfln = ($ansfld.$ansfln);
+					if (is_file($ansfln))
+						echo "P";
+					else
+						echo "N";
+				}
+				echo "';\n";
+				echo "ul[".$ui."].a[".$pn."].sco=-1;\n";
+			}
+			else {
+				$ripf=fopen($pprf,"r");
+				list($pwd)=fscanf($ripf,"%s");
+				list($psc)=fscanf($ripf,"%s");
+				fclose($ripf);
+				echo "ul[".$ui."].a[".$pn."].wd='".$pwd."';\n";
+				if ($pwd=='CE')
+					$psc=-1;
+				echo "ul[".$ui."].a[".$pn."].sco=".$psc.";\n";
+				if ($psc>-1)
+					$tots+=$psc;
+			}
+		}
+		elseif (!is_file($pprf.".cpp")&&!is_file($pprf.".c")&&!is_file($pprf.".pas")) {
 			echo "ul[".$ui."].a[".$pn."].wd='No file';\n";
 			echo "ul[".$ui."].a[".$pn."].sco=-1;\n";
 		}

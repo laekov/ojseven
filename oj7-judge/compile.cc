@@ -19,6 +19,8 @@ bool check_code(char* fln) {
 				fclose(ipf);
 				return 1;
 			}
+		if (strstr(tmp, "#include") && strstr(tmp, "\""))
+			return 1;
 	}
 	fclose(ipf);
 	return 0;

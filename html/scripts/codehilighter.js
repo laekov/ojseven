@@ -6,9 +6,9 @@ function findArray(arr, item) {
 	return false;
 }
 
-var typewords = Array("int", "void", "long", "fload", "double", "register", "static", "size_t", "char", "bool");
-var specialwords = Array("using", "namespace", "struct", "class", "public", "private", "for", "while", "if", "do", "return", "new", "delete", "const", "break", "continue", "else", "switch", "default", "sizeof", "inline", "typedef", "operator");
-var separatorwords = Array("(", ")", " ", "[", "]", "{", "}", "\t", "\,", "\r", '"', "+", "-", "*", "/", "~", "!", "<", ">", ";", "=", "%");
+var typewords = Array("int", "void", "long", "fload", "double", "register", "static", "size_t", "char", "bool", "class", "struct", "union", "namespace");
+var specialwords = Array("begin", "end", "using", "public", "private", "for", "while", "if", "do", "return", "new", "delete", "const", "break", "continue", "else", "switch", "default", "sizeof", "inline", "typedef", "operator", "elif", "and", "or", "not", "in");
+var separatorwords = Array("(", ")", " ", "[", "]", "{", "}", "\t", "\,", "\r", '"', "+", "-", "*", "/", "~", "!", "<", ">", ";", "=", "%", ":", ".");
 
 function isSeparator(x) {
 	for (var i = 0; separatorwords[i] != undefined; ++ i)
@@ -112,8 +112,7 @@ function sethls_special() {
 	var tas = document.getElementsByTagName("pre");
 	//document.write(tas.length);
 	for (var i = 0; i < tas.length; ++ i)
-		if (tas[i]['class'] == 'scode')
-			sethl_special(tas[i]);
+		sethl_special(tas[i]);
 }
 
 function sethlById(id) {

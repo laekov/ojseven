@@ -124,6 +124,6 @@ include('oj-footer.php');
 ?>
 
 <script src='scripts/codehilighter.js'></script>
-<script> sethls_special(); </script>
+<script> //sethls_special(); </script>
 </body>
 </html>
