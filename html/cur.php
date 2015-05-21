@@ -111,6 +111,8 @@ echo "<tr style='background-color:#efffef;color:black;'><td>Type</td>";
 for ($pi = 'a'; $pi < $epid; ++ $pi)
 	if ($cfgs[$pi]['ansonly'])
 		echo "<td width='20%'>Answer only</td>";
+	elseif ($cfgs[$pi]['interaction'])
+		echo "<td width='20%'>Interaction</td>";
 	else
 		echo "<td width='20%'>Traditional</td>";
 echo "</tr>";

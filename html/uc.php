@@ -65,7 +65,12 @@ if ($ccfg['stat'] == 2 || is_admin($_SESSION['uid'])) {
 </td>
 
 <td style='text-align:right'>
-<a href='cur.php?cid=<?php echo $cid; ?>'>Back</a>
+<a href='<?php 
+if ($corr)
+	echo "u.php?cid=".$cid."&cmd=correction";
+else
+	echo "cur.php?cid=".$cid;
+?>'>Back</a>
 </td>
 </tr>
 </tr>
@@ -138,6 +143,7 @@ for ($ui = 0; $ui < $totu; ++ $ui) {
 	//echo "alert('".$uid."');";
 	$pn=0;
 	$tots=0;
+	$pscos = Array();
 	echo "ul[".$ui."]={};\n";
 	echo "ul[".$ui."].uid='".$uid."';\n";
 	echo "ul[".$ui."].a=new Array();\n";
@@ -175,13 +181,24 @@ for ($ui = 0; $ui < $totu; ++ $ui) {
 				$ripf=fopen($pprf,"r");
 				list($pwd)=fscanf($ripf,"%s");
 				list($psc)=fscanf($ripf,"%s");
+				for ($pi = $cfgs[$i]['beg_n']; $pi <= $cfgs[$i]['end_n'];++$pi) {
+					list($ppwd, $me, $ti, $pscos[$pi]) = fscanf($ripf, "%s%d%d%d");
+				}
 				fclose($ripf);
 				echo "ul[".$ui."].a[".$pn."].wd='".$pwd."';\n";
-				if ($pwd=='CE')
+				if ($pwd=='CE') {
+					for ($pi = $cfgs[$i]['beg_n']; $pi <= $cfgs[$i]['end_n'];++$pi) {
+						$pscos[$pi] = 0;
+					}
 					$psc=-1;
+				}
 				echo "ul[".$ui."].a[".$pn."].sco=".$psc.";\n";
 				if ($psc>-1)
 					$tots+=$psc;
+				echo "ul[".$ui."].a[".$pn."].pscos = new Array();";
+				for ($pi = $cfgs[$i]['beg_n']; $pi <= $cfgs[$i]['end_n'];++$pi) {
+					echo "ul[".$ui."].a[".$pn."].pscos[".($pi-$cfgs[$i]['beg_n'])."] = ". $pscos[$pi].";";
+				}
 			}
 		}
 		elseif (!is_file($pprf.".cpp")&&!is_file($pprf.".c")&&!is_file($pprf.".pas")) {
@@ -203,11 +220,23 @@ for ($ui = 0; $ui < $totu; ++ $ui) {
 				$ripf=fopen($pprf,"r");
 				list($pwd)=fscanf($ripf,"%s");
 				list($psc)=fscanf($ripf,"%s");
+				for ($pi = $cfgs[$i]['beg_n']; $pi <= $cfgs[$i]['end_n'];++$pi) {
+					list($ppwd, $me, $ti, $gg) = fscanf($ripf, "%s%d%d%d");
+					//echo "alert(".$gg.");";
+					$pscos[$pi] = $gg;
+				}
 				fclose($ripf);
 				echo "ul[".$ui."].a[".$pn."].wd='".$pwd."';\n";
-				if ($pwd=='CE')
+				if ($pwd=='CE') {
+					for ($pi = $cfgs[$i]['beg_n']; $pi <= $cfgs[$i]['end_n'];++$pi)
+						$pscos[$pi] = 0;
 					$psc=-1;
+				}
 				echo "ul[".$ui."].a[".$pn."].sco=".$psc.";\n";
+				echo "ul[".$ui."].a[".$pn."].pscos = new Array();\n";
+				for ($pi = $cfgs[$i]['beg_n']; $pi <= $cfgs[$i]['end_n'];++$pi) {
+					echo "ul[".$ui."].a[".$pn."].pscos[".($pi-$cfgs[$i]['beg_n'])."] = ". $pscos[$pi].";\n";
+				}
 				if ($psc>-1)
 					$tots+=$psc;
 			}

@@ -69,8 +69,14 @@ function show_chart() {
 					text+="<font style='color:blue'>"+ul[i].a[j].wd+"</font>";
 				else {
 					for (var l=0;l<ul[i].a[j].wd.length;++l) {
-						if (ul[i].a[j].wd[l]=='A')
-							text+="<font style='background-color:green;color:white;'>";
+						var fullsco = parseInt(100 / ul[i].a[j].wd.length);
+						if (ul[i].a[j].wd[l]=='A') {
+							//alert(ul[i].a[j].pscos[l]);
+							if (ul[i].a[j].pscos[l] == fullsco)
+								text+="<font style='background-color:green;color:white;'>";
+							else
+								text+="<font style='background-color:cyan;color:black;'>";
+						}
 						else if (ul[i].a[j].wd[l]=='W')
 							text+="<font style='background-color:red;color:white;'>";
 						else if (ul[i].a[j].wd[l]=='M')

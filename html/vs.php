@@ -108,7 +108,7 @@ elseif (is_dir("../upload/". $cid. "/". $uid. "/.ajtest")) {
 		else {
 			$cs=1;
 			$cols=Array("#eeffee","#eeeeff");
-			$cfs = 100 / ($tot_p);
+			$cfs = (int)(100 / $tot_p);
 			for ($i = 0; $i < strlen($res); ++ $i) {
 				$cs=1-$cs;
 				echo "<tr style='background-color:".$cols[$cs]."'><td>Case #". ($beg_n + $i). "</td>";

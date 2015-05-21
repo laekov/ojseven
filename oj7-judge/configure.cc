@@ -12,6 +12,7 @@ void prob_cfg :: load(char *arg1, char* arg2, char* arg3) {
 		return file_wrong();
 	}
 	else {
+		strcpy(libpath, arg2);
 		fscanf(ipf, "%s", prob_name);
 		fscanf(ipf, "%s%s", prg_in, prg_ou);
 		fscanf(ipf, "%s%s", ipt_fmt, opt_fmt);
@@ -19,6 +20,7 @@ void prob_cfg :: load(char *arg1, char* arg2, char* arg3) {
 		spj = 0;
 		ansonly = 0;
 		co2 = 0;
+		intact = 0;
 		while (fscanf(ipf, "%s", tmpstr) != EOF)
 			if (!strcmp(tmpstr, "spj")) {
 				spj = 1;
@@ -29,6 +31,8 @@ void prob_cfg :: load(char *arg1, char* arg2, char* arg3) {
 			}
 			else if (!strcmp(tmpstr, "co2"))
 				co2 = 1;
+			else if (!strcmp(tmpstr, "interaction"))
+				intact = 1;
 		fclose(ipf);
 	}
 	if (ansonly) {

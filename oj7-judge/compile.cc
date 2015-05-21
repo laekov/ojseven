@@ -19,8 +19,8 @@ bool check_code(char* fln) {
 				fclose(ipf);
 				return 1;
 			}
-		if (strstr(tmp, "#include") && strstr(tmp, "\""))
-			return 1;
+		//if (strstr(tmp, "#include") && strstr(tmp, "\""))
+			//return 1;
 	}
 	fclose(ipf);
 	return 0;
@@ -40,11 +40,17 @@ int compile_gcc(prob_cfg& pcfg) {
 }
 
 int compile_gpp(prob_cfg& pcfg) {
-	char od[max_path];
-	if (pcfg.co2)
-		sprintf(od, "g++ %s -o %s/testtmp%s 2>%s/compile%s.log -O2", pcfg. prg_name, pcfg. wpath, pcfg. prob_name, pcfg. wpath, pcfg. pid);
+	char od[max_path], tmpstr[max_path];
+	sprintf(od, "g++ %s -o %s/testtmp%s 2>%s/compile%s.log", pcfg. prg_name, pcfg. wpath, pcfg. prob_name, pcfg. wpath, pcfg. pid);
+	if (pcfg.co2) {
+		strcat(od, " -O2");
+	}
+	if (pcfg.intact) {
+		strcat(od, " -I ");
+		strcat(od, pcfg.libpath);
+	}
 	else
-		sprintf(od, "g++ %s -o %s/testtmp%s 2>%s/compile%s.log", pcfg. prg_name, pcfg. wpath, pcfg. prob_name, pcfg. wpath, pcfg. pid);
+
 	puts(od);
 	int rres = system(od);
 	if (rres)

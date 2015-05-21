@@ -61,6 +61,8 @@ struct prob_cfg {
 	int time_lmt, mem_lmt;
 
 	bool co2;
+	bool intact;
+	char libpath[max_path];
 
 	prob_cfg();
 	void load(char*, char*, char*);
