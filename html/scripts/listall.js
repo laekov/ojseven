@@ -26,6 +26,8 @@ function listall() {
 				continue;
 			text=text+"<tr style='text-align:center;background-color:"+col[(coi++)%2]+"'>";
 			text=text+"<td>"+(i+1)+"</td>";
+			if (ul[i].uname=='yangjingqin')
+				ul[i].rating = -1;
 			if (ul[i].uname=='no_name')
 				text=text+"<td><a href='cnt.php?uid="+ul[i].uid+"&fbeg="+fbeg+"&fend="+fend+"'>"+ul[i].uid+" (<font style='color:red'>Guest</font>)</a></td>";
 			else if (ul[i].uname==cur_uid)
