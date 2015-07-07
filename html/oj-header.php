@@ -2,20 +2,20 @@
 session_start();
 include("oj-functions.php");
 ?>
-<link rel="stylesheet" href="./temp.css" type="text/css">
+<link rel="stylesheet" href="/temp.css" type="text/css">
 
 <div id='hbar' class='hbar'>
 <table align='center' width='98%' border='0'>
 <tr>
 <td align='center' width='14%' bgcolor='red' style='color:white; cursor: pointer; font-size: 200%; font-family: Monospace;' onclick=location.href='/' class='hitem'> 
 OJ7 </td>
-<td align='center' width='14%' bgcolor='orange' style='color:darkblue; cursor: pointer;' onclick=location.href='cur.php' class='hitem'> 
+<td align='center' width='14%' bgcolor='orange' style='color:darkblue; cursor: pointer;' onclick=location.href='cur' class='hitem'> 
 Current </td>
-<td align='center' width='14%' bgcolor='yellow' style='color:blue; cursor: pointer;' onclick=location.href='uc.php' class='hitem'> 
+<td align='center' width='14%' bgcolor='yellow' style='color:blue; cursor: pointer;' onclick=location.href='status' class='hitem'> 
 Status </td>
-<td align='center' width='14%' bgcolor='green' style='color:white; cursor: pointer;' onclick=location.href='contests.php' class='hitem'> 
+<td align='center' width='14%' bgcolor='green' style='color:white; cursor: pointer;' onclick=location.href='contestlist' class='hitem'> 
 Contests </td>
-<td align='center' width='14%' bgcolor='blue' style='color:white; cursor: pointer;' onclick=location.href='cnt.php' class='hitem'> 
+<td align='center' width='14%' bgcolor='blue' style='color:white; cursor: pointer;' onclick=location.href='ranklist' class='hitem'> 
 Ranklist </td>
 <td align='center' width='14%' bgcolor='purple' style='color:white; cursor: pointer;' onclick=location.href='bbs.php' class='hitem'> 
 Web Board </td>

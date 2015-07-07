@@ -1,6 +1,7 @@
 <html>
 <head>
 <link rel='icon' href='src/ic.png' type='image/x-icon'/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>OJ7 - Status</title>
 </head>
 <body>
@@ -197,6 +198,8 @@ for ($ui = 0; $ui < $totu; ++ $ui) {
 					$tots+=$psc;
 				echo "ul[".$ui."].a[".$pn."].pscos = new Array();";
 				for ($pi = $cfgs[$i]['beg_n']; $pi <= $cfgs[$i]['end_n'];++$pi) {
+					if ($pscos[$pi] == null)
+						$pscos[$pi] = -1;
 					echo "ul[".$ui."].a[".$pn."].pscos[".($pi-$cfgs[$i]['beg_n'])."] = ". $pscos[$pi].";";
 				}
 			}
@@ -235,6 +238,8 @@ for ($ui = 0; $ui < $totu; ++ $ui) {
 				echo "ul[".$ui."].a[".$pn."].sco=".$psc.";\n";
 				echo "ul[".$ui."].a[".$pn."].pscos = new Array();\n";
 				for ($pi = $cfgs[$i]['beg_n']; $pi <= $cfgs[$i]['end_n'];++$pi) {
+					if ($pscos[$pi] == null)
+						$pscos[$pi] = -1;
 					echo "ul[".$ui."].a[".$pn."].pscos[".($pi-$cfgs[$i]['beg_n'])."] = ". $pscos[$pi].";\n";
 				}
 				if ($psc>-1)
@@ -248,7 +253,7 @@ for ($ui = 0; $ui < $totu; ++ $ui) {
 echo "var tot_u=".$totu.";\n";
 ?>
 </script>
-<script src='scripts/statuschart.js'></script>
+<script src='/scripts/statuschart.js'></script>
 <script>
 <?php
 if ($corr)

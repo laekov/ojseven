@@ -146,6 +146,9 @@ void loadContests() {
 			ul[j]. exph[ci] = ul[j]. exp;
 		}
 	}
+	for (int i = 0; i < tu; ++ i)
+		if (ul[i]. uid == "yjqqqaq")
+			ul[i]. exp = -1e1111;
 	sort(ul, ul + tu, cmpExp);
 	closedir(drp);
 }

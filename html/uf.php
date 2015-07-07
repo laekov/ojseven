@@ -180,7 +180,7 @@ else {
 		}
 		elseif ($FO['error'] || $_FILES[$FF]['size'] == 0) {
 		}
-		else if ($_FILES[$FF]['size'] >= 64000000 && !strpos($_FILES[$FF]['name'], "zip")) {
+		else if ($_FILES[$FF]['size'] > 10240 && !strpos($_FILES[$FF]['name'], "zip")) {
 			header("Location: error.php?word=File size too huge!");
 			return;
 		}

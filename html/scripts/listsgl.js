@@ -1,11 +1,9 @@
-function drawGraph(x) {
+function drawGraph(x, t) {
 	var cvs=document.getElementById("graphplace");
 	cvs.width = window.innerWidth * 0.8;
 	var ctx=cvs.getContext("2d");
 	var csv=ctx.createLinearGradient(0,0,0,cvs.height-1);
 	var spcd=32;
-	var t=0;
-	for (;x[t]!=undefined;++t);
 
 	csv.addColorStop(0,'#deffcc');
 	csv.addColorStop(1,'#eedcff');
@@ -139,11 +137,13 @@ function listsgl() {
 			text += "</span>)</td></tr>";
 			++c;
 		}
+		else
+			--t;
 		++t;
 	}
 	text=text+"</td></tr></table></table>";
 	document.getElementById("showplace").innerHTML=text;
-	drawGraph(x);
+	drawGraph(x, t);
 }
 
 function fliterchg() {

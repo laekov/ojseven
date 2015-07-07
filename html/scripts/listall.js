@@ -26,8 +26,6 @@ function listall() {
 				continue;
 			text=text+"<tr style='text-align:center;background-color:"+col[(coi++)%2]+"'>";
 			text=text+"<td>"+(i+1)+"</td>";
-			if (ul[i].uname=='yangjingqin')
-				ul[i].rating = -1;
 			if (ul[i].uname=='no_name')
 				text=text+"<td><a href='cnt.php?uid="+ul[i].uid+"&fbeg="+fbeg+"&fend="+fend+"'>"+ul[i].uid+" (<font style='color:red'>Guest</font>)</a></td>";
 			else if (ul[i].uname==cur_uid)
@@ -70,9 +68,14 @@ function listall() {
 					cod[i]=cod[j];
 					cod[j]=h;
 				}
+		var lsrk = 0;
 		for (var ti=0;ti<n;++ti) {
 			var i=cod[ti];
-			text=text+"<tr style='text-align:center; background-color:"+col[(coi++)%2]+"'><td>"+(ti+1)+"</td><td><a href='cnt.php?uid="+ul[i].uid+"&fbeg="+fbeg+"&fend="+fend+"'>"+ul[i].uid;
+			var rk = ti + 1;
+			if (ti > 0 && tsco[i] == tsco[cod[ti - 1]])
+				rk = lsrk;
+			lsrk = rk;
+			text=text+"<tr style='text-align:center; background-color:"+col[(coi++)%2]+"'><td>"+(rk)+"</td><td><a href='cnt.php?uid="+ul[i].uid+"&fbeg="+fbeg+"&fend="+fend+"'>"+ul[i].uid;
 			if (ul[i].uname=='no_name')
 				text=text+"(<font style='color:red'>"+ul[i].uname+"</font>)";
 			else

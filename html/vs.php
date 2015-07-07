@@ -1,7 +1,7 @@
 <html>
 <head>
 <link rel='icon' href='src/ic.png' type='image/x-icon'/>
-	<meta http-equiv="Content-Type" content="text/html; charset=unicode" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>OJ7 - View state</title>
 </head>
 <body>

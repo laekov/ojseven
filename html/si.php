@@ -34,10 +34,10 @@ if ($_GET['cmd']=='leave') {
 }
 else {
 	$lref = $_SERVER['HTTP_REFERER'];
-	if (strstr($lref, "error") == false)
+	if (strstr($lref, "error") == false && strstr($lref, "si") == false)
 		setcookie("lurl",$lref);
-	else
-		setcookie("lurl","/index.php");
+	//else
+		//setcookie("lurl","/index.php");
 	include("forms/signin.php");
 }
 ?>

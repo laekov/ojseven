@@ -6,6 +6,9 @@
 <body>
 <?php
 include('oj-header.php');
+$lref = $_SERVER['HTTP_REFERER'];
+if (strstr($lref, "error") == false && strstr($lref, "si") == false)
+	setcookie("lurl", $_SERVER['HTTP_REFERER']);
 ?>
 <table align='center' border='0' width='800px'>
 <tr>
@@ -20,4 +23,5 @@ echo $_GET['word'];
 include("oj-footer.php");
 ?>
 </body>
+
 </html>
